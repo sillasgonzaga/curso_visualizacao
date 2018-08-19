@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Introdução a R para Visualização e Apresentação de Dados</title>
+  <meta name="description" content="Introdução a R para Visualização e Apresentação de Dados">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Introdução a R para Visualização e Apresentação de Dados" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Introdução a R para Visualização e Apresentação de Dados" />
+  
+  
+  
+
+<meta name="author" content="Sillas Gonzaga">
+
+
+<meta name="date" content="2018-08-19">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="breve-introducao-ao-r.html">
+<link rel="next" href="ggplot2-parte-ii.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+<link href="libs/leaflet-0.7.7/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-0.7.7/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<link href="libs/leaflet-label-0.2.2/leaflet.label.css" rel="stylesheet" />
+<script src="libs/leaflet-label-0.2.2/leaflet.label.js"></script>
+<script src="libs/Proj4Leaflet-0.7.2/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-0.7.2/proj4leaflet.js"></script>
+<script src="libs/leaflet-binding-1.1.0/leaflet.js"></script>
+<link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
+<script src="libs/sunburst-binding-2.0.0/sunburst.js"></script>
+<script src="libs/datatables-binding-0.2/datatables.js"></script>
+<link href="libs/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Boas-vindas</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#sobre-o-instrutor"><i class="fa fa-check"></i>Sobre o instrutor</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#referencias"><i class="fa fa-check"></i>Referências</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html"><i class="fa fa-check"></i><b>1</b> Breve introdução ao R</a><ul>
+<li class="chapter" data-level="1.1" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#objetivo"><i class="fa fa-check"></i><b>1.1</b> Objetivo</a></li>
+<li class="chapter" data-level="1.2" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#introducao-ao-r"><i class="fa fa-check"></i><b>1.2</b> Introdução ao R</a></li>
+<li class="chapter" data-level="1.3" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#leitura-de-dados-com-readr"><i class="fa fa-check"></i><b>1.3</b> Leitura de dados com readr</a></li>
+<li class="chapter" data-level="1.4" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#dplyr"><i class="fa fa-check"></i><b>1.4</b> dplyr</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#select"><i class="fa fa-check"></i><b>1.4.1</b> select()</a></li>
+<li class="chapter" data-level="1.4.2" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#filter"><i class="fa fa-check"></i><b>1.4.2</b> filter()</a></li>
+<li class="chapter" data-level="1.4.3" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#mutate"><i class="fa fa-check"></i><b>1.4.3</b> mutate()</a></li>
+<li class="chapter" data-level="1.4.4" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#arrange"><i class="fa fa-check"></i><b>1.4.4</b> arrange()</a></li>
+<li class="chapter" data-level="1.4.5" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#group_by-e-summarise"><i class="fa fa-check"></i><b>1.4.5</b> group_by() e summarise()</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#juntando-duas-tabelas-em-uma"><i class="fa fa-check"></i><b>1.5</b> Juntando duas tabelas em uma</a></li>
+<li class="chapter" data-level="1.6" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#tidyr"><i class="fa fa-check"></i><b>1.6</b> tidyr</a></li>
+<li class="chapter" data-level="1.7" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#exercicios"><i class="fa fa-check"></i><b>1.7</b> Exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html"><i class="fa fa-check"></i><b>2</b> Introdução ao ggplot2</a><ul>
+<li class="chapter" data-level="2.1" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#dataset-do-modulo"><i class="fa fa-check"></i><b>2.1</b> Dataset do módulo</a></li>
+<li class="chapter" data-level="2.2" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#ggplot2-filosofia-do-pacote-e-do-grammar-of-graphics"><i class="fa fa-check"></i><b>2.2</b> ggplot2: filosofia do pacote e do Grammar of Graphics</a></li>
+<li class="chapter" data-level="2.3" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geoms"><i class="fa fa-check"></i><b>2.3</b> geoms</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_bar-e-geom_col"><i class="fa fa-check"></i><b>2.3.1</b> geom_bar() e geom_col()</a></li>
+<li class="chapter" data-level="2.3.2" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_point"><i class="fa fa-check"></i><b>2.3.2</b> geom_point()</a></li>
+<li class="chapter" data-level="2.3.3" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_line"><i class="fa fa-check"></i><b>2.3.3</b> geom_line()</a></li>
+<li class="chapter" data-level="2.3.4" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_histogram"><i class="fa fa-check"></i><b>2.3.4</b> geom_histogram()</a></li>
+<li class="chapter" data-level="2.3.5" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_text"><i class="fa fa-check"></i><b>2.3.5</b> geom_text()</a></li>
+<li class="chapter" data-level="2.3.6" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_hline-and-geom_vline"><i class="fa fa-check"></i><b>2.3.6</b> geom_hline() and geom_vline()</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#aes"><i class="fa fa-check"></i><b>2.4</b> aes</a></li>
+<li class="chapter" data-level="2.5" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#a-anatomia-da-funcao-ggplot"><i class="fa fa-check"></i><b>2.5</b> A anatomia da função ggplot()</a></li>
+<li class="chapter" data-level="2.6" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#segmentacao-de-um-grafico-em-grupos-com-os-facets"><i class="fa fa-check"></i><b>2.6</b> Segmentação de um gráfico em grupos com os facets</a></li>
+<li class="chapter" data-level="2.7" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#salvando-graficos-do-ggplot2"><i class="fa fa-check"></i><b>2.7</b> Salvando gráficos do ggplot2</a></li>
+<li class="chapter" data-level="2.8" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#juntando-diferentes-graficos-em-um-so"><i class="fa fa-check"></i><b>2.8</b> Juntando diferentes gráficos em um só</a></li>
+<li class="chapter" data-level="2.9" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#graficos-no-r-alem-de-ggplot2"><i class="fa fa-check"></i><b>2.9</b> Gráficos no R além de ggplot2</a></li>
+<li class="chapter" data-level="2.10" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#exercicios-1"><i class="fa fa-check"></i><b>2.10</b> Exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html"><i class="fa fa-check"></i><b>3</b> ggplot2 - parte II</a><ul>
+<li class="chapter" data-level="3.1" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#graficos-de-relacionamentos-entre-variaveis-continuas-scatter-plot"><i class="fa fa-check"></i><b>3.1</b> Gráficos de relacionamentos entre variáveis contínuas: scatter plot</a></li>
+<li class="chapter" data-level="3.2" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#graficos-de-barras-ou-colunas"><i class="fa fa-check"></i><b>3.2</b> Gráficos de barras ou colunas</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#invertendo-eixos"><i class="fa fa-check"></i><b>3.2.1</b> Invertendo eixos</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#como-mudar-a-ordem-das-barras"><i class="fa fa-check"></i><b>3.2.2</b> Como mudar a ordem das barras</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#graficos-de-distribuicoes"><i class="fa fa-check"></i><b>3.3</b> Gráficos de distribuições</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#histogramas"><i class="fa fa-check"></i><b>3.3.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#grafico-de-densidade"><i class="fa fa-check"></i><b>3.3.2</b> Gráfico de densidade</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#boxplot"><i class="fa fa-check"></i><b>3.3.3</b> Boxplot</a></li>
+<li class="chapter" data-level="3.3.4" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#jitter"><i class="fa fa-check"></i><b>3.3.4</b> Jitter</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#graficos-de-series-temporais-linhas"><i class="fa fa-check"></i><b>3.4</b> Gráficos de séries temporais (linhas)</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#personalizando-a-escala-do-eixo-de-datas"><i class="fa fa-check"></i><b>3.4.1</b> Personalizando a escala do eixo de datas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#mapas-de-calor"><i class="fa fa-check"></i><b>3.5</b> Mapas de calor</a></li>
+<li class="chapter" data-level="3.6" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#texto"><i class="fa fa-check"></i><b>3.6</b> Texto</a></li>
+<li class="chapter" data-level="3.7" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#areas-ou-faixas-sombreadas"><i class="fa fa-check"></i><b>3.7</b> Áreas ou faixas sombreadas</a></li>
+<li class="chapter" data-level="3.8" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#alterando-aspectos-visuais-do-grafico-com-os-temas"><i class="fa fa-check"></i><b>3.8</b> Alterando aspectos visuais do gráfico com os temas</a></li>
+<li class="chapter" data-level="3.9" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#titulos"><i class="fa fa-check"></i><b>3.9</b> Títulos</a></li>
+<li class="chapter" data-level="3.10" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#extensoes-do-ggplot2"><i class="fa fa-check"></i><b>3.10</b> Extensões do ggplot2</a></li>
+<li class="chapter" data-level="3.11" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#exercicios-2"><i class="fa fa-check"></i><b>3.11</b> Exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html"><i class="fa fa-check"></i><b>4</b> Outros tipos de gráficos</a><ul>
+<li class="chapter" data-level="4.1" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#transformando-graficos-do-ggplot2-em-interativos"><i class="fa fa-check"></i><b>4.1</b> Transformando gráficos do ggplot2 em interativos</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#salvando-um-grafico-ggplotly"><i class="fa fa-check"></i><b>4.1.1</b> Salvando um gráfico ggplotly</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#mapas-plotando-poligonos"><i class="fa fa-check"></i><b>4.2</b> Mapas: plotando polígonos</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#projeto-plotando-o-resultado-do-segundo-turno-das-eleicoes-para-presidente-de-2014-por-uf"><i class="fa fa-check"></i><b>4.2.1</b> Projeto: plotando o resultado do segundo turno das eleições para presidente de 2014 por UF:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#mapas-plotando-pontos-com-google-maps"><i class="fa fa-check"></i><b>4.3</b> Mapas: plotando pontos com Google Maps</a></li>
+<li class="chapter" data-level="4.4" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#mapas-interativos"><i class="fa fa-check"></i><b>4.4</b> Mapas interativos</a></li>
+<li class="chapter" data-level="4.5" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#graficos-de-dados-hierarquicos-treemaps-e-sunburst"><i class="fa fa-check"></i><b>4.5</b> Gráficos de dados hierárquicos: treemaps e sunburst</a></li>
+<li class="chapter" data-level="4.6" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#exercicios-3"><i class="fa fa-check"></i><b>4.6</b> Exercícios</a><ul>
+<li class="chapter" data-level="" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#plotly"><i class="fa fa-check"></i>plotly</a></li>
+<li class="chapter" data-level="" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#geom_sf"><i class="fa fa-check"></i>geom_sf</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html"><i class="fa fa-check"></i><b>5</b> Apresentação de dados com relatórios</a><ul>
+<li class="chapter" data-level="5.1" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#primeiros-passos-com-r-markdown"><i class="fa fa-check"></i><b>5.1</b> Primeiros passos com R Markdown</a></li>
+<li class="chapter" data-level="5.2" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#resumo-da-sintaxe-markdown"><i class="fa fa-check"></i><b>5.2</b> Resumo da sintaxe Markdown</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#formatacao-de-texto"><i class="fa fa-check"></i><b>5.2.1</b> Formatação de texto</a></li>
+<li class="chapter" data-level="5.2.2" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#cabecalhos"><i class="fa fa-check"></i><b>5.2.2</b> Cabeçalhos</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#chunks"><i class="fa fa-check"></i><b>5.3</b> Chunks</a></li>
+<li class="chapter" data-level="5.4" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#formatos-de-output"><i class="fa fa-check"></i><b>5.4</b> Formatos de output</a></li>
+<li class="chapter" data-level="5.5" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#compilando-um-documento-rmarkdown"><i class="fa fa-check"></i><b>5.5</b> Compilando um documento rmarkdown</a></li>
+<li class="chapter" data-level="5.6" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#produzindo-tabelas-no-r-markdown"><i class="fa fa-check"></i><b>5.6</b> Produzindo tabelas no R Markdown</a></li>
+<li class="chapter" data-level="5.7" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#relatorios-parametrizados"><i class="fa fa-check"></i><b>5.7</b> Relatórios parametrizados</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#declarando-parametros"><i class="fa fa-check"></i><b>5.7.1</b> Declarando parâmetros</a></li>
+<li class="chapter" data-level="5.7.2" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#usando-os-parametros"><i class="fa fa-check"></i><b>5.7.2</b> Usando os parâmetros</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#projeto-final"><i class="fa fa-check"></i><b>5.8</b> Projeto final</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução a R para Visualização e Apresentação de Dados</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introducao-ao-ggplot2" class="section level1">
+<h1><span class="header-section-number">Módulo 2</span> Introdução ao ggplot2</h1>
+<p>Neste módulo, usaremos os seguintes pacotes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
+<span class="co"># vamos precisar do pacote janitor para limpar os nomes das colunas</span>
+<span class="kw">library</span>(janitor)
+<span class="co"># o pacote readxl será usado para importar a planilha excel, visto que o </span>
+<span class="co"># readr não oferece suporte para arquivos xlsx</span>
+<span class="kw">library</span>(readxl)
+<span class="co"># metadados gerais de países</span>
+<span class="kw">library</span>(countrycode)
+<span class="co"># combinar varios graficos do ggplot2 em um so</span>
+<span class="kw">library</span>(patchwork) <span class="co"># devtools::install_github(&quot;thomasp85/patchwork&quot;)</span>
+<span class="co"># chequem se a versao dos seus pacotes é a mesma das minhas</span>
+<span class="kw">sessionInfo</span>()</code></pre></div>
+<pre><code>## R version 3.4.4 (2018-03-15)
+## Platform: x86_64-pc-linux-gnu (64-bit)
+## Running under: Linux Mint 18.2
+## 
+## Matrix products: default
+## BLAS: /usr/lib/openblas-base/libblas.so.3
+## LAPACK: /usr/lib/libopenblasp-r0.2.18.so
+## 
+## locale:
+##  [1] LC_CTYPE=pt_BR.UTF-8       LC_NUMERIC=C              
+##  [3] LC_TIME=pt_BR.UTF-8        LC_COLLATE=pt_BR.UTF-8    
+##  [5] LC_MONETARY=pt_BR.UTF-8    LC_MESSAGES=pt_BR.UTF-8   
+##  [7] LC_PAPER=pt_BR.UTF-8       LC_NAME=C                 
+##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+## [11] LC_MEASUREMENT=pt_BR.UTF-8 LC_IDENTIFICATION=C       
+## 
+## attached base packages:
+## [1] stats     graphics  grDevices utils     datasets  methods   base     
+## 
+## other attached packages:
+##  [1] patchwork_0.0.1    countrycode_1.00.0 readxl_1.1.0      
+##  [4] janitor_1.1.1      bindrcpp_0.2.2     forcats_0.3.0     
+##  [7] stringr_1.3.1      dplyr_0.7.6        purrr_0.2.5       
+## [10] readr_1.1.1        tidyr_0.8.1        tibble_1.4.2      
+## [13] ggplot2_3.0.0.9000 tidyverse_1.2.1   
+## 
+## loaded via a namespace (and not attached):
+##  [1] Rcpp_0.12.18      lubridate_1.7.4   lattice_0.20-35  
+##  [4] utf8_1.1.4        assertthat_0.2.0  rprojroot_1.3-2  
+##  [7] digest_0.6.15     psych_1.8.4       mime_0.5         
+## [10] R6_2.2.2          cellranger_1.1.0  plyr_1.8.4       
+## [13] backports_1.1.2   evaluate_0.10.1   httr_1.3.1       
+## [16] pillar_1.3.0      rlang_0.2.1       lazyeval_0.2.1   
+## [19] rstudioapi_0.7    data.table_1.11.4 rmarkdown_1.10   
+## [22] foreign_0.8-70    htmlwidgets_1.2   munsell_0.5.0    
+## [25] shiny_1.0.5       broom_0.4.5       compiler_3.4.4   
+## [28] httpuv_1.4.4.1    modelr_0.1.2      xfun_0.3         
+## [31] pkgconfig_2.0.1   mnormt_1.5-5      htmltools_0.3.6  
+## [34] tidyselect_0.2.4  bookdown_0.7      fansi_0.3.0      
+## [37] viridisLite_0.3.0 withr_2.1.2       crayon_1.3.4     
+## [40] later_0.7.3       grid_3.4.4        nlme_3.1-137     
+## [43] jsonlite_1.5      xtable_1.8-2      gtable_0.2.0     
+## [46] magrittr_1.5      scales_1.0.0.9000 cli_1.0.0        
+## [49] stringi_1.2.4     reshape2_1.4.3    promises_1.0.1   
+## [52] leaflet_1.1.0     xml2_1.2.0        tools_3.4.4      
+## [55] Cairo_1.5-9       glue_1.3.0        hms_0.4.2        
+## [58] crosstalk_1.0.0   parallel_3.4.4    yaml_2.1.19      
+## [61] colorspace_1.3-2  rvest_0.3.2       plotly_4.8.0     
+## [64] knitr_1.20        bindr_0.1.1       haven_1.1.2</code></pre>
+<div id="dataset-do-modulo" class="section level2">
+<h2><span class="header-section-number">2.1</span> Dataset do módulo</h2>
+<p>Para este módulo, usaremos o dataset <strong>World Happiness Report</strong>, ou o Relatório Mundial da Felicidade, que é uma medição da felicidade publicado pela Rede de Soluções para o Desenvolvimento Sustentável da ONU (SDSN, na sigla em inglês). Leia o <a href="https://pt.wikipedia.org/wiki/Relat%C3%B3rio_Mundial_da_Felicidade">artigo na Wikipedia</a> para mais informações.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># baixe o arquivo do endereco:</span>
+<span class="kw">download.file</span>(<span class="st">&quot;https://s3.amazonaws.com/happiness-report/2018/WHR2018Chapter2OnlineData.xls&quot;</span>,
+              <span class="dt">destfile =</span> <span class="st">&quot;felicidade.xls&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># importar a planilha</span>
+df_pais &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;felicidade.xls&quot;</span>, <span class="dt">sheet =</span> <span class="dv">1</span>)
+<span class="co"># limpar o nome das colunas</span>
+df_pais &lt;-<span class="st"> </span>janitor<span class="op">::</span><span class="kw">clean_names</span>(df_pais)
+<span class="co"># olhar dados </span>
+<span class="kw">glimpse</span>(df_pais)</code></pre></div>
+<pre><code>## Observations: 1,562
+## Variables: 19
+## $ country                                                 &lt;chr&gt; &quot;Afgha...
+## $ year                                                    &lt;dbl&gt; 2008, ...
+## $ life_ladder                                             &lt;dbl&gt; 3.7235...
+## $ log_gdp_per_capita                                      &lt;dbl&gt; 7.1686...
+## $ social_support                                          &lt;dbl&gt; 0.4506...
+## $ healthy_life_expectancy_at_birth                        &lt;dbl&gt; 49.209...
+## $ freedom_to_make_life_choices                            &lt;dbl&gt; 0.7181...
+## $ generosity                                              &lt;dbl&gt; 0.1818...
+## $ perceptions_of_corruption                               &lt;dbl&gt; 0.8816...
+## $ positive_affect                                         &lt;dbl&gt; 0.5176...
+## $ negative_affect                                         &lt;dbl&gt; 0.2581...
+## $ confidence_in_national_government                       &lt;dbl&gt; 0.6120...
+## $ democratic_quality                                      &lt;dbl&gt; -1.929...
+## $ delivery_quality                                        &lt;dbl&gt; -1.655...
+## $ standard_deviation_of_ladder_by_country_year            &lt;dbl&gt; 1.7746...
+## $ standard_deviation_mean_of_ladder_by_country_year       &lt;dbl&gt; 0.4765...
+## $ gini_index_world_bank_estimate                          &lt;dbl&gt; NA, NA...
+## $ gini_index_world_bank_estimate_average_2000_15          &lt;dbl&gt; NA, NA...
+## $ gini_of_household_income_reported_in_gallup_by_wp5_year &lt;dbl&gt; NA, 0....</code></pre>
+<p>Sentiram falta de uma coluna com o nome? Vamos também importar um dataset que contém o continente de cada país, fornecido pelo pacote <code>countrycode</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># consulte a documentação do dataset</span>
+<span class="co"># ?countrycode::codelist </span>
+df_continente &lt;-<span class="st"> </span>countrycode<span class="op">::</span>codelist  <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># selecionar colunas importantes</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="dt">country =</span> cow.name, continent) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># filtrar fora os paises sem continentes</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(continent))
+<span class="co"># criar dataframe com juncao dos dois</span>
+df &lt;-<span class="st"> </span><span class="kw">left_join</span>(df_pais,
+                df_continente,
+                <span class="dt">by =</span> <span class="st">&quot;country&quot;</span>)
+
+<span class="co"># consertar manualmente os continentes de certos paises</span>
+df<span class="op">$</span>continent[df<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Congo (Brazzaville)&quot;</span>] &lt;-<span class="st"> &quot;Africa&quot;</span>
+df<span class="op">$</span>continent[df<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Congo (Kinshasa)&quot;</span>] &lt;-<span class="st"> &quot;Africa&quot;</span>
+df<span class="op">$</span>continent[df<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Hong Kong S.A.R. of China&quot;</span>] &lt;-<span class="st"> &quot;Asia&quot;</span>
+df<span class="op">$</span>continent[df<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Kosovo&quot;</span>] &lt;-<span class="st"> &quot;Europe&quot;</span>
+df<span class="op">$</span>continent[df<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;North Cyprus&quot;</span>] &lt;-<span class="st"> &quot;Asia&quot;</span>
+df<span class="op">$</span>continent[df<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Palestinian Territories&quot;</span>] &lt;-<span class="st"> &quot;Asia&quot;</span>
+df<span class="op">$</span>continent[df<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Serbia&quot;</span>] &lt;-<span class="st"> &quot;Europe&quot;</span>
+df<span class="op">$</span>continent[df<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Somaliland region&quot;</span>] &lt;-<span class="st"> &quot;Africa&quot;</span>
+df<span class="op">$</span>continent[df<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;Taiwan Province of China&quot;</span>] &lt;-<span class="st"> &quot;Asia&quot;</span>
+df<span class="op">$</span>continent[df<span class="op">$</span>country <span class="op">==</span><span class="st"> &quot;United States&quot;</span>] &lt;-<span class="st"> &quot;Americas&quot;</span>
+
+<span class="co"># transformar coluna de ano para inteiro</span>
+df<span class="op">$</span>year &lt;-<span class="st"> </span><span class="kw">as.integer</span>(df<span class="op">$</span>year)
+<span class="co"># criar dataset apenas para o ano mais recente</span>
+df_<span class="dv">2017</span> &lt;-<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(year <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(year))</code></pre></div>
+</div>
+<div id="ggplot2-filosofia-do-pacote-e-do-grammar-of-graphics" class="section level2">
+<h2><span class="header-section-number">2.2</span> ggplot2: filosofia do pacote e do Grammar of Graphics</h2>
+<p>O pacote <code>ggplot2</code> é uma implementação da filosofia <em>Grammar of Graphics</em>, que busca construir e explicar gráficos como uma série de camadas individuais sobrepostas. Apesar de simples, é uma definição muito concisa e que ajuda o usuário do pacote a representar a informação desejada da melhor maneira possível.</p>
+<p>Cada camada contem elementos visuais como barras, pontos e texto. Elementos visuais são conhecidos como <strong>geoms</strong> (de objetos geométricos). Um geom possui propriedades estéticas que determinam sua aparência e sua posição no gráfico (ex.: queremos plotar barras vermelhas ou verdes? Os pontos do gráfico serão representados por círculos ou quadrados?). Tais estéticas (<strong>aesthetics</strong> ou <strong>aes</strong> no ggplot2) controlam a aparência dos elementos gráficos, como tamanho, cor, estilo, localização e transparência.</p>
+<p>Portanto, o código abaixo representa o “esqueleto” do código usado para produzir um gráfico no <code>ggplot2</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="op">&lt;</span>DATA<span class="op">&gt;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="er">&lt;</span>GEOM_FUNCTION<span class="op">&gt;</span>(
+     <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="op">&lt;</span>MAPPINGS<span class="op">&gt;</span>),
+     <span class="dt">stat =</span> <span class="op">&lt;</span>STAT<span class="op">&gt;</span>, 
+     <span class="dt">position =</span> <span class="op">&lt;</span>POSITION<span class="op">&gt;</span>
+<span class="st">  </span>)</code></pre></div>
+</div>
+<div id="geoms" class="section level2">
+<h2><span class="header-section-number">2.3</span> geoms</h2>
+<p>Existe uma variedade de funções que controlam que tipo de objeto geométrico será plotado no gráfico. A lista completa pode ser vista na <a href="https://ggplot2.tidyverse.org/reference/#section-layer-geoms">documentação online</a> do ggplot2. As mais comuns são:</p>
+<div id="geom_bar-e-geom_col" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> geom_bar() e geom_col()</h3>
+<p>Gráfico de barra, feito para visualizar uma variável numérica ou propriedade estatística (ex.: média) entre diferentes grupos categóricos;</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Tarefa: Criar um gráfico mostrando a média do score de felicidade por continente</span>
+df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(continent) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">life_ladder =</span> <span class="kw">mean</span>(life_ladder)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> life_ladder)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_col</span>()</code></pre></div>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+</div>
+<div id="geom_point" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> geom_point()</h3>
+<p>Gráficos de pontos, também conhecidos como gráfico de dispersão;</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita, <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+</div>
+<div id="geom_line" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> geom_line()</h3>
+<p>Gráfico de linha, especialmente útil para séries temporais;</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(country <span class="op">==</span><span class="st"> &quot;Brazil&quot;</span>, year <span class="op">&gt;=</span><span class="st"> </span><span class="dv">2007</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> life_ladder)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() </code></pre></div>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+</div>
+<div id="geom_histogram" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> geom_histogram()</h3>
+<p>Cria uma camada com um histograma</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> life_ladder)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+</div>
+<div id="geom_text" class="section level3">
+<h3><span class="header-section-number">2.3.5</span> geom_text()</h3>
+<p>Cria uma camada com texto.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita, <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> country))</code></pre></div>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_text).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+</div>
+<div id="geom_hline-and-geom_vline" class="section level3">
+<h3><span class="header-section-number">2.3.6</span> geom_hline() and geom_vline()</h3>
+<p>Cria uma camada com uma linha horizontal ou vertical, respectivamente.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita, <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_vline</span>(<span class="kw">aes</span>(<span class="dt">xintercept =</span> <span class="kw">mean</span>(df_<span class="dv">2017</span><span class="op">$</span>log_gdp_per_capita, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="kw">aes</span>(<span class="dt">yintercept =</span> <span class="kw">mean</span>(df_<span class="dv">2017</span><span class="op">$</span>healthy_life_expectancy_at_birth, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)))</code></pre></div>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p>Essas e outras formas geométricas serão detalhadas no próximo módulo.</p>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms">Lista completa com todas as <em>geoms</em> do ggplot2</a></p>
+</div>
+</div>
+</div>
+<div id="aes" class="section level2">
+<h2><span class="header-section-number">2.4</span> aes</h2>
+<p>Uma <em>aesthetic</em> é uma propriedade visual dos objetos no gráfico e incluem atributos como posição (eixos x e y), tamanho, formato ou cor dos objetos. Portanto, as <em>aesthetics</em> modificam a aparência de um elemento dentro de um geom ou camada.</p>
+<p>É possível especificar <em>aesthetics</em> para o gráfico como um todo (como as variáveis a serem mapeadas nos eixos) e tais instruções serão aplicadas a todos os geoms adicionados posteriormente. Contudo, também é possível especificar <em>aesthetics</em> para geoms individualmente, que sobrescreverão as definidas para o gráfico.</p>
+<p>Vamos ver então como definir as <em>aesthetics</em>. Primeiramente, elas podem ser definidas para um valor em específico, como cor verde, ou pode ser declarada em função de uma variável (como colorir os indíviduos do gráfico de pontos anterior de acordo com o continente). Para definir uma <em>aesthetic</em> como um valor específico, não é necessário a definir dentro da função <code>aes()</code>.</p>
+<p>É possível definir tanto as <em>aesthetics</em> específicas ou em função de uma variável na definição do gráfico ou apenas da geom, mas caso se deseja definir um valor específico, isso só pode ser feito dentro do geom que se deseja modificar.</p>
+<p>Confuso? Vejamos como exemplos.</p>
+<p>Neste primeiro exemplo, mudamos a propriedade <strong>color</strong> dos pontos para um valor específico: marrom.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
+             <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color =</span> <span class="st">&quot;brown&quot;</span>)</code></pre></div>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p>Caso o objetivo seja definir (mapear) a <em>aesthetic</em> de cor para o continente do país, é necessário definir dentro da função <code>aes()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
+             <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> continent))</code></pre></div>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p>Conforme comentado, é possível definir o mapeamento do atributo dentro da função geral do gráfico:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
+             <span class="dt">y =</span> healthy_life_expectancy_at_birth,
+             <span class="dt">color =</span> continent)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p>Contudo, observe o que acontece nas duas situações quando adicionamos uma geom a mais, a <code>geom_smooth()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
+             <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> continent)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># adicionar curva de tendencia, sem margem de erro, usando o metodo</span>
+<span class="st">  </span><span class="co"># de regressao linear</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
+             <span class="dt">y =</span> healthy_life_expectancy_at_birth,
+             <span class="dt">color =</span> continent)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="co"># adicionar curva de tendencia, sem margem de erro, usando o metodo</span>
+<span class="st">  </span><span class="co"># de regressao linear</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
+<p>No primeiro gráfico, a reta manteve-se a mesma para todos os dados. No segundo, foi uma reta para cada continente, pois <code>geom_smooth()</code> herdou a definição do atributo de cor criada na função <code>ggplot()</code>.</p>
+<p>Também é possível definir mais de uma <em>geom</em> ao mesmo tempo:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># glimpse(df_2017)</span>
+
+df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
+             <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="co"># mapear cor ao continente</span>
+<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> continent,
+                 <span class="co"># tamanho a confiança no governo</span>
+                 <span class="dt">size =</span> confidence_in_national_government),
+                 <span class="co"># opacidade a um valor absoluto</span>
+                 <span class="dt">alpha =</span> <span class="fl">0.7</span>) </code></pre></div>
+<pre><code>## Warning: Removed 19 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/aes.html">Documentação da função <code>aes()</code></a><br />
+<a href="https://ggplot2.tidyverse.org/articles/ggplot2-specs.html">Tutorial oficial sobre <em>aesthetics</em></a></p>
+</div>
+</div>
+<div id="a-anatomia-da-funcao-ggplot" class="section level2">
+<h2><span class="header-section-number">2.5</span> A anatomia da função ggplot()</h2>
+<p>O primeiro passo para criar um gráfico no <code>ggplot2</code> é criar um objeto que especifica o gráfico. Você pode, nesta etapa, definir as <em>aesthetics</em> que serão aplicadas a todos os <em>geoms</em> (camadas) dentro do gráfico. Uma versão geral dessa descrição tem a seguinte aparência:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">meu_grafico &lt;-<span class="st"> </span><span class="kw">ggplot</span>(meus_dados, <span class="kw">aes</span>(<span class="dt">x =</span> variavel1,
+                                      <span class="dt">y =</span> variavel2))</code></pre></div>
+<p>Neste examplo, criamos um novo objeto chamado <code>meu_grafico</code>, definimos na função <code>ggplot()</code> para usar o dataframe <code>meu_grafico</code> e especificamos que a variável (que pertence ao dataframe <code>meu_grafico</code>) <code>variavel1</code> será plotada no eixo horizontal e a variável <code>variavel2</code> no eixo vertical.</p>
+<p>Até o momento, o objeto <code>meu_grafico</code> não possui nenhum elemento gráfico. Se você tentar o visualizar, seja digitando seu próprio nome ou com a função <code>print(meu_grafico)</code>, você verá apenas um pano de fundo. É necessário então acrescentar uma camada que contenha um geom. Para adicionar uma camada ao gráfico, basta usar o símbolo de adição <code>+</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># adicionar uma camada de grafico de pontos ao objeto</span>
+meu_grafico <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>()</code></pre></div>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/ggplot.html">Documentação da função <code>ggplot()</code></a></p>
+</div>
+</div>
+<div id="segmentacao-de-um-grafico-em-grupos-com-os-facets" class="section level2">
+<h2><span class="header-section-number">2.6</span> Segmentação de um gráfico em grupos com os facets</h2>
+<p><em>facets</em> são um excelente recurso do ggplot2 que permitem segmentar um gráfico em subgráficos de acordo com uma variável categórica.</p>
+<p>Existem duas maneiras de definir <em>facets</em> no <code>ggplot2</code>: <code>facet_wrap()</code>, ideal para apenas uma variável, e <code>facet_grid()</code> ideal para uma combinação de duas variáveis.</p>
+<p>Já vimos como acrescentar a informação do continente em um gráfico de pontos mudando o atributo <em>color</em>. Uma alternativa é criar um subgráfico para cada continente por meio de <em>facets.</em></p>
+<p>O primeiro argumento da função <code>facet_wrap()</code> é uma fórmula, um tipo de sintaxe especial do R, em que se deve escrever o acento til (<code>~</code>) seguido do nome da variável que servirá para segmentar o gráfico.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
+             <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>continent)</code></pre></div>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p>Caso se deseja utilizar mais de uma variável para criar os <em>facets</em>, usa-se a função <code>facet_grid()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># filtrar os anos de 2015 a 2017</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">between</span>(year, <span class="dv">2015</span>, <span class="dv">2017</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
+             <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">facet_grid</span>(continent <span class="op">~</span><span class="st"> </span>year)</code></pre></div>
+<pre><code>## Warning: Removed 14 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p>Vamos salvar o dataframe para ser usado nos próximos módulos:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># vamos salvar em um formato específico do R</span>
+
+df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># remover colunas com muitos NAs ou que nao vamos usar</span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span><span class="kw">c</span>(democratic_quality, delivery_quality,
+            gini_index_world_bank_estimate, gini_index_world_bank_estimate_average_2000_<span class="dv">15</span>,
+            confidence_in_national_government, generosity,
+            standard_deviation_of_ladder_by_country_year,
+            standard_deviation_mean_of_ladder_by_country_year)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># encurtar nome de coluna</span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">gini =</span> gini_of_household_income_reported_in_gallup_by_wp5_year) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># salvar no formato rds, proprio do R e que mantem a integridade</span>
+<span class="st">  </span><span class="co"># dos dados</span>
+<span class="st">  </span><span class="kw">write_rds</span>(<span class="st">&quot;dados_felicidade_2017.rds&quot;</span>)</code></pre></div>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">Documentação de <code>facet_grid()</code></a><br />
+<a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">Documentação de <code>facet_wrap()</code></a><br />
+<a href="https://ggplot2.tidyverse.org/reference/index.html#section-facetting-labels">Mais funções para customizar facets</a></p>
+</div>
+</div>
+<div id="salvando-graficos-do-ggplot2" class="section level2">
+<h2><span class="header-section-number">2.7</span> Salvando gráficos do ggplot2</h2>
+<p>Para salvar um gráfico do <code>ggplot2</code> em um arquivo em seu computador, basta usar a função <code>ggsave()</code>. Ela é inteligente o suficiente para reconhecer o último gráfico criado como o gráfico a ser salvo. Assim, basta criar um gráfico qualquer e logo em seguida usar <code>ggsave()</code> para o salvar. Contudo, uma melhor prática é armazenar o gráfico criado em um objeto ou variável e usar essa referência em ggsave. Por exemplo:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Salvar um grafico de pontos no objeto &quot;p&quot;</span>
+p &lt;-<span class="st"> </span>df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita, <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()
+
+<span class="co"># exibindo p</span>
+p</code></pre></div>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># salvando p no computador</span>
+<span class="kw">ggsave</span>(<span class="dt">filename =</span> <span class="st">&quot;meu grafico de pontos.png&quot;</span>, <span class="dt">plot =</span> p)</code></pre></div>
+<pre><code>## Saving 7 x 5 in image</code></pre>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/ggsave.html">Documentação de <code>ggsave()</code></a></p>
+</div>
+</div>
+<div id="juntando-diferentes-graficos-em-um-so" class="section level2">
+<h2><span class="header-section-number">2.8</span> Juntando diferentes gráficos em um só</h2>
+<p>O pacote <code>patchwork</code> tornou muito fácil juntar diferentes gráficos produzidos com <code>ggplot2</code> em um só, algo mais complexo do que seria por facets.</p>
+<p>Por exemplo, para juntar os gráficos de barra e o de pontos feitos logo no início do módulo, basta salvar cada gráfico em um objeto e os juntar com um sinal de adição <code>+</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># salvar grafico de barras no objeto abaixo</span>
+graf_barras &lt;-<span class="st"> </span>df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(continent) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">life_ladder =</span> <span class="kw">mean</span>(life_ladder)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> life_ladder)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_col</span>()
+
+<span class="co"># salvar grafico de pontos no objeto abaixo</span>
+graf_pontos &lt;-<span class="st"> </span>df_<span class="dv">2017</span> <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita, <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()
+
+<span class="co"># juntando os dois graficos em um so:</span>
+graf_barras <span class="op">+</span><span class="st"> </span>graf_pontos</code></pre></div>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p>O <code>patchwork</code> possui suas próprias customizacões. Uma delas é alterar o layout para apenas uma coluna:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># juntando os dois graficos em um so, com apenas uma coluna</span>
+graf_barras <span class="op">+</span><span class="st"> </span>graf_pontos <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">ncol =</span> <span class="dv">1</span>)</code></pre></div>
+<pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://github.com/thomasp85/patchwork">Documentação do pacote <code>patchwork</code></a></p>
+</div>
+</div>
+<div id="graficos-no-r-alem-de-ggplot2" class="section level2">
+<h2><span class="header-section-number">2.9</span> Gráficos no R além de ggplot2</h2>
+<p>O próprio <code>base R</code> (a instalação nativa do R, sem nenhum pacote adicional) possui suas próprias funções para produzir gráficos simples, como <code>plot()</code>, <code>barplot()</code> e <code>hist()</code>. Contudo, como produzir gráficos com mais recursos no <code>base R</code> é bem mais complicado que no <code>ggplot2</code>, não o abordaremos neste módulo. Por curiosidade, a referência abaixo pode ser consultada:</p>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://rstudio-pubs-static.s3.amazonaws.com/7953_4e3efd5b9415444ca065b1167862c349.html">Tutorial completo sobre gráficos com base R</a></p>
+</div>
+</div>
+<div id="exercicios-1" class="section level2">
+<h2><span class="header-section-number">2.10</span> Exercícios</h2>
+<p>Vamos continuar usando o dataset de super-heróis!</p>
+<ol start="0" style="list-style-type: decimal">
+<li><p>Importe o pacote <code>tidyverse</code></p></li>
+<li><p>Importe o arquivo salvo <code>herois_completo.csv</code> no módulo anterior. Salve no objeto <code>herois</code>.</p></li>
+<li><p>Faça um gráfico de pontos da coluna <code>weight</code> em função de <code>height</code>.</p></li>
+<li><p>Observe os outliers no gráfico. Crie um novo dataframe sem esses pontos. Isto é, crie um novo dataframe chamado <code>herois_limpo</code>, filtrando os heróis com peso e altura entre 1 a 500. Use este dataframe para todos os próximos items.</p></li>
+<li><p>Refaça o item 2, atribuindo a cor verde para os pontos.</p></li>
+<li><p>Refaça o item 2, mapeando a cor dos pontos à variável <code>publisher</code>.</p></li>
+<li><p>Refaça o item 2, mapeando a cor dos pontos à variável <code>gender</code></p></li>
+<li><p>Refaça o item 2, mapeando a cor dos pontos à variável <code>gender</code> e o formato (shape) dos pontos à variável <code>flight</code></p></li>
+<li><p>Refaça o item 2, mapeando a cor dos pontos à variável <code>gender</code>, o formato (shape) dos pontos à variável <code>flight</code> e separando o gráfico em subgráficos (facets) usando a variável <code>publisher</code>.</p></li>
+<li><p>Refaça o item 2, mapeando a cor dos pontos à variável <code>flight</code> e separando o gráfico em subgráficos (facets) usando as variáveis <code>publisher</code> e <code>gender</code>.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="breve-introducao-ao-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ggplot2-parte-ii.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

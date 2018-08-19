@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Introdução a R para Visualização e Apresentação de Dados</title>
+  <meta name="description" content="Introdução a R para Visualização e Apresentação de Dados">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="Introdução a R para Visualização e Apresentação de Dados" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Introdução a R para Visualização e Apresentação de Dados" />
+  
+  
+  
+
+<meta name="author" content="Sillas Gonzaga">
+
+
+<meta name="date" content="2018-08-19">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="index.html">
+<link rel="next" href="introducao-ao-ggplot2.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+<link href="libs/leaflet-0.7.7/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-0.7.7/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<link href="libs/leaflet-label-0.2.2/leaflet.label.css" rel="stylesheet" />
+<script src="libs/leaflet-label-0.2.2/leaflet.label.js"></script>
+<script src="libs/Proj4Leaflet-0.7.2/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-0.7.2/proj4leaflet.js"></script>
+<script src="libs/leaflet-binding-1.1.0/leaflet.js"></script>
+<link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
+<script src="libs/sunburst-binding-2.0.0/sunburst.js"></script>
+<script src="libs/datatables-binding-0.2/datatables.js"></script>
+<link href="libs/dt-core-1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.12/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.12/js/jquery.dataTables.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Boas-vindas</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#sobre-o-instrutor"><i class="fa fa-check"></i>Sobre o instrutor</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#referencias"><i class="fa fa-check"></i>Referências</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html"><i class="fa fa-check"></i><b>1</b> Breve introdução ao R</a><ul>
+<li class="chapter" data-level="1.1" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#objetivo"><i class="fa fa-check"></i><b>1.1</b> Objetivo</a></li>
+<li class="chapter" data-level="1.2" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#introducao-ao-r"><i class="fa fa-check"></i><b>1.2</b> Introdução ao R</a></li>
+<li class="chapter" data-level="1.3" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#leitura-de-dados-com-readr"><i class="fa fa-check"></i><b>1.3</b> Leitura de dados com readr</a></li>
+<li class="chapter" data-level="1.4" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#dplyr"><i class="fa fa-check"></i><b>1.4</b> dplyr</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#select"><i class="fa fa-check"></i><b>1.4.1</b> select()</a></li>
+<li class="chapter" data-level="1.4.2" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#filter"><i class="fa fa-check"></i><b>1.4.2</b> filter()</a></li>
+<li class="chapter" data-level="1.4.3" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#mutate"><i class="fa fa-check"></i><b>1.4.3</b> mutate()</a></li>
+<li class="chapter" data-level="1.4.4" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#arrange"><i class="fa fa-check"></i><b>1.4.4</b> arrange()</a></li>
+<li class="chapter" data-level="1.4.5" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#group_by-e-summarise"><i class="fa fa-check"></i><b>1.4.5</b> group_by() e summarise()</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#juntando-duas-tabelas-em-uma"><i class="fa fa-check"></i><b>1.5</b> Juntando duas tabelas em uma</a></li>
+<li class="chapter" data-level="1.6" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#tidyr"><i class="fa fa-check"></i><b>1.6</b> tidyr</a></li>
+<li class="chapter" data-level="1.7" data-path="breve-introducao-ao-r.html"><a href="breve-introducao-ao-r.html#exercicios"><i class="fa fa-check"></i><b>1.7</b> Exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html"><i class="fa fa-check"></i><b>2</b> Introdução ao ggplot2</a><ul>
+<li class="chapter" data-level="2.1" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#dataset-do-modulo"><i class="fa fa-check"></i><b>2.1</b> Dataset do módulo</a></li>
+<li class="chapter" data-level="2.2" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#ggplot2-filosofia-do-pacote-e-do-grammar-of-graphics"><i class="fa fa-check"></i><b>2.2</b> ggplot2: filosofia do pacote e do Grammar of Graphics</a></li>
+<li class="chapter" data-level="2.3" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geoms"><i class="fa fa-check"></i><b>2.3</b> geoms</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_bar-e-geom_col"><i class="fa fa-check"></i><b>2.3.1</b> geom_bar() e geom_col()</a></li>
+<li class="chapter" data-level="2.3.2" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_point"><i class="fa fa-check"></i><b>2.3.2</b> geom_point()</a></li>
+<li class="chapter" data-level="2.3.3" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_line"><i class="fa fa-check"></i><b>2.3.3</b> geom_line()</a></li>
+<li class="chapter" data-level="2.3.4" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_histogram"><i class="fa fa-check"></i><b>2.3.4</b> geom_histogram()</a></li>
+<li class="chapter" data-level="2.3.5" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_text"><i class="fa fa-check"></i><b>2.3.5</b> geom_text()</a></li>
+<li class="chapter" data-level="2.3.6" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#geom_hline-and-geom_vline"><i class="fa fa-check"></i><b>2.3.6</b> geom_hline() and geom_vline()</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#aes"><i class="fa fa-check"></i><b>2.4</b> aes</a></li>
+<li class="chapter" data-level="2.5" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#a-anatomia-da-funcao-ggplot"><i class="fa fa-check"></i><b>2.5</b> A anatomia da função ggplot()</a></li>
+<li class="chapter" data-level="2.6" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#segmentacao-de-um-grafico-em-grupos-com-os-facets"><i class="fa fa-check"></i><b>2.6</b> Segmentação de um gráfico em grupos com os facets</a></li>
+<li class="chapter" data-level="2.7" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#salvando-graficos-do-ggplot2"><i class="fa fa-check"></i><b>2.7</b> Salvando gráficos do ggplot2</a></li>
+<li class="chapter" data-level="2.8" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#juntando-diferentes-graficos-em-um-so"><i class="fa fa-check"></i><b>2.8</b> Juntando diferentes gráficos em um só</a></li>
+<li class="chapter" data-level="2.9" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#graficos-no-r-alem-de-ggplot2"><i class="fa fa-check"></i><b>2.9</b> Gráficos no R além de ggplot2</a></li>
+<li class="chapter" data-level="2.10" data-path="introducao-ao-ggplot2.html"><a href="introducao-ao-ggplot2.html#exercicios-1"><i class="fa fa-check"></i><b>2.10</b> Exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html"><i class="fa fa-check"></i><b>3</b> ggplot2 - parte II</a><ul>
+<li class="chapter" data-level="3.1" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#graficos-de-relacionamentos-entre-variaveis-continuas-scatter-plot"><i class="fa fa-check"></i><b>3.1</b> Gráficos de relacionamentos entre variáveis contínuas: scatter plot</a></li>
+<li class="chapter" data-level="3.2" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#graficos-de-barras-ou-colunas"><i class="fa fa-check"></i><b>3.2</b> Gráficos de barras ou colunas</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#invertendo-eixos"><i class="fa fa-check"></i><b>3.2.1</b> Invertendo eixos</a></li>
+<li class="chapter" data-level="3.2.2" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#como-mudar-a-ordem-das-barras"><i class="fa fa-check"></i><b>3.2.2</b> Como mudar a ordem das barras</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#graficos-de-distribuicoes"><i class="fa fa-check"></i><b>3.3</b> Gráficos de distribuições</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#histogramas"><i class="fa fa-check"></i><b>3.3.1</b> Histogramas</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#grafico-de-densidade"><i class="fa fa-check"></i><b>3.3.2</b> Gráfico de densidade</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#boxplot"><i class="fa fa-check"></i><b>3.3.3</b> Boxplot</a></li>
+<li class="chapter" data-level="3.3.4" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#jitter"><i class="fa fa-check"></i><b>3.3.4</b> Jitter</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#graficos-de-series-temporais-linhas"><i class="fa fa-check"></i><b>3.4</b> Gráficos de séries temporais (linhas)</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#personalizando-a-escala-do-eixo-de-datas"><i class="fa fa-check"></i><b>3.4.1</b> Personalizando a escala do eixo de datas</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#mapas-de-calor"><i class="fa fa-check"></i><b>3.5</b> Mapas de calor</a></li>
+<li class="chapter" data-level="3.6" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#texto"><i class="fa fa-check"></i><b>3.6</b> Texto</a></li>
+<li class="chapter" data-level="3.7" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#areas-ou-faixas-sombreadas"><i class="fa fa-check"></i><b>3.7</b> Áreas ou faixas sombreadas</a></li>
+<li class="chapter" data-level="3.8" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#alterando-aspectos-visuais-do-grafico-com-os-temas"><i class="fa fa-check"></i><b>3.8</b> Alterando aspectos visuais do gráfico com os temas</a></li>
+<li class="chapter" data-level="3.9" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#titulos"><i class="fa fa-check"></i><b>3.9</b> Títulos</a></li>
+<li class="chapter" data-level="3.10" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#extensoes-do-ggplot2"><i class="fa fa-check"></i><b>3.10</b> Extensões do ggplot2</a></li>
+<li class="chapter" data-level="3.11" data-path="ggplot2-parte-ii.html"><a href="ggplot2-parte-ii.html#exercicios-2"><i class="fa fa-check"></i><b>3.11</b> Exercícios</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html"><i class="fa fa-check"></i><b>4</b> Outros tipos de gráficos</a><ul>
+<li class="chapter" data-level="4.1" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#transformando-graficos-do-ggplot2-em-interativos"><i class="fa fa-check"></i><b>4.1</b> Transformando gráficos do ggplot2 em interativos</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#salvando-um-grafico-ggplotly"><i class="fa fa-check"></i><b>4.1.1</b> Salvando um gráfico ggplotly</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#mapas-plotando-poligonos"><i class="fa fa-check"></i><b>4.2</b> Mapas: plotando polígonos</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#projeto-plotando-o-resultado-do-segundo-turno-das-eleicoes-para-presidente-de-2014-por-uf"><i class="fa fa-check"></i><b>4.2.1</b> Projeto: plotando o resultado do segundo turno das eleições para presidente de 2014 por UF:</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#mapas-plotando-pontos-com-google-maps"><i class="fa fa-check"></i><b>4.3</b> Mapas: plotando pontos com Google Maps</a></li>
+<li class="chapter" data-level="4.4" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#mapas-interativos"><i class="fa fa-check"></i><b>4.4</b> Mapas interativos</a></li>
+<li class="chapter" data-level="4.5" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#graficos-de-dados-hierarquicos-treemaps-e-sunburst"><i class="fa fa-check"></i><b>4.5</b> Gráficos de dados hierárquicos: treemaps e sunburst</a></li>
+<li class="chapter" data-level="4.6" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#exercicios-3"><i class="fa fa-check"></i><b>4.6</b> Exercícios</a><ul>
+<li class="chapter" data-level="" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#plotly"><i class="fa fa-check"></i>plotly</a></li>
+<li class="chapter" data-level="" data-path="outros-tipos-de-graficos.html"><a href="outros-tipos-de-graficos.html#geom_sf"><i class="fa fa-check"></i>geom_sf</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html"><i class="fa fa-check"></i><b>5</b> Apresentação de dados com relatórios</a><ul>
+<li class="chapter" data-level="5.1" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#primeiros-passos-com-r-markdown"><i class="fa fa-check"></i><b>5.1</b> Primeiros passos com R Markdown</a></li>
+<li class="chapter" data-level="5.2" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#resumo-da-sintaxe-markdown"><i class="fa fa-check"></i><b>5.2</b> Resumo da sintaxe Markdown</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#formatacao-de-texto"><i class="fa fa-check"></i><b>5.2.1</b> Formatação de texto</a></li>
+<li class="chapter" data-level="5.2.2" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#cabecalhos"><i class="fa fa-check"></i><b>5.2.2</b> Cabeçalhos</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#chunks"><i class="fa fa-check"></i><b>5.3</b> Chunks</a></li>
+<li class="chapter" data-level="5.4" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#formatos-de-output"><i class="fa fa-check"></i><b>5.4</b> Formatos de output</a></li>
+<li class="chapter" data-level="5.5" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#compilando-um-documento-rmarkdown"><i class="fa fa-check"></i><b>5.5</b> Compilando um documento rmarkdown</a></li>
+<li class="chapter" data-level="5.6" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#produzindo-tabelas-no-r-markdown"><i class="fa fa-check"></i><b>5.6</b> Produzindo tabelas no R Markdown</a></li>
+<li class="chapter" data-level="5.7" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#relatorios-parametrizados"><i class="fa fa-check"></i><b>5.7</b> Relatórios parametrizados</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#declarando-parametros"><i class="fa fa-check"></i><b>5.7.1</b> Declarando parâmetros</a></li>
+<li class="chapter" data-level="5.7.2" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#usando-os-parametros"><i class="fa fa-check"></i><b>5.7.2</b> Usando os parâmetros</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="apresentacao-de-dados-com-relatorios.html"><a href="apresentacao-de-dados-com-relatorios.html#projeto-final"><i class="fa fa-check"></i><b>5.8</b> Projeto final</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introdução a R para Visualização e Apresentação de Dados</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="breve-introducao-ao-r" class="section level1">
+<h1><span class="header-section-number">Módulo 1</span> Breve introdução ao R</h1>
+<div id="objetivo" class="section level2">
+<h2><span class="header-section-number">1.1</span> Objetivo</h2>
+<p>Revisar conceitos, pacotes e funções fundamentais na linguagem R para executar tarefas como:<br />
+* Importar um conjunto de dados de um arquivo;<br />
+* Selecionar ou remover colunas;<br />
+* Filtrar linhas de um conjunto de dados de acordo com uma ou mais condições;<br />
+* Agrupar e sumarizar dados;<br />
+* Manipular estruturas de dados, mudando seus formatos;<br />
+* Operações básicas com datas</p>
+</div>
+<div id="introducao-ao-r" class="section level2">
+<h2><span class="header-section-number">1.2</span> Introdução ao R</h2>
+<p>O R é uma linguagem de programação inicialmente criada para fins estatísticos mas que, com o crescimento de sua popularidade, aumentou o seu escopo, sendo hoje uma das melhores ferramentas existentes para tarefas como automação de tarefas, web scraping, desenvolvimento de web apps e principalmente visualização de dados.</p>
+<p>Um dos maiores marcos no universo R foi a criação do pacote <code>ggplot2</code>, desenvolvido principalmente por Hadley Wickham, que implementou a abordagem da Gramática dos Gráficos. O <code>ggplot2</code> faz parte do <code>tidyverse</code>, que é uma suíte de pacotes R criadas e mantidas também por Hadley Wickham para realizar todo o pipeline de um projeto de análise de dados de maneira harmônica.</p>
+<div class="figure">
+<img src="imgs/ciclo_ds.png" />
+
+</div>
+<p>Durante o restante da aula, usaremos muitos pacotes da suíte <code>tidyverse</code>. Por isso, importe o pacote usando o comando usual:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse) <span class="co"># install.packages(&quot;tidyverse&quot;)</span>
+<span class="co"># chequem se a versao dos seus pacotes é a mesma das minhas</span>
+<span class="co"># devtools::session_info()</span>
+<span class="co"># sessionInfo()</span></code></pre></div>
+</div>
+<div id="leitura-de-dados-com-readr" class="section level2">
+<h2><span class="header-section-number">1.3</span> Leitura de dados com readr</h2>
+<p>O primeiro ponto de qualquer projeto de análise de dados é obter os dados. Muitas das vezes, os dados são fornecidos em arquivos locais em formatos como <em>.csv</em>, <em>.xlsx</em>, <em>.txt.</em>, etc.</p>
+<p>O R possui funções nativas para ler certos arquivos de dados, mas o pacote <code>readr</code> possui recursos mais otimizados.</p>
+<p>Para este módulo, utilizaremos como base de dados de exercícios o dataset de <a href="http://transparencia.al.gov.br/portal/download-de-dados/despesas/comparativo-de-despesa">Despesas do Governo de Alagoas</a>, que tem se destacado por suas iniciativas de dados abertos.</p>
+<p>Veja que o próprio processo de download dos dados pode ser feito com R:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># salvar url de download no objeto link</span>
+link &lt;-<span class="st"> &quot;http://transparencia.al.gov.br/media/arquivo/comparativo_despesas-2017.zip&quot;</span>
+<span class="co"># criar pasta chamada data para armazenar o arquivo</span>
+<span class="kw">dir.create</span>(<span class="st">&quot;data/&quot;</span>)
+<span class="co"># realizar o download do arquivo</span>
+<span class="kw">download.file</span>(link, <span class="dt">destfile =</span> <span class="st">&quot;data/desp_al_2017.zip&quot;</span>)
+<span class="co"># descompactar o arquivo na pasta data</span>
+<span class="kw">unzip</span>(<span class="st">&quot;data/desp_al_2017.zip&quot;</span>, <span class="dt">exdir =</span> <span class="st">&quot;data/&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Importando o arquivo de 2017</span>
+
+<span class="co"># usamos a função read_delim porque o arquivo vem separado por</span>
+<span class="co"># barras verticais (|)</span>
+
+<span class="co"># alem disso, precisamos especificar o locale para caracteres especiais</span>
+<span class="co"># serem importados corretamente para o R</span>
+df_despesas &lt;-<span class="st"> </span><span class="kw">read_delim</span>(<span class="st">&quot;data/comparativo_despesas-2017.txt&quot;</span>,
+                          <span class="dt">delim =</span> <span class="st">&quot;|&quot;</span>,
+                          <span class="dt">locale =</span> <span class="kw">locale</span>(<span class="dt">encoding =</span> <span class="st">&quot;ISO-8859-1&quot;</span>),
+                          <span class="co"># progress = FALSE, para nao mostrar a barra de progresso</span>
+                          <span class="dt">progress =</span> <span class="ot">FALSE</span>)
+<span class="co"># exibir as 6 primeiras linhas do arquivo importado</span>
+<span class="kw">head</span>(df_despesas)</code></pre></div>
+<pre><code>## # A tibble: 6 x 44
+##     ANO   MES UG    DESCRICAO_UG GESTAO PT    PT_DESCRICAO FONTE_MAE
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;    
+## 1  2017    11 5105… UNIVERS EST… 51556  1030… MANUTENCAO … 0100     
+## 2  2017    11 5105… UNIVERS EST… 51556  1030… MANUTENCAO … 0100     
+## 3  2017    12 5400… SEC DE ESTA… 00001  0612… MANUTENCAO … 0100     
+## 4  2017     7 5400… SEC DE ESTA… 00001  0612… MANUTENCAO … 0100     
+## 5  2017     6 5400… SEC DE ESTA… 00001  0618… MANUTENCAO … 0100     
+## 6  2017    10 5400… POLICIA MIL… 00001  0618… MANUTENCAO … 0100     
+## # ... with 36 more variables: DESCRICAO_FONTE_MAE &lt;chr&gt;, FONTE &lt;chr&gt;,
+## #   DESCRICAO_FONTE &lt;chr&gt;, PI &lt;chr&gt;, CODIGO_FAVORECIDO &lt;chr&gt;,
+## #   NOME_FAVORECIDO &lt;chr&gt;, NATUREZA1 &lt;int&gt;, DESCRICAO_NATUREZA1 &lt;chr&gt;,
+## #   NATUREZA2 &lt;int&gt;, DESCRICAO_NATUREZA2 &lt;chr&gt;, NATUREZA3 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA3 &lt;chr&gt;, NATUREZA4 &lt;int&gt;, DESCRICAO_NATUREZA4 &lt;chr&gt;,
+## #   NATUREZA5 &lt;int&gt;, DESCRICAO_NATUREZA5 &lt;chr&gt;, NATUREZA6 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA6 &lt;chr&gt;, NATUREZA &lt;int&gt;, DESCRICAO_NATUREZA &lt;chr&gt;,
+## #   DATA_REGISTRO &lt;date&gt;, PROJETO_ATIVIDADE_ID &lt;dbl&gt;, PROGRAMA_ID &lt;int&gt;,
+## #   SUB_FUNCAO_ID &lt;int&gt;, PT_FUNCAO_ID &lt;int&gt;, FONTE_MAE_ID &lt;int&gt;,
+## #   FONTE_ID &lt;dbl&gt;, FL_DIARIA &lt;int&gt;, FL_FAVORECIDO &lt;int&gt;, SUBTITULO &lt;int&gt;,
+## #   DESCRICAO_SUBTITULO &lt;chr&gt;, ORGAO &lt;chr&gt;, ORGAO_DESCRICAO &lt;chr&gt;,
+## #   VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;, VALOR_PAGO &lt;dbl&gt;</code></pre>
+<p>Na função <code>read_delim</code> acima, precisamos especificar três argumentos:<br />
+* o nome do arquivo a ser importado<br />
+* o caracter usado para separar colunas (normalmente é ponto-e-vírgula)<br />
+* o <em>locale</em> (encoding), muitas vezes necessários ao trabalhar com Linux com arquivos brasileiros</p>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong><br />
+<a href="https://readr.tidyverse.org/">Documentação do pacote <code>readr</code></a><br />
+<a href="https://www.rdocumentation.org/packages/readxl/versions/1.1.0">Documentação do pacote <code>readxl</code></a>, ideal para ler arquivos de Excel.<br />
+<a href="https://cdr.ibpad.com.br/lendo-os-dados.html">Capítulo “Lendo os dados” do livro Ciência de Dados com R</a><br />
+<a href="http://r4ds.had.co.nz/data-import.html">Capítulo “Data import” do livro R for Data Science</a></p>
+</div>
+</div>
+<div id="dplyr" class="section level2">
+<h2><span class="header-section-number">1.4</span> dplyr</h2>
+<p>O pacote <code>dplyr</code> é o mais usado para as mais variadas tarefas de manuseio de dados: agregar, sumarizar, filtrar, ordenar, criar variáveis, joins, dentre outras.</p>
+<p>Vamos continuar usando o dataset das despesas do estado de Alagoas para demonstrar o uso das principais funções do <code>dplyr</code></p>
+<p>Materiais mais completos sobre o pacote <code>dplyr</code> podem ser encontrados nas referências abaixo:</p>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br><br />
+<a href="http://dplyr.tidyverse.org/">Site oficial do pacote <code>dplyr</code></a> <a href="https://cdr.ibpad.com.br/manipulando-os-dados.html">Capítulo “Manipulando os dados” do livro Ciência de Dados com R</a><br />
+<a href="http://r4ds.had.co.nz/data-import.html">Capítulo “Data transformation” do livro R for Data Science</a> <a href="https://dplyr.tidyverse.org/index.html">Documentação do pacote <code>dplyr</code></a></p>
+</div>
+<div id="select" class="section level3">
+<h3><span class="header-section-number">1.4.1</span> select()</h3>
+<p>Select é uma função muito simples: serve para selecionar ou remover colunas.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Tarefa: selecionar colunas ANO, UG e GESTAO, mudando o nome da última</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dt">ANO =</span> ANO, UG, <span class="dt">CODIGO_GESTAO =</span> GESTAO) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##     ANO UG     CODIGO_GESTAO
+##   &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;        
+## 1  2017 510556 51556        
+## 2  2017 510556 51556        
+## 3  2017 540033 00001        
+## 4  2017 540033 00001        
+## 5  2017 540033 00001        
+## 6  2017 540034 00001</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: remover coluna ANO</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>ANO) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # A tibble: 6 x 43
+##     MES UG    DESCRICAO_UG GESTAO PT    PT_DESCRICAO FONTE_MAE
+##   &lt;int&gt; &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;    
+## 1    11 5105… UNIVERS EST… 51556  1030… MANUTENCAO … 0100     
+## 2    11 5105… UNIVERS EST… 51556  1030… MANUTENCAO … 0100     
+## 3    12 5400… SEC DE ESTA… 00001  0612… MANUTENCAO … 0100     
+## 4     7 5400… SEC DE ESTA… 00001  0612… MANUTENCAO … 0100     
+## 5     6 5400… SEC DE ESTA… 00001  0618… MANUTENCAO … 0100     
+## 6    10 5400… POLICIA MIL… 00001  0618… MANUTENCAO … 0100     
+## # ... with 36 more variables: DESCRICAO_FONTE_MAE &lt;chr&gt;, FONTE &lt;chr&gt;,
+## #   DESCRICAO_FONTE &lt;chr&gt;, PI &lt;chr&gt;, CODIGO_FAVORECIDO &lt;chr&gt;,
+## #   NOME_FAVORECIDO &lt;chr&gt;, NATUREZA1 &lt;int&gt;, DESCRICAO_NATUREZA1 &lt;chr&gt;,
+## #   NATUREZA2 &lt;int&gt;, DESCRICAO_NATUREZA2 &lt;chr&gt;, NATUREZA3 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA3 &lt;chr&gt;, NATUREZA4 &lt;int&gt;, DESCRICAO_NATUREZA4 &lt;chr&gt;,
+## #   NATUREZA5 &lt;int&gt;, DESCRICAO_NATUREZA5 &lt;chr&gt;, NATUREZA6 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA6 &lt;chr&gt;, NATUREZA &lt;int&gt;, DESCRICAO_NATUREZA &lt;chr&gt;,
+## #   DATA_REGISTRO &lt;date&gt;, PROJETO_ATIVIDADE_ID &lt;dbl&gt;, PROGRAMA_ID &lt;int&gt;,
+## #   SUB_FUNCAO_ID &lt;int&gt;, PT_FUNCAO_ID &lt;int&gt;, FONTE_MAE_ID &lt;int&gt;,
+## #   FONTE_ID &lt;dbl&gt;, FL_DIARIA &lt;int&gt;, FL_FAVORECIDO &lt;int&gt;, SUBTITULO &lt;int&gt;,
+## #   DESCRICAO_SUBTITULO &lt;chr&gt;, ORGAO &lt;chr&gt;, ORGAO_DESCRICAO &lt;chr&gt;,
+## #   VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;, VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: selecionar todas as colunas numéricas</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select_if</span>(is.numeric) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # A tibble: 6 x 21
+##     ANO   MES NATUREZA1 NATUREZA2 NATUREZA3 NATUREZA4 NATUREZA5 NATUREZA6
+##   &lt;int&gt; &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;     &lt;int&gt;
+## 1  2017    11 300000000 330000000 331000000 331900000 331900000 331901100
+## 2  2017    11 300000000 330000000 331000000 331900000 331900000 331901100
+## 3  2017    12 300000000 330000000 333000000 333900000 333900000 333903900
+## 4  2017     7 300000000 330000000 333000000 333900000 333900000 333903900
+## 5  2017     6 300000000 330000000 333000000 333900000 333900000 333903100
+## 6  2017    10 300000000 330000000 333000000 333900000 333900000 333903900
+## # ... with 13 more variables: NATUREZA &lt;int&gt;, PROJETO_ATIVIDADE_ID &lt;dbl&gt;,
+## #   PROGRAMA_ID &lt;int&gt;, SUB_FUNCAO_ID &lt;int&gt;, PT_FUNCAO_ID &lt;int&gt;,
+## #   FONTE_MAE_ID &lt;int&gt;, FONTE_ID &lt;dbl&gt;, FL_DIARIA &lt;int&gt;,
+## #   FL_FAVORECIDO &lt;int&gt;, SUBTITULO &lt;int&gt;, VALOR_EMPENHADO &lt;dbl&gt;,
+## #   VALOR_LIQUIDADO &lt;dbl&gt;, VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: selecionar apenas as colunas cujo nome começa com VALOR</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="kw">starts_with</span>(<span class="st">&quot;VALOR&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # A tibble: 6 x 3
+##   VALOR_EMPENHADO VALOR_LIQUIDADO VALOR_PAGO
+##             &lt;dbl&gt;           &lt;dbl&gt;      &lt;dbl&gt;
+## 1          25557.          25557.     25557.
+## 2          36652.          36652.     36652.
+## 3          84031.              0      78990.
+## 4         173834.              0          0 
+## 5            292.            292.         0 
+## 6          38072.              0          0</code></pre>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://dplyr.tidyverse.org/reference/select.html">Documentação da função select()</a></p>
+</div>
+</div>
+<div id="filter" class="section level3">
+<h3><span class="header-section-number">1.4.2</span> filter()</h3>
+<p><code>filter()</code> permite que você crie filtros de observações baseado em um ou mais critérios.</p>
+<p>Os critérios podem ser construídos com os operadores lógicos <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>!=</code> e <code>==</code>, ou com funções que retornam uma booleana (resultado lógico, <code>TRUE</code> ou <code>FALSE</code>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: filtrar as linhas onde o valor da coluna VALOR_EMPENHADO é maior que 100000</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(VALOR_EMPENHADO <span class="op">&gt;</span><span class="st"> </span><span class="dv">100000</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # A tibble: 6 x 44
+##     ANO   MES UG    DESCRICAO_UG GESTAO PT    PT_DESCRICAO FONTE_MAE
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;    
+## 1  2017     7 5400… SEC DE ESTA… 00001  0612… MANUTENCAO … 0100     
+## 2  2017     5 5400… POLICIA MIL… 00001  0618… MANUTENCAO … 0100     
+## 3  2017     4 5400… SEC DE ESTA… 00001  0684… CONTRIBUICA… 0100     
+## 4  2017    10 5400… CORPO DE BO… 00001  0612… MANUTENCAO … 0100     
+## 5  2017     1 9109… ENCARGOS GE… 00001  2884… SERVICOS DA… 0100     
+## 6  2017     8 5400… POLICIA CIV… 00001  0618… MANUTENCAO … 0100     
+## # ... with 36 more variables: DESCRICAO_FONTE_MAE &lt;chr&gt;, FONTE &lt;chr&gt;,
+## #   DESCRICAO_FONTE &lt;chr&gt;, PI &lt;chr&gt;, CODIGO_FAVORECIDO &lt;chr&gt;,
+## #   NOME_FAVORECIDO &lt;chr&gt;, NATUREZA1 &lt;int&gt;, DESCRICAO_NATUREZA1 &lt;chr&gt;,
+## #   NATUREZA2 &lt;int&gt;, DESCRICAO_NATUREZA2 &lt;chr&gt;, NATUREZA3 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA3 &lt;chr&gt;, NATUREZA4 &lt;int&gt;, DESCRICAO_NATUREZA4 &lt;chr&gt;,
+## #   NATUREZA5 &lt;int&gt;, DESCRICAO_NATUREZA5 &lt;chr&gt;, NATUREZA6 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA6 &lt;chr&gt;, NATUREZA &lt;int&gt;, DESCRICAO_NATUREZA &lt;chr&gt;,
+## #   DATA_REGISTRO &lt;date&gt;, PROJETO_ATIVIDADE_ID &lt;dbl&gt;, PROGRAMA_ID &lt;int&gt;,
+## #   SUB_FUNCAO_ID &lt;int&gt;, PT_FUNCAO_ID &lt;int&gt;, FONTE_MAE_ID &lt;int&gt;,
+## #   FONTE_ID &lt;dbl&gt;, FL_DIARIA &lt;int&gt;, FL_FAVORECIDO &lt;int&gt;, SUBTITULO &lt;int&gt;,
+## #   DESCRICAO_SUBTITULO &lt;chr&gt;, ORGAO &lt;chr&gt;, ORGAO_DESCRICAO &lt;chr&gt;,
+## #   VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;, VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: filtrar as linhas onde o ANO é o mesmo do atual</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(ANO <span class="op">==</span><span class="st"> </span>lubridate<span class="op">::</span><span class="kw">year</span>(lubridate<span class="op">::</span><span class="kw">today</span>()))</code></pre></div>
+<pre><code>## # A tibble: 0 x 44
+## # ... with 44 variables: ANO &lt;int&gt;, MES &lt;int&gt;, UG &lt;chr&gt;,
+## #   DESCRICAO_UG &lt;chr&gt;, GESTAO &lt;chr&gt;, PT &lt;chr&gt;, PT_DESCRICAO &lt;chr&gt;,
+## #   FONTE_MAE &lt;chr&gt;, DESCRICAO_FONTE_MAE &lt;chr&gt;, FONTE &lt;chr&gt;,
+## #   DESCRICAO_FONTE &lt;chr&gt;, PI &lt;chr&gt;, CODIGO_FAVORECIDO &lt;chr&gt;,
+## #   NOME_FAVORECIDO &lt;chr&gt;, NATUREZA1 &lt;int&gt;, DESCRICAO_NATUREZA1 &lt;chr&gt;,
+## #   NATUREZA2 &lt;int&gt;, DESCRICAO_NATUREZA2 &lt;chr&gt;, NATUREZA3 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA3 &lt;chr&gt;, NATUREZA4 &lt;int&gt;, DESCRICAO_NATUREZA4 &lt;chr&gt;,
+## #   NATUREZA5 &lt;int&gt;, DESCRICAO_NATUREZA5 &lt;chr&gt;, NATUREZA6 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA6 &lt;chr&gt;, NATUREZA &lt;int&gt;, DESCRICAO_NATUREZA &lt;chr&gt;,
+## #   DATA_REGISTRO &lt;date&gt;, PROJETO_ATIVIDADE_ID &lt;dbl&gt;, PROGRAMA_ID &lt;int&gt;,
+## #   SUB_FUNCAO_ID &lt;int&gt;, PT_FUNCAO_ID &lt;int&gt;, FONTE_MAE_ID &lt;int&gt;,
+## #   FONTE_ID &lt;dbl&gt;, FL_DIARIA &lt;int&gt;, FL_FAVORECIDO &lt;int&gt;, SUBTITULO &lt;int&gt;,
+## #   DESCRICAO_SUBTITULO &lt;chr&gt;, ORGAO &lt;chr&gt;, ORGAO_DESCRICAO &lt;chr&gt;,
+## #   VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;, VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: filtrar as linhas de Junho/2017</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(ANO <span class="op">==</span><span class="st"> </span><span class="dv">2017</span>, MES <span class="op">&gt;</span><span class="st"> </span><span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # A tibble: 6 x 44
+##     ANO   MES UG    DESCRICAO_UG GESTAO PT    PT_DESCRICAO FONTE_MAE
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;    
+## 1  2017    11 5105… UNIVERS EST… 51556  1030… MANUTENCAO … 0100     
+## 2  2017    11 5105… UNIVERS EST… 51556  1030… MANUTENCAO … 0100     
+## 3  2017    12 5400… SEC DE ESTA… 00001  0612… MANUTENCAO … 0100     
+## 4  2017     7 5400… SEC DE ESTA… 00001  0612… MANUTENCAO … 0100     
+## 5  2017    10 5400… POLICIA MIL… 00001  0618… MANUTENCAO … 0100     
+## 6  2017     7 5305… DEPARTAM DE… 53538  2612… MANUTENCAO … 0291     
+## # ... with 36 more variables: DESCRICAO_FONTE_MAE &lt;chr&gt;, FONTE &lt;chr&gt;,
+## #   DESCRICAO_FONTE &lt;chr&gt;, PI &lt;chr&gt;, CODIGO_FAVORECIDO &lt;chr&gt;,
+## #   NOME_FAVORECIDO &lt;chr&gt;, NATUREZA1 &lt;int&gt;, DESCRICAO_NATUREZA1 &lt;chr&gt;,
+## #   NATUREZA2 &lt;int&gt;, DESCRICAO_NATUREZA2 &lt;chr&gt;, NATUREZA3 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA3 &lt;chr&gt;, NATUREZA4 &lt;int&gt;, DESCRICAO_NATUREZA4 &lt;chr&gt;,
+## #   NATUREZA5 &lt;int&gt;, DESCRICAO_NATUREZA5 &lt;chr&gt;, NATUREZA6 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA6 &lt;chr&gt;, NATUREZA &lt;int&gt;, DESCRICAO_NATUREZA &lt;chr&gt;,
+## #   DATA_REGISTRO &lt;date&gt;, PROJETO_ATIVIDADE_ID &lt;dbl&gt;, PROGRAMA_ID &lt;int&gt;,
+## #   SUB_FUNCAO_ID &lt;int&gt;, PT_FUNCAO_ID &lt;int&gt;, FONTE_MAE_ID &lt;int&gt;,
+## #   FONTE_ID &lt;dbl&gt;, FL_DIARIA &lt;int&gt;, FL_FAVORECIDO &lt;int&gt;, SUBTITULO &lt;int&gt;,
+## #   DESCRICAO_SUBTITULO &lt;chr&gt;, ORGAO &lt;chr&gt;, ORGAO_DESCRICAO &lt;chr&gt;,
+## #   VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;, VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Tarefa: filtrar as linhas dentro de um intervalo de datas (inclusivo)</span>
+df_despesas <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">between</span>(DATA_REGISTRO,
+                 <span class="kw">as.Date</span>(<span class="st">&quot;2017-11-15&quot;</span>),
+                 <span class="kw">as.Date</span>(<span class="st">&quot;2017-12-15&quot;</span>))) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # A tibble: 6 x 44
+##     ANO   MES UG    DESCRICAO_UG GESTAO PT    PT_DESCRICAO FONTE_MAE
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;    
+## 1  2017    11 5105… UNIVERS EST… 51556  1030… MANUTENCAO … 0100     
+## 2  2017    11 5105… UNIVERS EST… 51556  1030… MANUTENCAO … 0100     
+## 3  2017    11 5400… POLICIA MIL… 00001  0618… MANUTENCAO … 0100     
+## 4  2017    12 5400… SEC DE ESTA… 00001  0618… MANUTENCAO … 0100     
+## 5  2017    12 5205… FUNDO ESTAD… 52534  2312… MANUTENCAO … 0100     
+## 6  2017    11 5400… POLICIA CIV… 00001  0618… MANUTENCAO … 0100     
+## # ... with 36 more variables: DESCRICAO_FONTE_MAE &lt;chr&gt;, FONTE &lt;chr&gt;,
+## #   DESCRICAO_FONTE &lt;chr&gt;, PI &lt;chr&gt;, CODIGO_FAVORECIDO &lt;chr&gt;,
+## #   NOME_FAVORECIDO &lt;chr&gt;, NATUREZA1 &lt;int&gt;, DESCRICAO_NATUREZA1 &lt;chr&gt;,
+## #   NATUREZA2 &lt;int&gt;, DESCRICAO_NATUREZA2 &lt;chr&gt;, NATUREZA3 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA3 &lt;chr&gt;, NATUREZA4 &lt;int&gt;, DESCRICAO_NATUREZA4 &lt;chr&gt;,
+## #   NATUREZA5 &lt;int&gt;, DESCRICAO_NATUREZA5 &lt;chr&gt;, NATUREZA6 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA6 &lt;chr&gt;, NATUREZA &lt;int&gt;, DESCRICAO_NATUREZA &lt;chr&gt;,
+## #   DATA_REGISTRO &lt;date&gt;, PROJETO_ATIVIDADE_ID &lt;dbl&gt;, PROGRAMA_ID &lt;int&gt;,
+## #   SUB_FUNCAO_ID &lt;int&gt;, PT_FUNCAO_ID &lt;int&gt;, FONTE_MAE_ID &lt;int&gt;,
+## #   FONTE_ID &lt;dbl&gt;, FL_DIARIA &lt;int&gt;, FL_FAVORECIDO &lt;int&gt;, SUBTITULO &lt;int&gt;,
+## #   DESCRICAO_SUBTITULO &lt;chr&gt;, ORGAO &lt;chr&gt;, ORGAO_DESCRICAO &lt;chr&gt;,
+## #   VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;, VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: filtrar fora todas os dados que são de 2017</span>
+<span class="co"># em outras palavras: filtrar os dados que não são de 2017</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(ANO <span class="op">!=</span><span class="st"> </span><span class="dv">2017</span>)</code></pre></div>
+<pre><code>## # A tibble: 0 x 44
+## # ... with 44 variables: ANO &lt;int&gt;, MES &lt;int&gt;, UG &lt;chr&gt;,
+## #   DESCRICAO_UG &lt;chr&gt;, GESTAO &lt;chr&gt;, PT &lt;chr&gt;, PT_DESCRICAO &lt;chr&gt;,
+## #   FONTE_MAE &lt;chr&gt;, DESCRICAO_FONTE_MAE &lt;chr&gt;, FONTE &lt;chr&gt;,
+## #   DESCRICAO_FONTE &lt;chr&gt;, PI &lt;chr&gt;, CODIGO_FAVORECIDO &lt;chr&gt;,
+## #   NOME_FAVORECIDO &lt;chr&gt;, NATUREZA1 &lt;int&gt;, DESCRICAO_NATUREZA1 &lt;chr&gt;,
+## #   NATUREZA2 &lt;int&gt;, DESCRICAO_NATUREZA2 &lt;chr&gt;, NATUREZA3 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA3 &lt;chr&gt;, NATUREZA4 &lt;int&gt;, DESCRICAO_NATUREZA4 &lt;chr&gt;,
+## #   NATUREZA5 &lt;int&gt;, DESCRICAO_NATUREZA5 &lt;chr&gt;, NATUREZA6 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA6 &lt;chr&gt;, NATUREZA &lt;int&gt;, DESCRICAO_NATUREZA &lt;chr&gt;,
+## #   DATA_REGISTRO &lt;date&gt;, PROJETO_ATIVIDADE_ID &lt;dbl&gt;, PROGRAMA_ID &lt;int&gt;,
+## #   SUB_FUNCAO_ID &lt;int&gt;, PT_FUNCAO_ID &lt;int&gt;, FONTE_MAE_ID &lt;int&gt;,
+## #   FONTE_ID &lt;dbl&gt;, FL_DIARIA &lt;int&gt;, FL_FAVORECIDO &lt;int&gt;, SUBTITULO &lt;int&gt;,
+## #   DESCRICAO_SUBTITULO &lt;chr&gt;, ORGAO &lt;chr&gt;, ORGAO_DESCRICAO &lt;chr&gt;,
+## #   VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;, VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># filtros baseados em multiplas colunas</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(DESCRICAO_UG, <span class="st">&quot;POLICIA&quot;</span>),
+                       MES <span class="op">==</span><span class="st"> </span><span class="dv">1</span>,
+                       VALOR_EMPENHADO <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)</code></pre></div>
+<pre><code>## # A tibble: 2 x 44
+##     ANO   MES UG    DESCRICAO_UG GESTAO PT    PT_DESCRICAO FONTE_MAE
+##   &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;        &lt;chr&gt;    
+## 1  2017     1 5400… POLICIA CIV… 00001  0618… MANUTENCAO … 0100     
+## 2  2017     1 5400… POLICIA CIV… 00001  0618… MANUTENCAO … 0100     
+## # ... with 36 more variables: DESCRICAO_FONTE_MAE &lt;chr&gt;, FONTE &lt;chr&gt;,
+## #   DESCRICAO_FONTE &lt;chr&gt;, PI &lt;chr&gt;, CODIGO_FAVORECIDO &lt;chr&gt;,
+## #   NOME_FAVORECIDO &lt;chr&gt;, NATUREZA1 &lt;int&gt;, DESCRICAO_NATUREZA1 &lt;chr&gt;,
+## #   NATUREZA2 &lt;int&gt;, DESCRICAO_NATUREZA2 &lt;chr&gt;, NATUREZA3 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA3 &lt;chr&gt;, NATUREZA4 &lt;int&gt;, DESCRICAO_NATUREZA4 &lt;chr&gt;,
+## #   NATUREZA5 &lt;int&gt;, DESCRICAO_NATUREZA5 &lt;chr&gt;, NATUREZA6 &lt;int&gt;,
+## #   DESCRICAO_NATUREZA6 &lt;chr&gt;, NATUREZA &lt;int&gt;, DESCRICAO_NATUREZA &lt;chr&gt;,
+## #   DATA_REGISTRO &lt;date&gt;, PROJETO_ATIVIDADE_ID &lt;dbl&gt;, PROGRAMA_ID &lt;int&gt;,
+## #   SUB_FUNCAO_ID &lt;int&gt;, PT_FUNCAO_ID &lt;int&gt;, FONTE_MAE_ID &lt;int&gt;,
+## #   FONTE_ID &lt;dbl&gt;, FL_DIARIA &lt;int&gt;, FL_FAVORECIDO &lt;int&gt;, SUBTITULO &lt;int&gt;,
+## #   DESCRICAO_SUBTITULO &lt;chr&gt;, ORGAO &lt;chr&gt;, ORGAO_DESCRICAO &lt;chr&gt;,
+## #   VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;, VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://dplyr.tidyverse.org/reference/filter.html">Documentação da função filter()</a></p>
+</div>
+</div>
+<div id="mutate" class="section level3">
+<h3><span class="header-section-number">1.4.3</span> mutate()</h3>
+<p><code>mutate()</code> serve para criar novas colunas que são funções de colunas já existentes no dataframe</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># criar dataset menor para servir de exemplo</span>
+df_menor &lt;-<span class="st"> </span>df_despesas <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(DESCRICAO_UG, CODIGO_FAVORECIDO, NOME_FAVORECIDO, DATA_REGISTRO,
+         VALOR_EMPENHADO, VALOR_LIQUIDADO, VALOR_PAGO) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">head</span>(<span class="dv">10</span>)
+
+df_menor</code></pre></div>
+<pre><code>## # A tibble: 10 x 7
+##    DESCRICAO_UG CODIGO_FAVORECI… NOME_FAVORECIDO DATA_REGISTRO
+##    &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;           &lt;date&gt;       
+##  1 UNIVERS EST… PF0000001        FOLHA PAGTO.PE… 2017-11-30   
+##  2 UNIVERS EST… PF0000001        FOLHA PAGTO.PE… 2017-11-30   
+##  3 SEC DE ESTA… 07244008000304   EYES NWEHERE S… 2017-12-22   
+##  4 SEC DE ESTA… 24472748000155   EQUILIBRIO SER… 2017-07-10   
+##  5 SEC DE ESTA… 06536764412      SAMUEL JACKSON… 2017-06-23   
+##  6 POLICIA MIL… 04834392000145   BRASCAR LOCADO… 2017-10-18   
+##  7 SEC DE ESTA… 08445586483      JOSE RODRIGO D… 2017-05-16   
+##  8 DEPARTAM DE… 35034750449      JOSE CICERO GO… 2017-07-14   
+##  9 SEC DE ESTA… 12498937000118   SOPROBEM SERV … 2017-07-11   
+## 10 SEC DE ESTA… 02558157001215   TELEFONICA DO … 2017-07-14   
+## # ... with 3 more variables: VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;,
+## #   VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: criar nova coluna com o dia do registro</span>
+df_menor <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">DIA_REGISTRO =</span> lubridate<span class="op">::</span><span class="kw">day</span>(DATA_REGISTRO)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(DATA_REGISTRO, DIA_REGISTRO) </code></pre></div>
+<pre><code>## # A tibble: 10 x 2
+##    DATA_REGISTRO DIA_REGISTRO
+##    &lt;date&gt;               &lt;int&gt;
+##  1 2017-11-30              30
+##  2 2017-11-30              30
+##  3 2017-12-22              22
+##  4 2017-07-10              10
+##  5 2017-06-23              23
+##  6 2017-10-18              18
+##  7 2017-05-16              16
+##  8 2017-07-14              14
+##  9 2017-07-11              11
+## 10 2017-07-14              14</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: criar varias colunas de resultados de equações simples</span>
+df_menor <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">VALOR_PAGO_RAIZ_2 =</span> <span class="kw">sqrt</span>(VALOR_PAGO),
+         <span class="dt">valor_pago_quadrado =</span> VALOR_PAGO<span class="op">^</span><span class="dv">2</span>,
+         <span class="dt">valor_pago_dobro =</span> VALOR_PAGO<span class="op">*</span><span class="dv">2</span>,
+         <span class="dt">valor_pago_arredondado =</span> <span class="kw">round</span>(VALOR_PAGO),
+         <span class="dt">valor_pago_soma =</span> VALOR_PAGO <span class="op">+</span><span class="st"> </span>VALOR_EMPENHADO <span class="op">+</span><span class="st"> </span>VALOR_LIQUIDADO) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="kw">contains</span>(<span class="st">&quot;valor_pago&quot;</span>, <span class="dt">ignore.case =</span> <span class="ot">TRUE</span>))</code></pre></div>
+<pre><code>## # A tibble: 10 x 6
+##    VALOR_PAGO VALOR_PAGO_RAIZ… valor_pago_quad… valor_pago_dobro
+##         &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+##  1     25557.            160.        653166894.           51114.
+##  2     36652.            191.       1343358841.           73304.
+##  3     78990.            281.       6239341110.          157979 
+##  4         0               0                 0                0 
+##  5         0               0                 0                0 
+##  6         0               0                 0                0 
+##  7       133.             11.5           17777.             267.
+##  8       300              17.3           90000              600 
+##  9     83773.            289.       7017970819.          167547.
+## 10       949.             30.8          901436.            1899.
+## # ... with 2 more variables: valor_pago_arredondado &lt;dbl&gt;,
+## #   valor_pago_soma &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: extrair primeiro nome da coluna NOME_FAVORECIDO</span>
+df_menor <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">primeiro_nome =</span> stringr<span class="op">::</span><span class="kw">word</span>(NOME_FAVORECIDO, <span class="dv">1</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(NOME_FAVORECIDO, primeiro_nome)</code></pre></div>
+<pre><code>## # A tibble: 10 x 2
+##    NOME_FAVORECIDO                               primeiro_nome
+##    &lt;chr&gt;                                         &lt;chr&gt;        
+##  1 FOLHA PAGTO.PESSOAL                           FOLHA        
+##  2 FOLHA PAGTO.PESSOAL                           FOLHA        
+##  3 EYES NWEHERE SIST INTELIGENTES DE IMAGEM LTDA EYES         
+##  4 EQUILIBRIO SERVICOS LTDA - ROTACAR LOCADORA   EQUILIBRIO   
+##  5 SAMUEL JACKSON OLIVEIRA DE LIMA               SAMUEL       
+##  6 BRASCAR LOCADORA LTDA                         BRASCAR      
+##  7 JOSE RODRIGO DOS SANTOS NUNES                 JOSE         
+##  8 JOSE CICERO GOMES DA SILVA                    JOSE         
+##  9 SOPROBEM SERV PROM E BEM ESTAR COMUNITARIO    SOPROBEM     
+## 10 TELEFONICA DO BRASIL S.A.                     TELEFONICA</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tarefa: converter coluna NOME_FAVORECIDO para minusculo,</span>
+<span class="co"># com exceção da primeira letra de cada palavra</span>
+df_menor <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">NOME_FAVORECIDO =</span> stringr<span class="op">::</span><span class="kw">str_to_title</span>(NOME_FAVORECIDO)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(NOME_FAVORECIDO)</code></pre></div>
+<pre><code>## # A tibble: 10 x 1
+##    NOME_FAVORECIDO                              
+##    &lt;chr&gt;                                        
+##  1 Folha Pagto.pessoal                          
+##  2 Folha Pagto.pessoal                          
+##  3 Eyes Nwehere Sist Inteligentes De Imagem Ltda
+##  4 Equilibrio Servicos Ltda - Rotacar Locadora  
+##  5 Samuel Jackson Oliveira De Lima              
+##  6 Brascar Locadora Ltda                        
+##  7 Jose Rodrigo Dos Santos Nunes                
+##  8 Jose Cicero Gomes Da Silva                   
+##  9 Soprobem Serv Prom E Bem Estar Comunitario   
+## 10 Telefonica Do Brasil S.a.</code></pre>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://dplyr.tidyverse.org/reference/mutate.html">Documentação da função mutate()</a></p>
+</div>
+</div>
+<div id="arrange" class="section level3">
+<h3><span class="header-section-number">1.4.4</span> arrange()</h3>
+<p><code>arrange()</code> muda a posição das linhas do dataframe baseado em uma ou mais colunas, em ordem crescente ou decrescente É como o <em>classificar</em> do Excel.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># classificar tabela de acordo com a ordem crescente da coluna NOME_FAVORECIDO</span>
+df_menor <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(NOME_FAVORECIDO)</code></pre></div>
+<pre><code>## # A tibble: 10 x 7
+##    DESCRICAO_UG CODIGO_FAVORECI… NOME_FAVORECIDO DATA_REGISTRO
+##    &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;           &lt;date&gt;       
+##  1 POLICIA MIL… 04834392000145   BRASCAR LOCADO… 2017-10-18   
+##  2 SEC DE ESTA… 24472748000155   EQUILIBRIO SER… 2017-07-10   
+##  3 SEC DE ESTA… 07244008000304   EYES NWEHERE S… 2017-12-22   
+##  4 UNIVERS EST… PF0000001        FOLHA PAGTO.PE… 2017-11-30   
+##  5 UNIVERS EST… PF0000001        FOLHA PAGTO.PE… 2017-11-30   
+##  6 DEPARTAM DE… 35034750449      JOSE CICERO GO… 2017-07-14   
+##  7 SEC DE ESTA… 08445586483      JOSE RODRIGO D… 2017-05-16   
+##  8 SEC DE ESTA… 06536764412      SAMUEL JACKSON… 2017-06-23   
+##  9 SEC DE ESTA… 12498937000118   SOPROBEM SERV … 2017-07-11   
+## 10 SEC DE ESTA… 02558157001215   TELEFONICA DO … 2017-07-14   
+## # ... with 3 more variables: VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;,
+## #   VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># fazer o mesmo que acima, mas usando ordem decrescente</span>
+df_menor <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(NOME_FAVORECIDO))</code></pre></div>
+<pre><code>## # A tibble: 10 x 7
+##    DESCRICAO_UG CODIGO_FAVORECI… NOME_FAVORECIDO DATA_REGISTRO
+##    &lt;chr&gt;        &lt;chr&gt;            &lt;chr&gt;           &lt;date&gt;       
+##  1 SEC DE ESTA… 02558157001215   TELEFONICA DO … 2017-07-14   
+##  2 SEC DE ESTA… 12498937000118   SOPROBEM SERV … 2017-07-11   
+##  3 SEC DE ESTA… 06536764412      SAMUEL JACKSON… 2017-06-23   
+##  4 SEC DE ESTA… 08445586483      JOSE RODRIGO D… 2017-05-16   
+##  5 DEPARTAM DE… 35034750449      JOSE CICERO GO… 2017-07-14   
+##  6 UNIVERS EST… PF0000001        FOLHA PAGTO.PE… 2017-11-30   
+##  7 UNIVERS EST… PF0000001        FOLHA PAGTO.PE… 2017-11-30   
+##  8 SEC DE ESTA… 07244008000304   EYES NWEHERE S… 2017-12-22   
+##  9 SEC DE ESTA… 24472748000155   EQUILIBRIO SER… 2017-07-10   
+## 10 POLICIA MIL… 04834392000145   BRASCAR LOCADO… 2017-10-18   
+## # ... with 3 more variables: VALOR_EMPENHADO &lt;dbl&gt;, VALOR_LIQUIDADO &lt;dbl&gt;,
+## #   VALOR_PAGO &lt;dbl&gt;</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># mostrar datas onde houve os maiores valores de despesa com folha de pagamento</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(NOME_FAVORECIDO <span class="op">==</span><span class="st"> &quot;FOLHA PAGTO.PESSOAL&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(DATA_REGISTRO, VALOR_PAGO) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(VALOR_PAGO))</code></pre></div>
+<pre><code>## # A tibble: 10,285 x 2
+##    DATA_REGISTRO VALOR_PAGO
+##    &lt;date&gt;             &lt;dbl&gt;
+##  1 2017-06-30     36199947.
+##  2 2017-07-31     36197178.
+##  3 2017-05-31     35974835.
+##  4 2017-01-31     35902479.
+##  5 2017-09-30     35538295.
+##  6 2017-12-15     35507190.
+##  7 2017-08-30     35505462.
+##  8 2017-02-28     35393811.
+##  9 2017-10-31     35249901.
+## 10 2017-03-31     35149377.
+## # ... with 10,275 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># classificar dados pelo NOME_FAVORECIDO, mostrando os maiores valores pagos para cada</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(DATA_REGISTRO, NOME_FAVORECIDO, VALOR_PAGO) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(NOME_FAVORECIDO, <span class="kw">desc</span>(VALOR_PAGO))</code></pre></div>
+<pre><code>## # A tibble: 192,638 x 3
+##    DATA_REGISTRO NOME_FAVORECIDO                             VALOR_PAGO
+##    &lt;date&gt;        &lt;chr&gt;                                            &lt;dbl&gt;
+##  1 2017-07-26    13  SUPERINTENDENCIA REGIONAL DE POL. ROD.        766.
+##  2 2017-09-19    13  SUPERINTENDENCIA REGIONAL DE POL. ROD.        156.
+##  3 2017-07-26    13  SUPERINTENDENCIA REGIONAL DE POL. ROD.          0 
+##  4 2017-10-20    1 REGISTRO G. DE IMOVEIS E HIPOTECA MACEIO.      8849.
+##  5 2017-09-29    1 REGISTRO G. DE IMOVEIS E HIPOTECA MACEIO.         0 
+##  6 2017-10-05    1 REGISTRO G. DE IMOVEIS E HIPOTECA MACEIO.         0 
+##  7 2017-10-30    3D INFORMATIC SERVICOS LTDA                         0 
+##  8 2017-10-30    3D INFORMATIC SERVICOS LTDA                         0 
+##  9 2017-04-25    3D INFORMATIC SERVICOS LTDA                         0 
+## 10 2017-04-25    3D INFORMATIC SERVICOS LTDA                         0 
+## # ... with 192,628 more rows</code></pre>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://dplyr.tidyverse.org/reference/arrange.html">Documentação da função arrange()</a></p>
+</div>
+</div>
+<div id="group_by-e-summarise" class="section level3">
+<h3><span class="header-section-number">1.4.5</span> group_by() e summarise()</h3>
+<p>O combo <code>group_by()</code> e <code>summarise()</code> é excelente para agregar e resumir dados. Com <code>group_by()</code>, as funções aplicadas com <code>summarise()</code> ou até mesmo com <code>mutate()</code> ou <code>filter()</code> são aplicadas não em todo o dataset mas sim em cada grupo da variável especificada na função <code>group_by</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calcular o valor medio pago agrupado por DESCRICAO_UG</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(DESCRICAO_UG) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">VALOR_PAGO_MEDIO =</span> <span class="kw">mean</span>(VALOR_PAGO))</code></pre></div>
+<pre><code>## # A tibble: 80 x 2
+##    DESCRICAO_UG                                  VALOR_PAGO_MEDIO
+##    &lt;chr&gt;                                                    &lt;dbl&gt;
+##  1 AG DE MODERNIZACAO DA GESTAO DE PROCESSOS               18098.
+##  2 AGENC DE DEFESA E INSPECAO AGROPECUARIA DE AL            5041.
+##  3 AGENCIA DE FOMENTO DE ALAGOAS                            2382.
+##  4 AGENCIA REGULADORA DOS SERV PUB DO EST DE AL             4068.
+##  5 ALAGOAS PREVIDENCIA                                     18652.
+##  6 ASSEMBLEIA LEGISLATIVA ESTADUAL                        252891.
+##  7 CIA DE ADMINIST DE REC HUMANOS E PATRIMONIAIS           24303.
+##  8 CONTROLADORIA GERAL DO ESTADO                            6372.
+##  9 COORDENADORIA ESTADUAL DE DEFESA CIVIL CEDEC            17926.
+## 10 CORPO DE BOMBEIROS MILITAR DO ESTADO DE AL              64719.
+## # ... with 70 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calcular a soma do valor pago, a quantidade de registros e...</span>
+<span class="co"># a quantidade de favorecidos disintos para cada UG.</span>
+<span class="co"># classificar pela qtd de favorecidos distintos em ordem decrescente</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(DESCRICAO_UG) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">VALOR_PAGO_TOTAL =</span> <span class="kw">sum</span>(VALOR_PAGO),
+            <span class="dt">QTD_OBSERVACOES =</span> <span class="kw">n</span>(),
+            <span class="dt">QTD_FAVORECIDOS_DIFERENTES =</span> <span class="kw">n_distinct</span>(CODIGO_FAVORECIDO)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(QTD_FAVORECIDOS_DIFERENTES))</code></pre></div>
+<pre><code>## # A tibble: 80 x 4
+##    DESCRICAO_UG        VALOR_PAGO_TOTAL QTD_OBSERVACOES QTD_FAVORECIDOS_D…
+##    &lt;chr&gt;                          &lt;dbl&gt;           &lt;int&gt;              &lt;int&gt;
+##  1 SEC DE ESTADO DA S…        88281789.           11586               1850
+##  2 SECRETARIA DE ESTA…       688386057.           21800               1530
+##  3 UNIVERS ESTADUAL D…       218302840.           23790               1377
+##  4 FUNDO ESTADUAL DE …       250232390.            5014                738
+##  5 SECRETARIA DE ESTA…       656421639.            5734                681
+##  6 POLICIA CIVIL DO E…       263251822.            9275                579
+##  7 INSTITUTO DO MEIO …        13245505.            7800                444
+##  8 FUN DE AMPARO A PE…        20997494.            2745                441
+##  9 TRIBUNAL DE JUSTICA       446800776.            2843                432
+## 10 POLICIA MILITAR DO…       641422440.            3105                392
+## # ... with 70 more rows</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># calcular a soma de todas as variáveis que começam com valor por ano e mês...</span>
+<span class="co"># apenas para o UG &quot;ALAGOAS PREVIDENCIA&quot;</span>
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(DESCRICAO_UG <span class="op">==</span><span class="st"> &quot;ALAGOAS PREVIDENCIA&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">group_by</span>(ANO, MES) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">summarise_at</span>(<span class="kw">vars</span>(<span class="kw">contains</span>(<span class="st">&quot;VALOR_&quot;</span>)), sum)</code></pre></div>
+<pre><code>## # A tibble: 11 x 5
+## # Groups:   ANO [?]
+##      ANO   MES VALOR_EMPENHADO VALOR_LIQUIDADO VALOR_PAGO
+##    &lt;int&gt; &lt;int&gt;           &lt;dbl&gt;           &lt;dbl&gt;      &lt;dbl&gt;
+##  1  2017     2        1426284.        1303068.   1303068.
+##  2  2017     3        1504915.        1107573.    865426.
+##  3  2017     4        1475190.        1619974.   1839362.
+##  4  2017     5        1349917.        1511101.   1323909.
+##  5  2017     6        1375101.        1411114.   1411114.
+##  6  2017     7        1729151.        1739711.   1713611.
+##  7  2017     8        2039230.        1041208.   1251158.
+##  8  2017     9        1072202.        1749638.   1739718.
+##  9  2017    10        1139471.        1349006.   1354523.
+## 10  2017    11        1853057.        1214717.   1232741.
+## 11  2017    12       18273418.       19190829.  16983302.</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># count() é uma alternativa a group_by() + summarise(n())</span>
+
+df_despesas <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">count</span>(CODIGO_FAVORECIDO, NOME_FAVORECIDO) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">100</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(n))</code></pre></div>
+<pre><code>## # A tibble: 125 x 3
+##    CODIGO_FAVORECIDO NOME_FAVORECIDO                                 n
+##    &lt;chr&gt;             &lt;chr&gt;                                       &lt;int&gt;
+##  1 PF0000001         FOLHA PAGTO.PESSOAL                         10285
+##  2 29979036000221    INSS - INSTITUTO NACIONAL DO SEGURO SOCIAL   3553
+##  3 13353495000184    PROPAG TURISMO LTDA                          2452
+##  4 12272084000100    COMPANHIA ENERGETICA DE ALAGOAS - CEAL       1304
+##  5 24472748000155    EQUILIBRIO SERVICOS LTDA - ROTACAR LOCADORA  1292
+##  6 PF0000002         DIVIDA/AJUS. FISCAL                           991
+##  7 33000118001302    TELEMAR NORTE LESTE S.A                       922
+##  8 PF0000006         INATIVOS E PENSIONI                           889
+##  9 12272084000100    CIA EDE ELETRICA DE ALAGOAS                   883
+## 10 05423963000111    OI MOVEL S/A                                  848
+## # ... with 115 more rows</code></pre>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <a href="https://dplyr.tidyverse.org/reference/group_by.html">Documentação da função group_by()</a> <a href="https://dplyr.tidyverse.org/reference/summarise.html">Documentação da função summarise()</a></p>
+</div>
+</div>
+</div>
+<div id="juntando-duas-tabelas-em-uma" class="section level2">
+<h2><span class="header-section-number">1.5</span> Juntando duas tabelas em uma</h2>
+<p>Em muitas situações durante uma análise de dados, é comum trabalhar com mais de uma tabela, sendo assim necessário usar ferramentas para as combinar em uma tabela só. Para quem vem do Excel, é algo similar ao que faz o <em>PROCV</em> ou <em>VLOOKUP</em>.</p>
+<p>O <code>dplyr</code> oferece várias funções para realizar a junção de duas tabelas, que são a familía <code>x_join()</code>. Todas seguem a mesma sintaxe: <code>x_join(x, y, by)</code>, onde <code>x</code> e <code>y</code> são os dois dataframes a serem juntados e <code>by</code> é um vetor de caracteres especificando a coluna que será usada como chave.</p>
+<p>Abaixo, criamos dois datafremes simples para demonstrar o uso de duas operações de juntar tabelas: <code>left_join()</code>, <code>inner_join()</code> e <code>full_join()</code>. Todas as funções possuem a sintaxe:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vendedor &lt;-<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="dt">id =</span> <span class="kw">c</span>(<span class="st">&quot;A12&quot;</span>, <span class="st">&quot;A13&quot;</span>, <span class="st">&quot;A14&quot;</span>, <span class="st">&quot;A15&quot;</span>),
+  <span class="dt">regiao =</span> <span class="kw">c</span>(<span class="st">&quot;Sul&quot;</span>, <span class="st">&quot;Sudeste&quot;</span>, <span class="st">&quot;Oeste&quot;</span>, <span class="st">&quot;Norte&quot;</span>),
+  <span class="dt">experiencia =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">12</span>, <span class="dv">8</span>)
+)
+
+vendas =<span class="st"> </span><span class="kw">tibble</span>(
+  <span class="dt">id =</span> <span class="kw">c</span>(<span class="st">&quot;A13&quot;</span>, <span class="st">&quot;A14&quot;</span>, <span class="st">&quot;A12&quot;</span>, <span class="st">&quot;A11&quot;</span>),
+  <span class="dt">vendas =</span> <span class="kw">c</span>(<span class="dv">1200</span>, <span class="dv">2500</span>, <span class="dv">350</span>, <span class="dv">1000</span>)
+)
+
+vendedor</code></pre></div>
+<pre><code>## # A tibble: 4 x 3
+##   id    regiao  experiencia
+##   &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;
+## 1 A12   Sul               5
+## 2 A13   Sudeste           2
+## 3 A14   Oeste            12
+## 4 A15   Norte             8</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vendas</code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##   id    vendas
+##   &lt;chr&gt;  &lt;dbl&gt;
+## 1 A13     1200
+## 2 A14     2500
+## 3 A12      350
+## 4 A11     1000</code></pre>
+<p><code>left_join(x, y)</code>: retorna todas as observações em <code>x</code>, independentemente se existem correspondentes (de acordo com as especificações em <code>by</code>) ou não.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">left_join</span>(vendedor, vendas, <span class="dt">by =</span> <span class="st">&quot;id&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 4 x 4
+##   id    regiao  experiencia vendas
+##   &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;
+## 1 A12   Sul               5    350
+## 2 A13   Sudeste           2   1200
+## 3 A14   Oeste            12   2500
+## 4 A15   Norte             8     NA</code></pre>
+<p><code>inner_join(x, y)</code>: retornar apenas observações que correspondem tanto em <code>x</code> como em <code>y</code>. Note como o vendedor <em>A15</em> não consta no dataframe final, pois ele não está presente no dataframe <code>y</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">inner_join</span>(vendedor, vendas, <span class="dt">by =</span> <span class="st">&quot;id&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 3 x 4
+##   id    regiao  experiencia vendas
+##   &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;
+## 1 A12   Sul               5    350
+## 2 A13   Sudeste           2   1200
+## 3 A14   Oeste            12   2500</code></pre>
+<p><code>full_join(x, y)</code> é mais completo e retorna todas as observações presentes em <code>x</code> e <code>y</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">full_join</span>(vendedor, vendas, <span class="dt">by =</span> <span class="st">&quot;id&quot;</span>)</code></pre></div>
+<pre><code>## # A tibble: 5 x 4
+##   id    regiao  experiencia vendas
+##   &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;
+## 1 A12   Sul               5    350
+## 2 A13   Sudeste           2   1200
+## 3 A14   Oeste            12   2500
+## 4 A15   Norte             8     NA
+## 5 A11   &lt;NA&gt;             NA   1000</code></pre>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="https://dplyr.tidyverse.org/articles/two-table.html">Tutorial sobre funções para trabalhar com mais de uma tabela</a><br />
+<a href="https://dplyr.tidyverse.org/reference/join.html">Documentação sobre funções da família join</a></p>
+</div>
+</div>
+<div id="tidyr" class="section level2">
+<h2><span class="header-section-number">1.6</span> tidyr</h2>
+<p><code>tidyr</code> é outro pacote do tidyverse focado no manuseio de dados. Seu foco é transformar datasets no formato tidy, que facilita seu uso em pacotes como <code>dplyr</code> e <code>ggplot2</code>.</p>
+<p>Confira o dataset abaixo (leia a documentação em <code>?economics</code> para saber o significado das variáveis):</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;economics&quot;</span>)
+<span class="co"># ?economics</span>
+<span class="kw">head</span>(economics)</code></pre></div>
+<pre><code>## # A tibble: 6 x 6
+##   date         pce    pop psavert uempmed unemploy
+##   &lt;date&gt;     &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;int&gt;
+## 1 1967-07-01  507. 198712    12.5     4.5     2944
+## 2 1967-08-01  510. 198911    12.5     4.7     2945
+## 3 1967-09-01  516. 199113    11.7     4.6     2958
+## 4 1967-10-01  513. 199311    12.5     4.9     3143
+## 5 1967-11-01  518. 199498    12.5     4.7     3066
+## 6 1967-12-01  526. 199657    12.1     4.8     3018</code></pre>
+<p>Suponha que você deseja saber o valor médio dos indicadores <code>pce</code>, <code>pop</code>, <code>psavert</code>, <code>uempmed</code>, e <code>unemploy</code> para cada ano. Usando o que já aprendemos com o dplyr, podemos fazer assim:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">economics <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># criar nova variavel com o ano da data</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">ano =</span> lubridate<span class="op">::</span><span class="kw">year</span>(date)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># agrupar os dados por ano</span>
+<span class="st">  </span><span class="kw">group_by</span>(ano) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># calcular as medias de todas as variaveis</span>
+<span class="st">  </span><span class="kw">summarise</span>(
+    <span class="dt">pce =</span> <span class="kw">mean</span>(pce),
+    <span class="dt">pop =</span> <span class="kw">mean</span>(pop),
+    <span class="dt">psavert  =</span> <span class="kw">mean</span>(psavert),
+    <span class="dt">uempmed =</span> <span class="kw">mean</span>(uempmed),
+    <span class="dt">unemploy =</span> <span class="kw">mean</span>(unemploy)
+  ) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">head</span>()</code></pre></div>
+<pre><code>## # A tibble: 6 x 6
+##     ano   pce     pop psavert uempmed unemploy
+##   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+## 1  1967  515. 199200.    12.3    4.7     3012.
+## 2  1968  557. 200664.    11.2    4.5     2797.
+## 3  1969  604. 202649.    10.7    4.44    2830.
+## 4  1970  648. 204982.    12.6    4.98    4127.
+## 5  1971  701  207589.    13.3    6.28    5022.
+## 6  1972  769. 209838.    12.1    6.11    4876.</code></pre>
+<p>E se tivéssemos centenas de colunas? E se quisermos plotar todas essas variáveis em um gráfico de linha? Isso demandaria muito código manual. Esse é um exemplo onde transformar os dados em um formato <em>tidy</em> é benéfico.</p>
+<div class="figure">
+<img src="imgs/tidy-1.png" />
+
+</div>
+<p>Para isso, usamos a função <code>gather</code>, que precisa de três argumentos:</p>
+<ul>
+<li>O conjunto de colunas que serão transformadas de colunas para linhas;</li>
+<li>O nome da variável (coluna) cujos valores serão as colunas transformadas acima;<br />
+</li>
+<li>O nome da variável cujos valores serão os valores correspondentes das colunas transformadas;</li>
+</ul>
+<p>Observe o exemplo abaixo:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">economics <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(indicador, valor, <span class="op">-</span>date)</code></pre></div>
+<pre><code>## # A tibble: 2,870 x 3
+##    date       indicador valor
+##    &lt;date&gt;     &lt;chr&gt;     &lt;dbl&gt;
+##  1 1967-07-01 pce        507.
+##  2 1967-08-01 pce        510.
+##  3 1967-09-01 pce        516.
+##  4 1967-10-01 pce        513.
+##  5 1967-11-01 pce        518.
+##  6 1967-12-01 pce        526.
+##  7 1968-01-01 pce        532.
+##  8 1968-02-01 pce        534.
+##  9 1968-03-01 pce        545.
+## 10 1968-04-01 pce        545.
+## # ... with 2,860 more rows</code></pre>
+<p>Com isso, nós transformamos um dataset de um formato wide (menos linhas e mais colunas) em um formato long (mais linhas e menos colunas), que está no formato ideal para ser usado com a suíte de pacotes <code>tidyverse</code>, entre eles o <code>ggplot2</code>.</p>
+<p>Em algumas situações, porém, será necessário fazer o contrário: transformar o dataset de long para wide. Para isso, usa-se a função <code>spread()</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">&quot;economics_long&quot;</span>)
+<span class="kw">head</span>(economics_long)</code></pre></div>
+<pre><code>## # A tibble: 6 x 4
+## # Groups:   variable [1]
+##   date       variable value  value01
+##   &lt;date&gt;     &lt;fct&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+## 1 1967-07-01 pce       507. 0       
+## 2 1967-08-01 pce       510. 0.000266
+## 3 1967-09-01 pce       516. 0.000764
+## 4 1967-10-01 pce       513. 0.000472
+## 5 1967-11-01 pce       518. 0.000918
+## 6 1967-12-01 pce       526. 0.00158</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">economics_long <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>value01) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">spread</span>(variable, value, <span class="dt">fill =</span> <span class="ot">NA</span>)</code></pre></div>
+<pre><code>## # A tibble: 574 x 6
+##    date         pce    pop psavert uempmed unemploy
+##    &lt;date&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+##  1 1967-07-01  507. 198712    12.5     4.5     2944
+##  2 1967-08-01  510. 198911    12.5     4.7     2945
+##  3 1967-09-01  516. 199113    11.7     4.6     2958
+##  4 1967-10-01  513. 199311    12.5     4.9     3143
+##  5 1967-11-01  518. 199498    12.5     4.7     3066
+##  6 1967-12-01  526. 199657    12.1     4.8     3018
+##  7 1968-01-01  532. 199808    11.7     5.1     2878
+##  8 1968-02-01  534. 199920    12.2     4.5     3001
+##  9 1968-03-01  545. 200056    11.6     4.1     2877
+## 10 1968-04-01  545. 200208    12.2     4.6     2709
+## # ... with 564 more rows</code></pre>
+<div class="alert alert-info" <strong="">
+<p>Referências:</strong> <br> <a href="%5BSite%20oficial%20do%20pacote%20%60dplyr%60%5D(http://dplyr.tidyverse.org/)">Site oficial do pacote <code>tidyr</code></a> <a href="https://cdr.ibpad.com.br/limpando-dados.html">Capítulo “Limpando os dados” do livro Ciência de Dados com R</a><br />
+<a href="http://r4ds.had.co.nz/tidy-data.html">Capítulo “Tidy data” do livro R for Data Science</a> <a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Cheatsheet do pacote tidyr</a> <a href="http://vita.had.co.nz/papers/tidy-data.html">Artigo científico Tidy data</a></p>
+</div>
+</div>
+<div id="exercicios" class="section level2">
+<h2><span class="header-section-number">1.7</span> Exercícios</h2>
+<ol start="0" style="list-style-type: decimal">
+<li><p>Carregue os pacotes <code>tidyverse</code> e <code>janitor</code>.</p></li>
+<li><p>Baixe o dataset de <a href="https://www.kaggle.com/claudiodavi/superhero-set">Super Heróis do Kaggle</a>. Descompacte o arquivo e importe os dois arquivos para o R: salve o arquivo <code>super_hero_powers.csv</code> no objeto <code>hero_powers</code> e o arquivo <code>heroes_information.csv</code> no objeto <code>hero_info</code>. Use também na função <code>read_csv</code> o argumento <code>na = c(&quot;&quot;, &quot;-&quot;, &quot;NA&quot;))</code> para que linhas com traço ou vazias sejam convertidas para <strong>NA</strong>. Observe as colunas presentes nos datasets usando a função <code>glimpse</code>.</p></li>
+<li><p>Use a função <code>janitor::clean_names()</code> para limpar os nomes das colunas.</p></li>
+<li><p>No caso de <code>hero_info</code>, remova a primeira coluna.</p></li>
+<li><p>Em <code>hero_powers</code>, converta todas as colunas com exceção da primeira para o tipo <code>logical</code>.</p></li>
+<li><p>Em <code>hero_info</code>, na coluna <code>publisher</code>, observe quantas editoras diferentes existem no dataset. Substitua <em>Marvel Comics</em> por <em>Marvel</em>, <em>DC Comics</em> por <em>DC</em> e todas as outras editoras pelo termo “Outros”. Dica: uma das possíveis maneiras de fazer isso é usando uma combinação das funções <code>dplyr::mutate()</code> e <code>dplyr::case_when()</code>.</p></li>
+<li><p>Em <code>hero_info</code>, quais raças (coluna <code>race</code>) são exclusivas de cada editora?</p></li>
+<li><p>Em <code>hero_info</code>, quais cores de olhos (coluna <code>eye_color</code>) são mais comuns para cada sexo (coluna <code>gender</code>)? Filtre o top 3 para cadda sexo.</p></li>
+<li><p>Em <code>hero_powers</code>, calcule o percentual de heróis que possui cada habilidade descrita nas colunas (Dica: é possível calcular a soma ou percentual de um vetor lógico, pois <code>TRUE</code> equivale a 1 e <code>FALSE</code> a 0). Use a função <code>dplyr::summarise_if</code> para aplicar a função em todas as colunas cuja classe é <code>logical</code>.</p></li>
+<li><p>Repita o item anterior, usando uma abordagem mais <em>tidy</em>: converta o formato do dataframe <code>hero_powers</code> para o formato long. Ele passará a possuir apenas 3 colunas: <code>hero_names</code>, <code>poder</code> e <code>possui_poder</code> usando a função <code>tidyr::gather()</code>. Então, calcule a média da coluna <code>possui_poder</code> agrupado pela coluna <code>poder</code>.</p></li>
+<li><p>Junte os dois dataframes em um só, chamado <code>hero</code>. A função a ser usada é <code>inner_join()</code>. Pense bem em qual será a ordem dos dataframes nos argumentos da função e qual será a chave usada no argumento <code>by</code> para unir as duas tabelas.</p></li>
+<li><p>No dataframe <code>hero</code>, calcule o percentual de herois de cada editora que são telepatas.</p></li>
+<li><p>No dataframe <code>hero</code>, selecione as colunas <code>name</code>, <code>publisher</code>, <code>flight</code> e <code>weight</code>, filtre os heróis que podem voar e retorne os 10 de maior peso.</p></li>
+<li><p>Salve o dataframe chamado <code>hero</code> no arquivo <code>herois_completo.csv</code> usando a função <code>readr::write_csv()</code>.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introducao-ao-ggplot2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

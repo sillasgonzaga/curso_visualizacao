@@ -1,0 +1,930 @@
+# ggplot2 - parte II
+
+Neste módulo, usaremos estes pacotes. Confira se você já os tem instalados:
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(janitor)
+library(readxl)
+# interface com series temporais do banco central:
+library(rbcb) # install.packages('rbcb')
+# jaja explico :)
+library(ggrepel) # install.packages('ggrepel')
+```
+
+Usaremos o dataset do índice de felicidade salvo anteriormente:
+
+```{r}
+# importar dataset
+df_feliz <- read_rds("dados_felicidade_2017.rds")
+head(df_feliz)
+```
+
+
+## Gráficos de relacionamentos entre variáveis contínuas: scatter plot
+
+Scatterplot, ou gráfico de pontos, é um tipo de visualização especialmente útil para observar se existe uma relação entre duas variáveis contínuas (numéricas), de que tipo ela é e se existem indivíduos que são fogem do comportamento padrão da maioria dos pontos.
+
+Observer o nosso dataset do índice de felicidade. Existem várias combinações de variáveis que poderíamos olhar. Por exemplo, qual será a relação entre PIB per capita e expectativa de vida saudável?
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point()
+```
+
+Apenas com esse simples gráfico, aprendemos algumas informações sobre o dataset:  
+* Conforme o esperado, existe uma correlação positiva entre as variáveis: quanto maior o PIB per capita do país, maior a expectativa de sua população.  
+* Contudo, existem alguns pontos que fogem dessa relação, como os que possuem log PIB per capita de 8,5 mas expectativa de vida em torno de apenas 45 anos.
+
+Gráficos de pontos funcionam muito bem em conjunto com `geom_smooth()`. Observe como os comentários que fizemos sobre as propriedades dessas duas variáveis ficam ainda mais evidentes após adicionar a camada `geom_smooth()`:
+
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point() +
+  # adicionar reta de ajuste de um modelo linear
+  geom_smooth(method = "lm")
+```
+
+A função `geom_point()` depende apenas de dois elementos obrigatórios para funcionar: `x` e `y`. Contudo, como já vimos, podemos definir opcionalmente outras propriedades visuais dos pontos, seja com valores absolutos ou mapeando variáveis a eles. Observe o exemplo abaixo:
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point(aes(color = continent))
+
+```
+
+Ao acrescentar o elemento de cor, aprendemos que praticamente todos os países no quadrante de baixo PIB per capita e expectativa de vida são africanos.
+
+Em algumas situações, faz mais sentido usar facets para separar pontos de acordo com uma variável categórica:
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point() +
+  facet_wrap(~ continent)
+
+```
+
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[`geom_point()`](https://ggplot2.tidyverse.org/reference/geom_point.html)  
+</div>
+
+
+## Gráficos de barras ou colunas
+
+Gráficos de barras ou colunas são uma ótima maneira de resumir um conjunto de dados, principalmente quando o objeto da análise é uma variável categórica.
+
+Existem duas principais maneiras de criar um gráfico de barras no ggplot2: `geom_bar()` e `geom_col()`. `geom_bar` representa a altura de cada barra proporcional ao número de casos em cada grupo da variável categórica. Caso se deseja representar a altura das barras de acordo com alguma variável numérica presente no dataset. Assim, `geom_bar()` precisa apenas da *aesthetic* x, enquanto `geom_col()` precisa das *aesthetics* x e y, onde y é a variável numérica a qual a altura das barras representará, proporcionalmente.
+
+Por exemplo, uma boa maneira de mostrar quantos países de cada continente estão presentes no nosso dataset é por meio de um gráfico de barras:
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = continent)) +
+  geom_bar()
+```
+
+É possível fazer exatamente o mesmo gráfico acima com `geom_col()` sendo apenas necessário transformar os dados antes:
+
+```{r}
+# agrupar os dados e contar a quantidade de países por continente
+df_feliz %>% 
+  group_by(continent) %>% 
+  summarise(qtd_paises = n()) %>% 
+  ggplot(aes(x = continent, y = qtd_paises)) +
+  geom_col()
+
+```
+
+Diferentemente de `geom_point()`, a *aesthetic* `color` das barras define apenas a cor das bordas. Para mudar a cor das barras, deve-se alterar o parâmetro `fill`:
+
+```{r}
+df_feliz %>% 
+  group_by(continent) %>% 
+  summarise(qtd_paises = n()) %>% 
+  ggplot(aes(x = continent, y = qtd_paises)) +
+  geom_col(color = "red", fill = "gray70")
+
+```
+
+No exemplo abaixo, usamos `geom_col()` para plotar os países com os 10 maiores índices de felicidades, com as barras coloridas pelo continente, mapeando essa variável na *aesthetic* `fill`:
+
+```{r}
+df_feliz %>% 
+  # selecionar o top 10 em indice de felicidade
+  top_n(10, life_ladder) %>% 
+  ggplot(aes(x = country, y = life_ladder)) +
+  geom_col(aes(fill = continent))
+```
+
+### Invertendo eixos
+
+No exemplo acima, os nomes dos países se sobrepuseram devido ao seu tamanho. Nessa e em outra situações, é desejável inverter os eixos do gráfico, o que é feito com a função `coord_flip()`:
+
+```{r}
+df_feliz %>% 
+  # selecionar o top 10 em indice de felicidade
+  top_n(10, life_ladder) %>% 
+  ggplot(aes(x = country, y = life_ladder)) +
+  geom_col(aes(fill = continent)) +
+  # inverter eixos
+  coord_flip()
+```
+
+### Como mudar a ordem das barras
+
+Uma tarefa muito comum ao fazer gráfico de barras é mudar a ordem das barras. Por padrão, o ggplot2 mantém a ordem dos *leveis* da variável, que é a alfabética (em casos onde ela não foi definida manualmente). É possível, no entanto, mudar a ordem das barras de forma que ela siga a mesma da variável contínua representada no gráfico ou até mesmo de uma outra presente no dataset.
+
+Vamos refazer o gráfico de quantidade de países por continente, dessa vez reordenado as barras:
+
+```{r}
+# agrupar os dados e contar a quantidade de países por continente
+df_feliz %>% 
+  group_by(continent) %>% 
+  summarise(qtd_paises = n()) %>% 
+  # transformar variavel continent, mudando a ordem de seus leveis
+  mutate(continent = reorder(continent, qtd_paises)) %>% 
+  ggplot(aes(x = continent, y = qtd_paises)) +
+  geom_col()
+```
+
+Para inverter a ordem, isto é, plotar as barras em ordem decrescente, basta apenas escrever um sinal de menos (`-`) antes da variável contínua:
+
+```{r}
+# agrupar os dados e contar a quantidade de países por continente
+df_feliz %>% 
+  group_by(continent) %>% 
+  summarise(qtd_paises = n()) %>% 
+  # transformar variavel continent, mudando a ordem de seus leveis
+  mutate(continent = reorder(continent, -qtd_paises)) %>% 
+  ggplot(aes(x = continent, y = qtd_paises)) +
+  geom_col()
+```
+
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[`geom_bar()` e `geom_col()`](https://ggplot2.tidyverse.org/reference/geom_bar.html)  
+</div>
+
+
+## Gráficos de distribuições
+
+Existe uma família de gráficos dedicada a representar visualmente a distribuição de uma determinada variável contínua, com o objetivo de observar aspectos como média da distribuição, desvio padrão da média, presença de outliers, formato da distribuição, etc.
+
+### Histogramas
+
+Histograma é um método de sumarizar uma variável contínua a dividindo em segmentos ou intervalos (*bins*, em inglês) e contando quantas observações estão presentes em cada intervalo. O que difere o histograma de um gráfico de barras é o tipo da variável, pois o último lida com variáveis categóricas ou discretas, sendo os intervalos definidos pelos próprios valores que a variável assume, sem a necessidade de dividir em intervalos.
+
+No `ggplot2`, uma camada contendo um histograma é criada usando a função `geom_histogram()`, que só precisa de um elemento *aesthetic*: a variável do eixo x, que é aquela que se deseja estudar a distribuição.
+
+No nosso dataset de exemplo, o histograma pode ser usado para analisar a distribuição da expectativa de vida dos países:
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_histogram()
+
+```
+
+A função `geom_histogram()`, por padrão, "quebra" a variável em 30 intervalos. É possível mudar esse comportamento especificando o argumento `bins`:
+
+```{r}
+# reduzindo o numero de intervalos
+df_feliz %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_histogram(bins = 10)
+```
+
+```{r}
+# aumentando o número de intervalos
+df_feliz %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_histogram(bins = 40)
+```
+
+Outra maneira de redefinir os intervalos de um histograma é mudando o argumento `binwidth`, que controla a largura dos intervalos. Não é possível definir os argumentos `bins` e `binwidth` de uma só vez; ou um ou o outro.
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_histogram(binwidth = 5)
+```
+
+No histograma acima, ao definir a largura dos intervalos como 5, o histograma criou intervalos usando como centros os números 45, 50, 55, etc. Portanto, os intervalos são [42,5 - 47,5), [47,5 - 52,5), etc.
+
+É possível també definir os limites dos intervalos. Por exemplo, caso você deseje que os intervalos comecem com números que terminem em 5, deve-se alterar o argumento `boundary`:
+
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_histogram(binwidth = 5, boundary = 5)
+
+```
+
+Assim, conseguimos criar uma visualização que mostra que a grande maioria dos países possui uma expectativa de vida maior que 60 anos, e que alguns poucos países possuem uma expectativa de vida menor que 50 anos e maior que 75.
+
+Como você já deve ter imaginado, é possível mudar aspectos visuais do histograma alterando suas *aesthetics*, como mudar a cor do histograma por valores atributos ou mapear alguma variável à cor do histograma. Veja que a cor de um histograma é definida pela propriedade `fill`, pois `color` altera apenas a cor das bordas das barras:
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_histogram(binwidth = 5, boundary = 5,
+                 color = "red", fill = "green", alpha = 0.5)
+```
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_histogram(binwidth = 5, boundary = 5, aes(fill = continent))
+```
+
+Histogramas agrupados, como o acima, não são muito bons para visualizar as diferenças entre os grupos. Ness caso, uma melhor alternativa é usar facets:
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_histogram(binwidth = 5, boundary = 5) +
+  facet_wrap(~ continent, ncol = 1)
+```
+
+
+Contudo, existem maneiras melhores de visualizar a distribuição de uma variável continua segmentada por diferentes grupos, como o que tentamos fazer acima. Exemplos são os gráficos dos próximos tópicos.
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+[`geom_histogram()`](https://ggplot2.tidyverse.org/reference/geom_histogram.html)
+</div>
+
+### Gráfico de densidade
+
+Ao trabalhar com uma variável contínua, uma alternativa a dividir os dados em intervalos e fazer um histograma é calcular a densidade de kernel estimada para a distribuição da variável. Parece complicado, mas a função `geom_density()` faz todo o trabalho por nós:
+
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_density()
+```
+
+Semelhantemente a um histograma, as *aesthetics* `color` e `fill` podem ser definidas, sendo a primeira para a borda e a segunda para o corpo da curva de densidade:
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_density(color = "red", fill = "green")
+```
+
+O gráfico de densidade, por si só, não oferece muito mais em termos de interpretabilidade que um histograma. Seu grande triunfo está em observar como se comporta a distribuição da variável contínua definida na *aesthetic* x em diferentes grupos de uma variável categórica definida na *aesthetic* fill:
+
+```{r}
+df_feliz %>% 
+  # remover oceania porque so tem dois paises
+  filter(continent != "Oceania") %>% 
+  ggplot(aes(x = healthy_life_expectancy_at_birth)) +
+  geom_density(aes(fill = continent),
+               # adicionar transparencia
+               alpha = 0.5
+               )
+
+```
+
+A partir do gráfico de densidade acima, aprendemos algumas informações sobre nossos dados, como:  
+* Não só a média da expectativa de vida da África é bem menor que a dos demais continentes, mas poucos países apresentam níveis dessa variável semelhantes a Europa, Asia e Americas.  
+* Nenhuma das distribuições da variáveis nos quatro continentes aparenta ser normal: a da Europa, por exemplo, apresenta um formato bimodal. Essa pode ser uma informação importante para suas análises.
+
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[Distribuição normal](http://www.portalaction.com.br/probabilidades/62-distribuicao-normal)  
+[`geom_density()`](https://ggplot2.tidyverse.org/reference/geom_density.html)
+</div>
+
+
+### Boxplot
+
+Boxplot, ou diagramas de caixa, é uma outra maneira de estudar o comportamento de uma variável contínua segmentada por diferentes grupos de uma variável categórica. A função `geom_boxplot()` precisa de duas `aesthetics`: x, a variavel categórica, e y, a variável contínua:
+
+```{r}
+df_feliz %>% 
+  # remover oceania porque so tem dois paises
+  filter(continent != "Oceania") %>% 
+  ggplot(aes(x = continent, y = healthy_life_expectancy_at_birth)) +
+  geom_boxplot()
+```
+
+Um boxplot tenta resumir uma variável numérica usando 5 números: a mediana (linha central da caixa), o primeiro quartil ou 25% percentil (linha inferior), o terceiro quartil ou 75% percentil (linha superior) e uma margem definida pelos intervalos interquartis multiplicados por um fator, que por padrão é 1,58. Ou seja: $1.58 \times IQR$. Pontos fora desses limites seriam considerados outliers ou anomalias para aquele grupo.
+
+Em determinadas situações, é desejável inverter os eixos, transformando o gráfico em horizontal. Isso é possível por meio da função `coord_flip()`
+
+```{r}
+df_feliz %>% 
+  filter(continent != "Oceania") %>% 
+  ggplot(aes(x = continent, y = healthy_life_expectancy_at_birth)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+
+Também é possível criar uma subdivisão com boxplots usando o argumento fill. Por exemplo:
+
+```{r}
+
+# criar nova variavel que indica se um país possui um 
+# indice de felicidade maior que 6
+
+df_feliz %>% 
+  filter(continent != "Oceania") %>% 
+  mutate(indice_felicidade = if_else(life_ladder > 6,
+                                     "acima de 6",
+                                     "abaixo")) %>% 
+  ggplot(aes(x = continent, y = healthy_life_expectancy_at_birth)) +
+  geom_boxplot(aes(fill = indice_felicidade))
+
+```
+
+Assim, com o gráfico acima descobrimos que países dentro de um mesmo continente que possuem índice de felicidade acima 6 possuem também maior expectativa de vida, o que era esperado. Nota-se que a caixa dos países da África com índice de felicidade acima de 6 ficou achatada porque só tem um país.
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+[`geom_boxplot()`](https://ggplot2.tidyverse.org/reference/geom_boxplot.html)
+</div>
+
+### Jitter
+
+Uma maneira de incrementar um boxplot é plotar também todos os pontos, e não apenas os 5 que o boxplot representa. Isso pode ser feito com a função `geom_jitter()`, que é uma variação de `geom_point()` que adiciona uma pequena quantidade de variação aleatória na posição dos pontos, o que pode ser útil ao plotar pontos que sobreporiam devido a grande quantidade de indíviduos presentes em um mesmo intervalo de pontos.
+
+```{r}
+df_feliz %>% 
+  # remover oceania porque so tem dois paises
+  filter(continent != "Oceania") %>% 
+  ggplot(aes(x = continent, y = healthy_life_expectancy_at_birth)) +
+  geom_boxplot() +
+  geom_jitter(color = "red")
+
+```
+
+Uma curiosidade interessante do `ggplot2` é que as camadas são criadas na ordem que são definidas. Observe a diferença do gráfico acima para o criado abaixo, onde a ordem das camadas de boxplot e jitter foi invertida:
+
+
+```{r}
+df_feliz %>% 
+  # remover oceania porque so tem dois paises
+  filter(continent != "Oceania") %>% 
+  ggplot(aes(x = continent, y = healthy_life_expectancy_at_birth)) +
+  geom_jitter(color = "red") +
+  geom_boxplot() 
+
+```
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+[`geom_jitter()`](https://ggplot2.tidyverse.org/reference/geom_jitter.html)  
+</div>
+
+## Gráficos de séries temporais (linhas)
+
+Série temporal é definida como uma variável contínua mensurada em intervalos regulares de tempo. A melhor representação visual para dados desse tipo são gráficos de linha, que são úteis para mostrar o comportamento de uma variável ao longo do tempo.
+
+Como exemplo para gráficos de linha, vamos plotar a evolução de dois importantes indicadores econômicos brasileiros: a taxa SELIC e o índice IPCA, ambos mensalizados. Para obter esses indicadores, usamos o pacote `rbcb`:
+
+
+```{r}
+# Importar para o R dados das series.
+lista_datasets <- rbcb::get_series(code = c(ipca = 433, selic = 4390))
+# O objeto retornado é uma lista de dois dataframes:
+str(lista_datasets)
+# Voce pode acessar cada dataframe usando a sintaxe NOME_DA_LISTA$NOME_DO_OBJETO:
+str(lista_datasets$selic)
+# Vamos então criar apenas um dataset que corresponde a junção dos dois dataframes
+df_st <- left_join(lista_datasets$ipca,
+                   lista_datasets$selic,
+                   by = "date")
+
+# conferindo o novo dataframe criado
+head(df_st)
+
+```
+
+Temos uma coluna de data (`date`), cuja classe é `Date` e será usada como eixo x no gráfico de séries temporais:
+
+```{r}
+# grafico da taxa selic
+ggplot(df_st, aes(x = date, y = ipca)) +
+  geom_line()
+
+```
+
+Adicionar `geom_smooth(method = "loess")` ajuda a distinguir movimentos de tendência na série temporal:  
+
+```{r}
+df_st %>% 
+  filter(date >= as.Date("2008-01-01")) %>% 
+  ggplot(aes(x = date, y = selic)) +
+  geom_line() +
+  geom_smooth(method = "loess", se = FALSE)
+
+```
+
+
+
+É possível incluir no gráfico mais de uma variável no eixo y. Uma das alternativas é simplesmente acrescentar mais uma camada `geom_line()` com a nova variável:
+
+```{r}
+ggplot(df_st, aes(x = date, y = ipca)) +
+  geom_line() +
+  # adicionar mais uma camada de geom_line
+  geom_line(aes(y = selic), color = "blue")
+
+```
+
+No entanto, a melhor maneira de se fazer isso é converter os dados para o formato long (tidy):
+
+```{r}
+df_st_tidy <- df_st %>% 
+  gather(indicador, valor, ipca:selic) %>% 
+  arrange(date)
+
+head(df_st_tidy)
+# antes de proceder com o restante do exercicio, vamos salvar o dataset para
+# o usar nos proximos modulos
+write_rds(df_st_tidy, "series_ipca_selic.rds")
+```
+
+Note que `indicador` é uma coluna categórica e `valor`, numérica. Portanto, a primeira será mapeada à *aesthetic* **y** e a segunda a **color**.
+Agora, a variável `indicador` é mapeada ao atributo color.
+
+```{r}
+df_st_tidy %>% 
+  ggplot(aes(x = date, y = valor, color = indicador)) +
+  geom_line()
+```
+
+Notou como o período antes de 1995 representava uma realidade muito diferente da atual? Vamos então filtrar os dados a partir desse ano.
+
+```{r}
+df_st_pos_1995 <- df_st_tidy %>% 
+  filter(date >= as.Date("1995-01-01"))
+
+df_st_pos_1995 %>% 
+  ggplot(aes(x = date, y = valor, color = indicador)) +
+  geom_line()
+```
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+[`geom_line()`](https://ggplot2.tidyverse.org/reference/geom_path.html)
+</div>
+
+### Personalizando a escala do eixo de datas
+
+Observe o último gráfico. O `ggplot2`, internamente, "quebrou" o eixo x em intervalos de 5 anos. Esse aspecto do gráfico pode ser alterado usando a função `scale_x_date`, usando o argumento `date_breaks`:
+
+```{r}
+ggplot(df_st_pos_1995, aes(x = date, y = valor, color = indicador)) +
+  geom_line() + 
+  scale_x_date(date_breaks = "2 year")
+```
+
+Ao mudar o argumento `date_breaks`, o gráfico perdeu a representação de datas anterior, que antes só mostrava o ano. Para voltar ao formato anterior, pode-se alterar o formato das datas usando o argumento `date_labels` da mesma função:
+
+```{r}
+ggplot(df_st_pos_1995, aes(x = date, y = valor, color = indicador)) +
+  geom_line() + 
+  scale_x_date(date_breaks = "2 year",
+               date_labels = "%Y")
+```
+
+## Mapas de calor
+
+Até agora, estudamos gráficos para representar as relações entre:  
+* Uma variavél categórica com ou sem uma numérica (gráficos de barra)  
+* Duas numéricas (gráficos de pontos)  
+* Uma numérica (histogramas e boxplots)  
+* Uma numérica ao longo do tempo (gráficos de linhas)
+
+Para representar uma relação um pouco mais complexa, a de duas variáveis categóricas e uma numérica, pode-se usar um mapa de calor.
+
+Suponha que você deseja plotar a correlação entre todos os possíveis pares de correlação das variáveis de um dataset:
+
+```{r}
+# calcular correlacao entre as variaveis numericas do dataset de felicidade
+df_feliz_num <- df_feliz %>%
+  select(life_ladder, log_gdp_per_capita, social_support,
+         healthy_life_expectancy_at_birth, gini, perceptions_of_corruption) %>%
+  # removar NAs
+  na.omit()
+# criar matriz de correlacao
+matriz_correl <- cor(df_feliz_num)
+# de uma olhada no objeto criado
+# matriz_correl
+
+# transformar para dataframe
+matriz_correl <- as.data.frame(matriz_correl) 
+# conveter rownames para uma coluna
+matriz_correl <- rownames_to_column(matriz_correl, "var1")
+# converter dataframe para formato tidy
+matriz_correl_tidy <- matriz_correl %>% 
+  gather(var2, correlacao, -var1)
+
+head(matriz_correl_tidy)
+```
+
+Assim, no dataframe `var1` e `var2`, temos duas variáveis categóricas (os pares de variáveis) e uma numérica (a correlação entre as duas variáveis).
+
+A função do `ggplot2` para criar um mapa de calor é `geom_tile`, que precisa de três *aesthetics*: os eixos **x** e **y**, que são as variáveis categóricas, e **fill**, que será a variável contínua que definirá a cor dos quadrados:
+
+```{r}
+matriz_correl_tidy %>% 
+  ggplot(aes(x = var1, y = var2, fill = correlacao)) +
+  geom_tile()
+```
+
+Devido ao tamanho dos nomes das variáveis, o eixo x ficou difícil de ler. Uma solução é mudar o ângulo dos nomes, isto é, colocá-los na vertical. A função `theme()`, que ainda será mostrada em detalhes neste módulo, possui um argumento para fazer isso:
+
+```{r}
+matriz_correl_tidy %>% 
+  ggplot(aes(x = var1, y = var2, fill = correlacao)) +
+  geom_tile() +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+Caso você não tenha gostado da escala de cores em azul definida por padrão pelo ggplot2, é possível mudar usando a função scale_fill_distiller:
+
+```{r}
+matriz_correl_tidy %>% 
+  ggplot(aes(x = var1, y = var2, fill = correlacao)) +
+  geom_tile() +
+  scale_fill_distiller(
+    # alterar o tipo da escala. pode ser divergente, sequencial e categorica
+    type = "div",
+    # alterar a paleta. confira os possiveis valores na documentacao da funcao
+    palette = "RdBu",
+    # inverter a direcao
+    direction = 1
+    ) +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[`geom_tile()`](https://ggplot2.tidyverse.org/reference/geom_tile.html)  
+[Material sobre funções da família scale](https://cdr.ibpad.com.br/ggplot2.html#escalas), seção 9.3.
+</div>
+
+
+## Texto
+
+As funções `geom_text()` e `geom_label()` servem para acrescentar camadas de texto no gráfico. A única diferença entre as duas é que `geom_label()` desenha um retângulo no fundo do texto, possivelmente melhorando sua leitura. Ambas funções `geom_text()` dependem de três *aesthetics*: **x** e **y**, que correspondem às posições dos textos a serem plotados, e **label**, que é o texto a ser plotado.
+
+No exemplo abaixo, não especificamos **x** e **y** em `geom_text()` porque a função herda as definidas na função `ggplot()`:
+
+```{r}
+# agrupar os dados e contar a quantidade de países por continente
+df_feliz_agg <- df_feliz %>% 
+  group_by(continent) %>% 
+  summarise(qtd_paises = n())
+
+df_feliz_agg
+
+```
+
+```{r}
+
+df_feliz_agg %>% 
+  ggplot(aes(x = continent, y = qtd_paises)) +
+  geom_col() +
+  # adicionar camada de texto
+  geom_text(aes(label = qtd_paises))
+```
+
+
+Observe a diferença de `geom_label()`:
+
+```{r}
+
+df_feliz_agg %>% 
+  ggplot(aes(x = continent, y = qtd_paises)) +
+  geom_col() +
+  # adicionar camada de texto
+  geom_label(aes(label = qtd_paises))
+```
+
+É possível alterar a posição da camada de texto no gráfico alterando os argumentos `vjust` e `hjust`:
+
+```{r}
+
+df_feliz_agg %>% 
+  ggplot(aes(x = continent, y = qtd_paises)) +
+  geom_col() +
+  # adicionar camada de texto
+  geom_text(aes(label = qtd_paises),
+            # mudar posicao para mais baixo
+            vjust = 1,
+            # mudar posicao para mais a direita
+            hjust = -1,
+            # porque nao, alterar tambem a cor
+            color = "white"
+            )
+```
+
+Suponha que no primeiro gráfico de pontos mostrado no material, que mostra a relação entre PIB per capita e expectativa de vida, você deseja também acrescentar os nomes dos países:
+
+
+```{r}
+
+df_feliz %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point() +
+  geom_text(aes(label = country))
+
+```
+
+Como era de se esperar, o gráfico ficou muito poluído. Vamos então reduzir os pontos que queremos mostrar os nomes dos respectivos países apenas aos países dos continentes americanos. A estrategia, então, consiste em criar um novo dataframe com esses países e mudar o argumento `data` em geom_text:
+
+```{r}
+america <- df_feliz %>% 
+  filter(continent == "Americas")
+
+df_feliz %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point() +
+  geom_text(data = america, aes(label = country))
+
+
+```
+
+Melhorou, mas ainda assim ficou poluído. Uma boa solução para esse problema é o pacote `ggrepel`, que internamente calcula a melhor posição entre os pontos da camada de texto, seja `geom_text()` ou `geom_label()`, de forma que não haja conflito de posição entre pontos. A única alteração necessária é mudar `geom_text` para `geom_text_repel`:
+
+```{r}
+df_feliz %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point() +
+  geom_text_repel(data = america, aes(label = country))
+
+```
+
+Outro gráfico mostrado anteriormente neste material que pode ser melhorado é o mapa de calor, acrescentando uma camada de texto que mostre o valor numérico da correlação entre as variáveis:
+
+```{r}
+
+matriz_correl_tidy %>% 
+  ggplot(aes(x = var1, y = var2, fill = correlacao)) +
+  geom_tile() +
+  scale_fill_distiller(
+    # alterar o tipo da escala. pode ser divergente, sequencial e categorica
+    type = "div",
+    # alterar a paleta. confira os possiveis valores na documentacao da funcao
+    palette = "RdBu",
+    # inverter a direcao
+    direction = 1
+    ) +
+  theme(axis.text.x = element_text(angle = 90)) +
+  # adicionar camada de texto. é recomendável arredondar os numeros
+  geom_text(aes(label = round(correlacao, 2)))
+
+
+```
+
+`geom_text()` e `geom_label()` também podem ser usadas de maneira mais individualizada, ou seja, para adicionar anotações textuais em partes específicas do gráfico definidas pelo usuário. Observe o gráfico abaixo:
+
+```{r}
+
+p2 <- df_st %>% 
+  filter(date >= as.Date("2016-01-01")) %>% 
+  ggplot(aes(x = date, y = selic)) +
+  geom_line()+ 
+  # quebrar o eixo x a cada 3 meses
+  scale_x_date(
+    date_breaks = "2 month",
+    # mostrar eixos no formato mes/ano
+    date_labels = "%m/%y"
+  ) + 
+  theme_minimal()
+# grafico sem anotação:
+p2
+
+```
+
+A taxa Selic caiu bastante em 2017. Que tal acrescentar esse comentário na área do gráfico? Isso pode ser definindo definindo manualmente as *aesthetics* de `geom_text()` ou `geom_label()`:
+
+```{r}
+
+p2 +
+  geom_label(
+    x = as.Date("2018-02-01"),
+    y = 1,
+    # Usamos o caracter especial \n para adicionar uma quebra de linha
+    label = "A taxa SELIC apresentou \ntendência de queda em 2017"
+  )
+
+```
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[`geom_text()` e `geom_label()`](https://ggplot2.tidyverse.org/reference/geom_text.html)
+</div>
+
+
+## Áreas ou faixas sombreadas
+
+A função `geom_rect` pode ser usada para criar faixas sombreadas para destacar alguma parte específica do gráfico.
+
+* No gráfico anterior, destacar o ano de 2017 no gráfico usando uma área sombreada:
+
+```{r}
+p2 +
+  geom_rect(
+    xmin = as.Date("2017-01-01"),
+    xmax = as.Date("2017-12-01"),
+    ymin = -Inf,
+    ymax = Inf,
+    # deixar o retangulo mais transparente
+    alpha = 0.01
+  )
+```
+
+* Destacar uma faixa numérica relativa ao eixo y de interesse:
+
+```{r}
+p2 +
+  geom_rect(
+    # a geom rect precisa de 4 aesthetics:
+    xmin = -Inf,
+    xmax = Inf,
+    ymin = 0.6,
+    ymax = 0.8,
+    # mudar cor do retangulo para vermelho
+    fill = "red",
+    # deixar a area sombreada mais transparente
+    alpha = 0.01
+  )
+
+```
+
+Outra maneira de criar faixas sombreadas, desta vez dependendo do valor de uma variável, é usando a função `geom_ribbon()`. No exemplo da série acima, suponha que queiramos destacar uma faixa em torno da taxa Selic:
+
+```{r}
+p2 +
+  geom_ribbon(aes(ymin = -0.1 + selic, ymax = 0.1 + selic),
+              fill = "grey", alpha = 0.4)
+```
+
+
+## Alterando aspectos visuais do gráfico com os temas
+
+Um tema, no `ggplot2`, é definido como um conjunto de propriedades visuais, como fonte, cor do painel de fundo, posição da legenda, etc.
+
+O tema padrão do `ggplot2`, caracterizado principalmente pelo fundo cinza, pode ser mudado para temas pré-definidos no pacote:
+
+```{r}
+# grafico padrao a ser modificado
+p <- df_feliz %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point(aes(color = continent)) +
+  facet_grid(~ continent)
+
+p
+```
+
+```{r}
+# usar tema bw:
+p + theme_bw()
+# usar tema minimal:
+p + theme_minimal()
+# tema classico
+p + theme_classic()
+# tema dark
+p + theme_dark()
+
+```
+
+Contudo, caso você não deseje usar o tema padrão mas mesmo assim quer alterar algumas propriedades visuais do gráfico, deve-se usar a função `theme()`. Esta é alista de todas as possíveis propriedades que podem ser alteradas:
+
+```{r}
+args(theme)
+```
+
+Como você percebeu, a lista é imensa. Por isso, vamos nos restringir neste material a alguns exemplos do que pode ser feito:
+
+* Alterar a posição da legenda:
+
+```{r}
+p + 
+  theme(legend.position = "bottom")
+```
+
+* Remover os minor grids de um eixo:
+
+```{r}
+p + 
+  # remover minor grids do eixo x
+  theme(panel.grid.minor.y = element_blank())
+```
+
+* Mudar cor de fundo:
+
+```{r}
+p + 
+  theme(panel.background = element_rect(fill = "azure"))
+```
+
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+Confira todos os [temas pré-definidos](https://ggplot2.tidyverse.org/reference/ggtheme.html) do ggplot2  
+[`theme()`](https://ggplot2.tidyverse.org/reference/theme.html)
+</div>
+
+Uma das grandes vantagens do `ggplot2` é que basicamente tudo no gráfico é customizável. A função `theme` é usada para modificar componentes individuais de um tema
+
+## Títulos
+
+Os títulos de todos os elementos de um gráfico, como os dos eixos, das legendas, do próprio título do gráfico, etc., podem ser alterados usando a função `labs()`:
+
+```{r}
+p + 
+  labs(x = "Log da PIB per capita",
+       y = "Expectativida de vida em anos",
+       title = "Relação entre PIB per capita e expectativida de vida",
+       subtitle = "Existe uma correlação positiva entre as duas variáveis",
+       # Aqui usamos '\n', um character especial do R, para
+       # adicioanar uma quebra de linha 
+       color = "Continente\n do país",
+       caption = "Autor: Eu")
+```
+
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+[`labs()`](https://ggplot2.tidyverse.org/reference/labs.html)
+</div>
+
+
+## Extensões do ggplot2
+
+O `ggplot2` é tão flexível e popular que se criou uma comunidade enorme em torno no pacote. Aos poucos, outros programadores foram criando extensões para o pacote que fornecem ainda mais opções de visualizações para o usuário comum.
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+[Extensões do `ggplot2`](http://ggplot2-exts.org/)
+</div>
+
+## Exercícios
+
+1) Importe o arquivo salvo `herois_completo.csv` no primeiro módulo. Salve no objeto `herois`. Filtre os herois que possuem peso e altura maior que 0.
+
+2) Crie um histograma da variável altura.
+
+3) Analise a distribuição da variável peso em função da editora dos heróis. 
+
+4) Crie um gŕafico de barras mostrando a quantidade de heróis por editora.  Ordene as barras em ordem descrescente. Acrescente uma camada de texto nas barras mostrando a quantidade exata.
+
+5) Crie um gráfico de barras mostrando a quantidade de herois bons, maus  ou neutros (variável `alignment`) por editora. Use tanto `geom_bar()` como `geom_col()` para isso, usando o argumento `position = position_dodge()` para separar as barras nas editoras.
+
+6) Repita o item anterior, trocando apenas o parâmeto `position = position_dodge()` para `position = position_fill()` para observar a proporção de personagens bons, maus ou neutros em cada editora.
+
+7) Use o dplyr e o tidyr para criar um dataset chamado `hero_agg`, que contem a quantidade de poderes agregado por editora e heroi.  Dica: transforme as colunas de super-poderes em numéricas, converta o dataframe para formato tidy, agrupe os dados por editora e heroi e calcule a soma da coluna transformada de poderes.
+
+8) Faça um gráfico de barras mostrando os 10 herois de cada editora que possuem mais poderes. Dica: use facets para separa os herois de cada editora, usando `scales = "free_y" e drop = TRUE`. Inverta os eixos. 
+
+9) Faça um gráfico de densidade da distribuição da quantidade de poderes dos herois por editora. Use o parâmetro `alpha` para aumentar a transparência das curvas.
+
+10) Para praticar com gráficos de séries temporais, usaremos outro dataset. Importe o dataset `economics` usando a função `data()`.  Observe os dados com a função `head()`. Qual a periodicidade temporal dos dados (ex.: diário, semanal, mensal, anual) ?
+
+9) Faça um gráfico da variável `unemploy` ao longo do tempo. Salve esse gráfico no objeto p, que será usado nos próximos itens.
+
+10) Acrescente uma camada de área sombreada destacando o período entre 2001 a 2005.
+
+11) Acrescente algum comentário seu no gráfico usando a função `geom_text()`.
+
+12) Transforme o dataframe `economics` para o formato tidy. Faça um gráfico de linha de todos os indicadores econômicos ao longo do tempo, mapeando a *aesthetic* color à variável do nome do indicador. Note os problemas de escala do gráfico.
+
+13) Repita o item anterior, acrescentando uma camada de facets que separe os gráficos por indicador. Defina o parâmetro `scales` para ter escala livre no eixo y.
+
+
+
+
+

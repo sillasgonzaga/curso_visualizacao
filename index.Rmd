@@ -1,0 +1,38 @@
+--- 
+title: "Introdução a R para Visualização e Apresentação de Dados"
+author: "Sillas Gonzaga"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: ""
+---
+
+# Boas-vindas {-}
+
+Sejam bem-vindos ao maravilhoso mundo da Visualização de Dados em R!
+
+Neste curso, você conhecerá uma das melhores ferramentas para produção de gráficos já criadas: o pacote `ggplot2`. Dominá-lo, que é um dos objetivos deste curso, fará você ser capaz de fazer gráficos elegantes e informativos, que o auxiliará a transmitir suas ideias com maior clareza.
+
+Primeiramente, iremos introduzir (ou revisar, caso você felizmente já conheça) o `tidyverse`, uma suíte de pacotes de R que revolucionou a maneira como usuários da linguagem fazem suas análises. Você irá usar pacotes como `readr`, `dplyr` e `tidyr` para ler, manusear e estruturar dados públicos, além de praticar as habilidades aprendidas em um divertido conjunto de dados sobre super-heróis.
+
+Após entender a fundo como funciona o `ggplot2` nos capítulos 2 e 3 iremos mostrar, como criar outros tipos de visualizações, como gráficos interativos e mapas. 
+
+Finalmente, você será apresentado ao mundo do `rmarkdown`, se tornando capaz de produzir relatórios e apresentações de alta qualidade de modo reprodutível.
+
+## Sobre o instrutor {-}
+
+Meu nome é Sillas e sou apaixonado pelo R. Venho praticando nessa linguagem desde 2014 e, desde então, criei um blog chamado [Paixão por Dados](http://sillasgonzaga.com/), já dei [palestras](https://www.youtube.com/watch?v=5uo4OdTzwfM) sobre minha carreira com R e já publiquei 4 pacotes R.
+
+
+## Referências {-}
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[Capítulo "Data visualisation" do livro R for Data Science](http://r4ds.had.co.nz/data-import.html)  
+[Livro online Data Visualization A practical introduction](http://socviz.co/)
+</div>
+

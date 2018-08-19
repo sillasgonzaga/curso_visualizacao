@@ -1,0 +1,277 @@
+# Apresentação de dados com relatórios
+
+```{r}
+library(tidyverse)
+```
+
+
+R Markdown, ou simplesmente rmarkdown, é a ferramenta perfeita para transformar suas análises em documentos, relatórios, apresentações e até mesmo dashboards de alta qualidade e de maneira programática. Foi desenvolvida para facilitar a reprodução de resultados, visto que tanto código quanto narrativa estão no mesmo documento, e os resultados são automaticamente gerados do código presente no documento.
+
+
+Com R Markdown, é possível:
+
+* Compilar um documento em um relatório em diferentes formatos de saída, como PDF, HTML e Word.  
+* Produzir slides para apresentações.  
+* Criar dashboards interativas, com layouts atraentes e que se adaptam à tela do usuário.  
+* Criar relatórios interativos com Shiny.  
+* Escrever artigos científicos ou livros.  
+* Criar blogs ou sites.  
+
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+* [Cheatsheet do R Markdown](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)  
+* [Guia de referência do R Markdown](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+</div>
+
+## Primeiros passos com R Markdown
+
+No Rstudio, acesse os menus File > New File > R Markdown... e clique em OK para criar um novo documento R Markdown com formato HTML. Você verá o seguinte documento:  
+
+![](imgs/rmarkdown_exemplo.png)
+
+Na imagem acima, podem ser vistos os três componentes básicos de um documento R Markdown:  
+
+* Metadados, escritos no cabeçalho entre o par de três traços (---). A sintaxe para o cabeçalho segue a sintaxe [YAML](https://pt.wikipedia.org/wiki/YAML);  
+* Texto (partes em branco no exemplo), que segue a sintaxe Markdown;    
+* Código (partes nos blocos em cinza, chamados *chunks*), que segue a sintaxe da linguagem especificada no cabeçalho do bloco (por padrão é R).    
+
+Um chunk de código é criado por um par de três aspas, como em  ```` ```{r} ````, onde `r` indica a linguagem do código.
+
+
+## Resumo da sintaxe Markdown
+2.5 Markdown syntax
+
+O R Markdown, como visto, pode ser usado como editor de textos, que seguem a sintaxe da linguagem [Markdown](https://pt.wikipedia.org/wiki/Markdown)
+
+### Formatação de texto  
+
+Os principais tipos de formatação de texto em Markdown e suas respectivas sintaxes são:  
+
+* _Textos em itálico_ são produzidos com um par de asteriscos `*Itálico*` ou de underscores `_Itálico_`  
+* **Textos em negrito**  são produzidos com dois pares de asteriscos :`**Negrito**`  
+* Um par de acentos til produz texto subscrito: `CO~2~` vira CO~2~  
+* Um par de acentos circunflexos produz texto sobrescrito: `x^2^` vira x^2^  
+* Hyperlinks são criados com a sintaxe  `[texto](link)`: `Clique [aqui](https://www.google.com/)` vira Clique [aqui](https://www.google.com/)  
+* Imagens são inseridas com a sintaxe `![texto opcional](pasta/imagem.jpg)` ou `![texto opcional](link para imagem)` 
+
+### Cabeçalhos
+
+Cabeçalhos de capítulos (seções) e subcapítulos são criadas de maneira hierárquica, de acordo com a quantidade de jogos-da-velha usados. Quanto maior o número, menor a hierarquia:  
+
+```markdown
+# Cabeçalho do Nível 1
+
+## Cabeçalho do Nível 2
+
+### Cabeçalho do Nível 3
+```
+
+<div class="alert alert-info"
+<strong>Mais links para aprender mais sobre a linguagem Markdown:</strong>
+<br>
+* https://blog.da2k.com.br/2015/02/08/aprenda-markdown/  
+* https://github.com/luongvo209/Markdown-Tutorial/blob/master/README_pt-BR.md
+</div>
+
+
+## Chunks
+
+Chunks são os blocos de código que são executados quando o documento é compilado. É possível criar um novo chunk no menu `Insert > R` ou usando o atalho `Ctrl + Alt + I`.
+
+Qualquer tipo de output pode ser produzido a partir de um chunk, como textos, tabelas ou gráficos. Caso seja necessário ter um controle maior sobre os outputs, podem ser usadas opções no cabeçalho do chunk, como no exemplo abaixo:  
+
+
+````markdown
+`r ''````{r nome-opcional-do-chunk, fig.height=7, fig.width = 11, warning = FALSE}
+````
+
+Com as opções acima, configuramos as dimensões de altura e largura do gráfico de output e definimos que mensagens do tipo warning (como quando o `ggplot2` avisa que dados `NA` foram descartados) não serão mostradas no documento final.
+
+São várias as opções de chunks. Algumas das principais são:  
+
+- `eval`: tipo logical. Executar (`TRUE`) ou não (`FALSE`) o código do chunk.  
+
+- `echo`: tipo logical. Incluir o código do chunk ou não no documento compilado.  
+
+- `warning`, `message` e `error`: tipo logical. Caso `error = TRUE`, o documento será compilado mesmo que o chunk retorne um erro.  
+
+- `include`: tipo logical. Controla se o chunk e o output estarão presentes no documento final.  
+
+- `cache`: tipo logical. Controla se o chunk poderá usar cache para criar uma pasta com arquivos cacheados. Útil para chunks de códigos que levam muito tempo para rodar.  
+
+Caso você deseje que uma opção seja definida da mesma maneira para todos os chunks do documento, como para definir um tamanho padrão para os gráficos, você pode criar um chunk global no início do documento e definindo essas opções na função `knitr::opts_chunk$set()`, como no exemplo abaixo:
+
+```markdown
+`r ''````{r, setup, include=FALSE}
+knitr::opts_chunk$set(fig.width = 8, collapse = TRUE)
+```
+
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+* [Documentação completa das opções de chunks](https://yihui.name/knitr/options/)  
+</div>
+
+
+## Formatos de output
+
+Os principais formatos, que podem ser categorizados em documentos ou apresentação, são:
+
+- `beamer_presentation`  
+
+- `html_document`  
+
+- `ioslides_presentation`  
+
+- `pdf_document`   
+
+- `slidy_document`  
+
+- `powerpoint_presentation`
+
+- `word_document`  
+
+Cada formato de output aceita diversas opções de customização, como incluir sumário, numerar capítulos, o tema, etc. Para conhecer todas as opções de um formato de output, recomenda-se ler a documentação da respectiva função, como `?rmarkdown::html_document`.
+
+As opções do formato de output podem ser definidas no YAML do documento, como no exemplo abaixo:  
+
+```yaml
+output:
+  html_document:
+    toc: true
+    number_sections: yes
+  pdf_document:
+    keep_tex: true
+```
+
+## Compilando um documento rmarkdown
+
+Após escrever o texto e criar o código desejados, o documento pode ser compilado usando o botão `Knit` no Rstudio ou com o atalho `Ctrl + Shift + K`. Ambos são um atalho para a função `rmarkdown::render()`. Com isso, o documento será compilado no formato de output especificado no YAML e será criado um arquivo com o mesmo nome na mesma pasta do arquivo .Rmd.
+
+
+## Produzindo tabelas no R Markdown
+
+Existem três boas opções para produzir tabelas elegantes em documentos R Markdown:
+
+- A função `knitr::kable()`
+
+```{r}
+iris %>% 
+  head() %>% 
+  knitr::kable()
+```
+
+- A função `formattable::formattable()`:  
+
+```{r}
+iris %>% 
+  head() %>% 
+  formattable::formattable()
+```
+
+- A função `knitr::kable()` acompanhada do pacote `kableExtra`:
+
+```{r}
+iris %>% 
+  head() %>% 
+  kableExtra::kable()
+  
+```
+
+- Tabelas interativas com o pacote `DT`:
+
+```{r}
+iris %>% 
+  head() %>% 
+  DT::datatable()
+```
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+[Tutorial do pacote kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)  
+[Tutorial do pacote formattable](https://cran.r-project.org/web/packages/formattable/vignettes/formattable-data-frame.html)  
+[Mais um tutorial do pacote formattable](http://bioinfo.iric.ca/create-a-nice-looking-table-using-r/)  
+[Site do pacote](DT)  
+</div>
+
+## Relatórios parametrizados
+
+Uma excelente maneira de automatizar processos de geração de relatórios para diferentes variáveis é utilizando o recurso de parametrização de relatórios. Alguns exemplos de quando esse tipo de situação é útil:  
+
+* Mostrar resultados apenas para um específico departamento de uma empresa, gerente, ou região geográfica.  
+
+* Rodar um relatório que cobre um período de tempo específico.  
+
+* Controlar globalmente algumas opções do documento, como a presença ou não do código no documento final.
+
+### Declarando parâmetros
+
+Parâmetros são introduzidos e especificados usando o campo `params` dentro do YAML, como no exemplo abaixo:
+
+```yaml
+---
+title: Relatório Semestral
+output: html_document
+params:
+  ano: 2018
+  estado: SP
+  arquivo: vendas.csv
+---
+```
+
+### Usando os parâmetros  
+
+Após a definição dos parâmetros, é criada na sessão R um objeto do tipo lista chamado `params`, que contem as variáveis e seus valores definidos no YAML. Para acessá-los, basta usar a sintaxe padrão de uma lista:
+
+```r
+params$ano
+params$estado
+```
+Para compilar um relatório com parâmetros definidos, a melhor maneira (num ponto de vista programático) é usar a função `rmarkdown::render()` definido o argumento `params`.
+
+Por exemplo, suponha que criamos um documento com o YAML anterior e o salvamos no arquivo *meu_relatorio.Rmd*. Para compilar o documento e produzir o output final com os devidos parâmetros, usaríamos a seguinte sintaxe:
+
+
+```r
+rmarkdown::render("meu_relatorio.Rmd", params = list(
+  ano = 2018,
+  estado = RJ
+))
+```
+Note que não foi necessário definir um valor para o parâmetro `arquivo` pois já existe um valor default definido no YAML.
+
+
+## Projeto final
+
+Vamos simular uma situação muito comum em organizações:
+
+Você é cientista de dados na ONU e lhe foi pedido para elaborar um relatório descritivo de algumas estatísticas por países de cada continente (sem Oceania). Contudo, você deve elaborar um relatório contendo apenas dados de cada continente, criando um arquivo separado para cada.
+
+1) Crie um novo arquivo .Rmd chamado `relatorio_onu.Rmd`  
+
+2) No YAML do relatório, acrescente o parâmetro ` continente_relatorio`.
+
+3) Crie um relatório que execute estas tarefas:  
+
+a) Carregue os pacotes `tidyverse` e `gapminder`, do pacote `gapminder`. Use `data(gapminder)`.  
+
+b) Filtre o continente definido no parâmetro e salve no objeto chamado `df_relatorio`.
+
+c) Crie um chunk com histograma da expectativa de vida dos países no ano de 2007.  
+
+d) Crie um chunk com um gráfico de linha mostrando a mediana do PIB per capita do continente por ano. 
+
+e) Crie um chunk com um gráfico de colunas mostrando os 10 piores países em PIB per capita em 2007. Ordene as colunas em função do PIB per capita e inverta os eixos do gráfico.
+
+f) Crie um chunk com uma tabela mostrando os 10 países mais populosos em 2007.
+
+4) Salve e feche o relatório. Abra um novo arquivo R script.
+
+5) Carregue o dataset `gapminder`, extraia os nomes dos continentes presentes no dataset, salve em um vetor e exclua a Oceania (você pode usar a função `stringr::str_remove()` para isso). Lembre de converter o vetor de continentes para character. 
+
+6) Use a função `rmarkdown::render()` especificando o continente em `params`. Crie um for loop para gerar um relatório para cada continente, salvando com o respectivo nome.
+
+

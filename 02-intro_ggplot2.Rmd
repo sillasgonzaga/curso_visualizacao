@@ -1,0 +1,463 @@
+# Introdução ao ggplot2
+
+Neste módulo, usaremos os seguintes pacotes:
+
+```{r}
+library(tidyverse)
+# vamos precisar do pacote janitor para limpar os nomes das colunas
+library(janitor)
+# o pacote readxl será usado para importar a planilha excel, visto que o 
+# readr não oferece suporte para arquivos xlsx
+library(readxl)
+# metadados gerais de países
+library(countrycode)
+# combinar varios graficos do ggplot2 em um so
+library(patchwork) # devtools::install_github("thomasp85/patchwork")
+# chequem se a versao dos seus pacotes é a mesma das minhas
+sessionInfo()
+```
+
+## Dataset do módulo
+
+Para este módulo, usaremos o dataset **World Happiness Report**, ou o Relatório Mundial da Felicidade, que é uma medição da felicidade publicado pela Rede de Soluções para o Desenvolvimento Sustentável da ONU (SDSN, na sigla em inglês). Leia o [artigo na Wikipedia](https://pt.wikipedia.org/wiki/Relat%C3%B3rio_Mundial_da_Felicidade) para mais informações.
+
+```{r, eval = FALSE}
+# baixe o arquivo do endereco:
+download.file("https://s3.amazonaws.com/happiness-report/2018/WHR2018Chapter2OnlineData.xls",
+              destfile = "felicidade.xls")
+```
+
+
+```{r}
+# importar a planilha
+df_pais <- read_excel("felicidade.xls", sheet = 1)
+# limpar o nome das colunas
+df_pais <- janitor::clean_names(df_pais)
+# olhar dados 
+glimpse(df_pais)
+```
+
+Sentiram falta de uma coluna com o nome?  Vamos também importar um dataset que contém o continente de cada país, fornecido pelo pacote `countrycode`.
+
+```{r}
+# consulte a documentação do dataset
+# ?countrycode::codelist 
+df_continente <- countrycode::codelist  %>% 
+  # selecionar colunas importantes
+  select(country = cow.name, continent) %>% 
+  # filtrar fora os paises sem continentes
+  filter(!is.na(continent))
+# criar dataframe com juncao dos dois
+df <- left_join(df_pais,
+                df_continente,
+                by = "country")
+
+# consertar manualmente os continentes de certos paises
+df$continent[df$country == "Congo (Brazzaville)"] <- "Africa"
+df$continent[df$country == "Congo (Kinshasa)"] <- "Africa"
+df$continent[df$country == "Hong Kong S.A.R. of China"] <- "Asia"
+df$continent[df$country == "Kosovo"] <- "Europe"
+df$continent[df$country == "North Cyprus"] <- "Asia"
+df$continent[df$country == "Palestinian Territories"] <- "Asia"
+df$continent[df$country == "Serbia"] <- "Europe"
+df$continent[df$country == "Somaliland region"] <- "Africa"
+df$continent[df$country == "Taiwan Province of China"] <- "Asia"
+df$continent[df$country == "United States"] <- "Americas"
+
+# transformar coluna de ano para inteiro
+df$year <- as.integer(df$year)
+# criar dataset apenas para o ano mais recente
+df_2017 <- df %>% 
+  filter(year == max(year))
+
+```
+
+
+## ggplot2: filosofia do pacote e do Grammar of Graphics
+
+O pacote `ggplot2` é uma implementação da filosofia *Grammar of Graphics*, que busca construir e explicar gráficos como uma série de camadas individuais sobrepostas. Apesar de simples, é uma definição muito concisa e que ajuda o usuário do pacote a representar a informação desejada da melhor maneira possível.
+
+Cada camada contem elementos visuais como barras, pontos e texto. Elementos visuais são conhecidos como **geoms** (de objetos geométricos). Um geom possui propriedades estéticas que determinam sua aparência e sua posição no gráfico (ex.: queremos plotar barras vermelhas ou verdes? Os pontos do gráfico serão representados por círculos ou quadrados?). Tais estéticas (**aesthetics** ou **aes** no ggplot2) controlam a aparência dos elementos gráficos, como tamanho, cor, estilo, localização e transparência.
+
+Portanto, o código abaixo representa o "esqueleto" do código usado para produzir um gráfico no `ggplot2`:  
+
+```{r, eval = FALSE}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  )
+```
+
+
+## geoms
+
+Existe uma variedade de funções que controlam que tipo de objeto geométrico será plotado no gráfico. A lista completa pode ser vista na [documentação online](https://ggplot2.tidyverse.org/reference/#section-layer-geoms) do ggplot2. As mais comuns são:
+
+### geom_bar() e geom_col()
+Gráfico de barra, feito para visualizar uma variável numérica ou propriedade estatística (ex.: média) entre diferentes grupos categóricos;  
+
+```{r}
+# Tarefa: Criar um gráfico mostrando a média do score de felicidade por continente
+df_2017 %>% 
+  group_by(continent) %>% 
+  summarise(life_ladder = mean(life_ladder)) %>% 
+  ggplot(aes(x = continent, y = life_ladder)) +
+  geom_col()
+```
+
+
+### geom_point()
+
+Gráficos de pontos, também conhecidos como gráfico de dispersão;  
+
+```{r}
+df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita, y = healthy_life_expectancy_at_birth)) +
+  geom_point()
+
+```
+
+
+
+### geom_line()
+Gráfico de linha, especialmente útil para séries temporais;  
+
+
+```{r}
+
+df %>% 
+  filter(country == "Brazil", year >= 2007) %>% 
+  ggplot(aes(x = year, y = life_ladder)) +
+  geom_line() 
+```
+
+
+
+### geom_histogram()
+Cria uma camada com um histograma
+
+```{r}
+
+df_2017 %>% 
+  ggplot(aes(x = life_ladder)) +
+  geom_histogram()
+
+```
+
+### geom_text()
+
+Cria uma camada com texto.
+
+```{r}
+df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita, y = healthy_life_expectancy_at_birth)) +
+  geom_point() +
+  geom_text(aes(label = country))
+```
+
+
+
+### geom_hline() and geom_vline()
+Cria uma camada com uma linha horizontal ou vertical, respectivamente.
+
+```{r}
+df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita, y = healthy_life_expectancy_at_birth)) +
+  geom_point() + 
+  geom_vline(aes(xintercept = mean(df_2017$log_gdp_per_capita, na.rm = TRUE))) +
+  geom_hline(aes(yintercept = mean(df_2017$healthy_life_expectancy_at_birth, na.rm = TRUE)))
+```
+
+Essas e outras formas geométricas serão detalhadas no próximo módulo.
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[Lista completa com todas as *geoms* do ggplot2](https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms)
+</div>
+
+
+## aes
+
+Uma *aesthetic* é uma propriedade visual dos objetos no gráfico e incluem atributos como posição (eixos x e y), tamanho, formato ou cor dos objetos. Portanto, as *aesthetics* modificam a aparência de um elemento dentro de um geom ou camada. 
+
+É possível especificar *aesthetics* para o gráfico como um todo (como as variáveis a serem mapeadas nos eixos) e tais instruções serão aplicadas a todos os geoms adicionados posteriormente. Contudo, também é possível especificar *aesthetics* para geoms individualmente, que sobrescreverão as definidas para o gráfico.
+
+Vamos ver então como definir as *aesthetics*. Primeiramente, elas podem ser definidas para um valor em específico, como cor verde, ou pode ser declarada em função de uma variável (como colorir os indíviduos do gráfico de pontos anterior de acordo com o continente). Para definir uma *aesthetic* como um valor específico, não é necessário a definir dentro da função `aes()`. 
+
+É possível definir tanto as *aesthetics* específicas ou em função de uma variável na definição do gráfico ou apenas da geom, mas caso se deseja definir um valor específico, isso só pode ser feito dentro do geom que se deseja modificar.
+
+Confuso? Vejamos como exemplos.
+
+Neste primeiro exemplo, mudamos a propriedade **color** dos pontos para um valor específico: marrom.
+
+```{r}
+df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point(color = "brown")
+```
+
+Caso o objetivo seja definir (mapear) a *aesthetic* de cor para o continente do país, é necessário definir dentro da função `aes()`:
+
+```{r}
+df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point(aes(color = continent))
+
+
+```
+
+Conforme comentado, é possível definir o mapeamento do atributo dentro da função geral do gráfico:
+
+```{r}
+df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth,
+             color = continent)) +
+  geom_point()
+```
+
+Contudo, observe o que acontece nas duas situações quando adicionamos uma geom a mais, a `geom_smooth()`:
+
+```{r, warning = FALSE}
+df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point(aes(color = continent)) + 
+  # adicionar curva de tendencia, sem margem de erro, usando o metodo
+  # de regressao linear
+  geom_smooth(method = "lm", se = FALSE)
+
+
+```
+
+```{r, warning = FALSE}
+df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth,
+             color = continent)) +
+  geom_point() +
+  # adicionar curva de tendencia, sem margem de erro, usando o metodo
+  # de regressao linear
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+
+No primeiro gráfico, a reta manteve-se a mesma para todos os dados. No segundo, foi uma reta para cada continente, pois `geom_smooth()` herdou a definição do atributo de cor criada na função `ggplot()`.
+
+Também é possível definir mais de uma *geom* ao mesmo tempo:
+
+```{r}
+# glimpse(df_2017)
+
+df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  # mapear cor ao continente
+  geom_point(aes(color = continent,
+                 # tamanho a confiança no governo
+                 size = confidence_in_national_government),
+                 # opacidade a um valor absoluto
+                 alpha = 0.7) 
+
+
+```
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[Documentação da função `aes()`](https://ggplot2.tidyverse.org/reference/aes.html)   
+[Tutorial oficial sobre *aesthetics*](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html)
+</div>
+
+
+## A anatomia da função ggplot()
+
+O primeiro passo para criar um gráfico no `ggplot2` é criar um objeto que especifica o gráfico. Você pode, nesta etapa, definir as *aesthetics* que serão aplicadas a todos os *geoms* (camadas) dentro do gráfico. Uma versão geral dessa descrição tem a seguinte aparência:
+
+```{r, eval = FALSE}
+meu_grafico <- ggplot(meus_dados, aes(x = variavel1,
+                                      y = variavel2))
+```
+
+Neste examplo, criamos um novo objeto chamado `meu_grafico`, definimos na função `ggplot()` para usar o dataframe `meu_grafico` e especificamos que a variável (que pertence ao dataframe `meu_grafico`) `variavel1` será plotada no eixo horizontal e a variável `variavel2` no eixo vertical.
+
+Até o momento, o objeto `meu_grafico` não possui nenhum elemento gráfico. Se você tentar o visualizar, seja digitando seu próprio nome ou com a função `print(meu_grafico)`, você verá apenas um pano de fundo. É necessário então acrescentar uma camada que contenha um geom. Para adicionar uma camada ao gráfico, basta usar o símbolo de adição `+`:
+
+```{r, eval = FALSE}
+# adicionar uma camada de grafico de pontos ao objeto
+meu_grafico + geom_point()
+```
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[Documentação da função `ggplot()`](https://ggplot2.tidyverse.org/reference/ggplot.html)   
+</div>
+
+
+## Segmentação de um gráfico em grupos com os facets
+
+*facets* são um excelente recurso do ggplot2 que permitem segmentar um gráfico em subgráficos de acordo com uma variável categórica.
+
+Existem duas maneiras de definir *facets* no `ggplot2`: `facet_wrap()`, ideal para apenas uma variável, e `facet_grid()` ideal para uma combinação de duas variáveis.
+
+Já vimos como acrescentar a informação do continente em um gráfico de pontos mudando o atributo *color*. Uma alternativa é criar um subgráfico para cada continente por meio de *facets.*
+
+O primeiro argumento da função `facet_wrap()` é uma fórmula, um tipo de sintaxe especial do R, em que se deve escrever o acento til (`~`) seguido do nome da variável que servirá para segmentar o gráfico.
+
+
+```{r}
+df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point() +
+  facet_wrap(~ continent)
+  
+```
+
+
+Caso se deseja utilizar mais de uma variável para criar os *facets*, usa-se a função `facet_grid()`:
+
+```{r}
+df %>% 
+  # filtrar os anos de 2015 a 2017
+  filter(between(year, 2015, 2017)) %>% 
+  ggplot(aes(x = log_gdp_per_capita,
+             y = healthy_life_expectancy_at_birth)) +
+  geom_point() +
+  facet_grid(continent ~ year)
+```
+
+Vamos salvar o dataframe para ser usado nos próximos módulos:
+
+```{r}
+# vamos salvar em um formato específico do R
+
+df_2017 %>% 
+  # remover colunas com muitos NAs ou que nao vamos usar
+  select(-c(democratic_quality, delivery_quality,
+            gini_index_world_bank_estimate, gini_index_world_bank_estimate_average_2000_15,
+            confidence_in_national_government, generosity,
+            standard_deviation_of_ladder_by_country_year,
+            standard_deviation_mean_of_ladder_by_country_year)) %>% 
+  # encurtar nome de coluna
+  rename(gini = gini_of_household_income_reported_in_gallup_by_wp5_year) %>% 
+  # salvar no formato rds, proprio do R e que mantem a integridade
+  # dos dados
+  write_rds("dados_felicidade_2017.rds")
+```
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[Documentação de `facet_grid()`](https://ggplot2.tidyverse.org/reference/facet_grid.html)  
+[Documentação de `facet_wrap()`](https://ggplot2.tidyverse.org/reference/facet_wrap.html)  
+[Mais funções para customizar facets](https://ggplot2.tidyverse.org/reference/index.html#section-facetting-labels)
+</div>
+
+## Salvando gráficos do ggplot2
+
+Para salvar um gráfico do `ggplot2` em um arquivo em seu computador, basta usar a função `ggsave()`. Ela é inteligente o suficiente para reconhecer o último gráfico criado como o gráfico a ser salvo. Assim, basta criar um gráfico qualquer e logo em seguida usar `ggsave()` para o salvar. Contudo, uma melhor prática é armazenar o gráfico criado em um objeto ou variável e usar essa referência em ggsave. Por exemplo:
+
+```{r}
+# Salvar um grafico de pontos no objeto "p"
+p <- df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita, y = healthy_life_expectancy_at_birth)) +
+  geom_point()
+
+# exibindo p
+p
+```
+
+
+```{r, eval = FALSE}
+# salvando p no computador
+ggsave(filename = "meu grafico de pontos.png", plot = p)
+```
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[Documentação de `ggsave()`](https://ggplot2.tidyverse.org/reference/ggsave.html)  
+</div>
+
+## Juntando diferentes gráficos em um só
+
+O pacote `patchwork` tornou muito fácil juntar diferentes gráficos produzidos com `ggplot2` em um só, algo mais complexo do que seria por facets.
+
+Por exemplo, para juntar os gráficos de barra e o de pontos feitos logo no início do módulo, basta salvar cada gráfico em um objeto e os juntar com um sinal de adição `+`:
+
+```{r}
+# salvar grafico de barras no objeto abaixo
+graf_barras <- df_2017 %>% 
+  group_by(continent) %>% 
+  summarise(life_ladder = mean(life_ladder)) %>% 
+  ggplot(aes(x = continent, y = life_ladder)) +
+  geom_col()
+
+# salvar grafico de pontos no objeto abaixo
+graf_pontos <- df_2017 %>% 
+  ggplot(aes(x = log_gdp_per_capita, y = healthy_life_expectancy_at_birth)) +
+  geom_point()
+
+# juntando os dois graficos em um so:
+graf_barras + graf_pontos
+
+```
+
+O `patchwork` possui suas próprias customizacões. Uma delas é alterar o layout para apenas uma coluna:
+
+```{r}
+# juntando os dois graficos em um so, com apenas uma coluna
+graf_barras + graf_pontos + plot_layout(ncol = 1)
+
+```
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[Documentação do pacote `patchwork`](https://github.com/thomasp85/patchwork)
+</div>
+
+## Gráficos no R além de ggplot2
+
+O próprio `base R` (a instalação nativa do R, sem nenhum pacote adicional) possui suas próprias funções para produzir gráficos simples, como `plot()`, `barplot()` e `hist()`. Contudo, como produzir gráficos com mais recursos no `base R` é bem mais complicado que no `ggplot2`, não o abordaremos neste módulo. Por curiosidade, a referência abaixo pode ser consultada:
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[Tutorial completo sobre gráficos com base R](https://rstudio-pubs-static.s3.amazonaws.com/7953_4e3efd5b9415444ca065b1167862c349.html)
+</div>
+
+
+## Exercícios
+
+Vamos continuar usando o dataset de super-heróis!
+
+0) Importe o pacote `tidyverse`
+
+1) Importe o arquivo salvo `herois_completo.csv` no módulo anterior. Salve no objeto `herois`.
+
+2) Faça um gráfico de pontos da coluna `weight` em função de `height`.
+
+3) Observe os outliers no gráfico. Crie um novo dataframe sem esses pontos. Isto é, crie um novo dataframe chamado `herois_limpo`, filtrando os heróis com peso e altura entre 1 a 500. Use este dataframe para todos os próximos items.
+
+3) Refaça o item 2, atribuindo a cor verde para os pontos.
+
+4) Refaça o item 2, mapeando a cor dos pontos à variável `publisher`.  
+
+5) Refaça o item 2, mapeando a cor dos pontos à variável `gender`
+
+6) Refaça o item 2, mapeando a cor dos pontos à variável `gender` e o formato (shape) dos pontos à variável `flight`  
+
+7) Refaça o item 2, mapeando a cor dos pontos à variável `gender`, o formato (shape) dos pontos à variável `flight` e separando o gráfico em subgráficos (facets) usando a variável `publisher`.
+
+
+8) Refaça o item 2, mapeando a cor dos pontos à variável `flight` e separando o gráfico em subgráficos (facets) usando as variáveis `publisher` e `gender`.
+
+

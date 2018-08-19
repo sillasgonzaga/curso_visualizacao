@@ -1,0 +1,63 @@
+---
+title: "Relatório ONU"
+author: "Sillas Teixeira Gonzaga"
+date: "17 de agosto de 2018"
+output: html_document
+params:
+  continente_relatorio: Europe
+---
+
+```{r}
+library(tidyverse)
+library(gapminder)
+```
+
+
+```{r}
+df_relatorio <- gapminder %>% 
+  filter(continent == params$continente_relatorio)
+```
+
+
+```{r}
+# histograma da expectativa de vida em 2007
+df_relatorio %>% 
+  filter(year == 2007) %>% 
+  ggplot(aes(x = lifeExp)) +
+  geom_histogram()
+
+```
+
+```{r}
+# grafico de linha mostrando a mediana do pib per capita do continent por ano
+df_relatorio %>% 
+  group_by(year) %>% 
+  summarise(pop_media = median(gdpPercap, na.rm = TRUE)) %>% 
+  ggplot(aes(x = year, y = pop_media)) +
+  geom_line()
+
+```
+
+```{r}
+# grafico de colunas com o bottom 10 países em pib per capita em 2007 
+# ps..: lembre de ordenar as barras em função do pib per capita e 
+# inverter os eixos do gráfico
+df_relatorio %>% 
+  filter(year == 2007) %>% 
+  top_n(-10, gdpPercap) %>% 
+  ggplot(aes(x = reorder(country, -gdpPercap), y = gdpPercap)) +
+  geom_col() +
+  coord_flip()
+
+```
+
+```{r}
+# tabela com o top 10 países em população em 2007
+df_relatorio %>% 
+  filter(year == 2007) %>% 
+  top_n(10, pop) %>% 
+  knitr::kable()
+
+```
+
+

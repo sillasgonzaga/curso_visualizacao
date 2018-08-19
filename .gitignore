@@ -1,0 +1,19 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+
+
+# Data files
+*.Rda
+*.CSV
+*.csv
+*.rds
+*.txt
+*.zip
+*.xls
+*.pdf
+
+# Session Data files
+.RData
