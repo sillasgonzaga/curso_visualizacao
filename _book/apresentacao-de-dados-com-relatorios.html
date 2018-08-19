@@ -248,8 +248,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li>Criar blogs ou sites.</li>
 </ul>
 <div class="alert alert-info" <strong="">
-<p>Referências:</strong> <br> * <a href="https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">Cheatsheet do R Markdown</a><br />
-* <a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">Guia de referência do R Markdown</a></p>
+<p>Referências:</strong> <br> <a href="https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">Cheatsheet do R Markdown</a><br />
+<a href="https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf">Guia de referência do R Markdown</a><br />
+<a href="http://rmarkdown.rstudio.com/">Site oficial sobre R Markdown</a><br />
+<a href="https://bookdown.org/yihui/rmarkdown/">Livro oficial sobre R Markdown</a></p>
 </div>
 <div id="primeiros-passos-com-r-markdown" class="section level2">
 <h2><span class="header-section-number">5.1</span> Primeiros passos com R Markdown</h2>
@@ -359,56 +361,126 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</code></pre></div>
 <table>
 <thead>
-<tr class="header">
-<th align="right">Sepal.Length</th>
-<th align="right">Sepal.Width</th>
-<th align="right">Petal.Length</th>
-<th align="right">Petal.Width</th>
-<th align="left">Species</th>
+<tr>
+<th style="text-align:right;">
+Sepal.Length
+</th>
+<th style="text-align:right;">
+Sepal.Width
+</th>
+<th style="text-align:right;">
+Petal.Length
+</th>
+<th style="text-align:right;">
+Petal.Width
+</th>
+<th style="text-align:left;">
+Species
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<tr>
+<td style="text-align:right;">
+5.1
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
 </tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<tr>
+<td style="text-align:right;">
+4.9
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
 </tr>
-<tr class="odd">
-<td align="right">4.7</td>
-<td align="right">3.2</td>
-<td align="right">1.3</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<tr>
+<td style="text-align:right;">
+4.7
+</td>
+<td style="text-align:right;">
+3.2
+</td>
+<td style="text-align:right;">
+1.3
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
 </tr>
-<tr class="even">
-<td align="right">4.6</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<tr>
+<td style="text-align:right;">
+4.6
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
 </tr>
-<tr class="odd">
-<td align="right">5.0</td>
-<td align="right">3.6</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
+<tr>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+3.6
+</td>
+<td style="text-align:right;">
+1.4
+</td>
+<td style="text-align:right;">
+0.2
+</td>
+<td style="text-align:left;">
+setosa
+</td>
 </tr>
-<tr class="even">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.7</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
+<tr>
+<td style="text-align:right;">
+5.4
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+1.7
+</td>
+<td style="text-align:right;">
+0.4
+</td>
+<td style="text-align:left;">
+setosa
+</td>
 </tr>
 </tbody>
 </table>
@@ -680,8 +752,8 @@ setosa
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">head</span>() <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>DT<span class="op">::</span><span class="kw">datatable</span>()</code></pre></div>
-<div id="htmlwidget-487cb7e6c29696335b59" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-487cb7e6c29696335b59">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],[5.1,4.9,4.7,4.6,5,5.4],[3.5,3,3.2,3.1,3.6,3.9],[1.4,1.4,1.3,1.5,1.4,1.7],[0.2,0.2,0.2,0.2,0.2,0.4],["setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-7b3b2643bbc0e11534c1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7b3b2643bbc0e11534c1">{"x":{"filter":"none","data":[["1","2","3","4","5","6"],[5.1,4.9,4.7,4.6,5,5.4],[3.5,3,3.2,3.1,3.6,3.9],[1.4,1.4,1.3,1.5,1.4,1.7],[0.2,0.2,0.2,0.2,0.2,0.4],["setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row"}},"evals":[],"jsHooks":[]}</script>
 <div class="alert alert-info" <strong="">
 <p>Referências:</strong> <a href="https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html">Tutorial do pacote kableExtra</a><br />
 <a href="https://cran.r-project.org/web/packages/formattable/vignettes/formattable-data-frame.html">Tutorial do pacote formattable</a><br />

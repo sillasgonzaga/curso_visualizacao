@@ -21,8 +21,10 @@ Com R Markdown, é possível:
 <div class="alert alert-info"
 <strong>Referências:</strong>
 <br>
-* [Cheatsheet do R Markdown](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)  
-* [Guia de referência do R Markdown](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+[Cheatsheet do R Markdown](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)  
+[Guia de referência do R Markdown](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)  
+[Site oficial sobre R Markdown](http://rmarkdown.rstudio.com/)  
+[Livro oficial sobre R Markdown](https://bookdown.org/yihui/rmarkdown/)  
 </div>
 
 ## Primeiros passos com R Markdown

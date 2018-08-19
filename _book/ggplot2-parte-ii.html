@@ -265,7 +265,7 @@ df_feliz &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span cl
              <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
 <p>Apenas com esse simples gráfico, aprendemos algumas informações sobre o dataset:<br />
 * Conforme o esperado, existe uma correlação positiva entre as variáveis: quanto maior o PIB per capita do país, maior a expectativa de sua população.<br />
 * Contudo, existem alguns pontos que fogem dessa relação, como os que possuem log PIB per capita de 8,5 mas expectativa de vida em torno de apenas 45 anos.</p>
@@ -278,14 +278,14 @@ df_feliz &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span cl
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>)</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing non-finite values (stat_smooth).</code></pre>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-64-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
 <p>A função <code>geom_point()</code> depende apenas de dois elementos obrigatórios para funcionar: <code>x</code> e <code>y</code>. Contudo, como já vimos, podemos definir opcionalmente outras propriedades visuais dos pontos, seja com valores absolutos ou mapeando variáveis a eles. Observe o exemplo abaixo:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
              <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> continent))</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
 <p>Ao acrescentar o elemento de cor, aprendemos que praticamente todos os países no quadrante de baixo PIB per capita e expectativa de vida são africanos.</p>
 <p>Em algumas situações, faz mais sentido usar facets para separar pontos de acordo com uma variável categórica:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
@@ -294,7 +294,7 @@ df_feliz &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span cl
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>continent)</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
 <div class="alert alert-info" <strong="">
 <p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/geom_point.html"><code>geom_point()</code></a></p>
 </div>
@@ -307,7 +307,7 @@ df_feliz &lt;-<span class="st"> </span><span class="kw">read_rds</span>(<span cl
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_bar</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
 <p>É possível fazer exatamente o mesmo gráfico acima com <code>geom_col()</code> sendo apenas necessário transformar os dados antes:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># agrupar os dados e contar a quantidade de países por continente</span>
 df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
@@ -315,21 +315,21 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">qtd_paises =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> qtd_paises)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_col</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
 <p>Diferentemente de <code>geom_point()</code>, a <em>aesthetic</em> <code>color</code> das barras define apenas a cor das bordas. Para mudar a cor das barras, deve-se alterar o parâmetro <code>fill</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(continent) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">summarise</span>(<span class="dt">qtd_paises =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> qtd_paises)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;gray70&quot;</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
 <p>No exemplo abaixo, usamos <code>geom_col()</code> para plotar os países com os 10 maiores índices de felicidades, com as barras coloridas pelo continente, mapeando essa variável na <em>aesthetic</em> <code>fill</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="co"># selecionar o top 10 em indice de felicidade</span>
 <span class="st">  </span><span class="kw">top_n</span>(<span class="dv">10</span>, life_ladder) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> country, <span class="dt">y =</span> life_ladder)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> continent))</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-70-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
 <div id="invertendo-eixos" class="section level3">
 <h3><span class="header-section-number">3.2.1</span> Invertendo eixos</h3>
 <p>No exemplo acima, os nomes dos países se sobrepuseram devido ao seu tamanho. Nessa e em outra situações, é desejável inverter os eixos do gráfico, o que é feito com a função <code>coord_flip()</code>:</p>
@@ -340,7 +340,7 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_col</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> continent)) <span class="op">+</span>
 <span class="st">  </span><span class="co"># inverter eixos</span>
 <span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-71-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
 </div>
 <div id="como-mudar-a-ordem-das-barras" class="section level3">
 <h3><span class="header-section-number">3.2.2</span> Como mudar a ordem das barras</h3>
@@ -354,7 +354,7 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">continent =</span> <span class="kw">reorder</span>(continent, qtd_paises)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> qtd_paises)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_col</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
 <p>Para inverter a ordem, isto é, plotar as barras em ordem decrescente, basta apenas escrever um sinal de menos (<code>-</code>) antes da variável contínua:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># agrupar os dados e contar a quantidade de países por continente</span>
 df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
@@ -364,7 +364,7 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">continent =</span> <span class="kw">reorder</span>(continent, <span class="op">-</span>qtd_paises)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> qtd_paises)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_col</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
 <div class="alert alert-info" <strong="">
 <p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/geom_bar.html"><code>geom_bar()</code> e <code>geom_col()</code></a></p>
 </div>
@@ -382,49 +382,49 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>()</code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-74-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
 <p>A função <code>geom_histogram()</code>, por padrão, “quebra” a variável em 30 intervalos. É possível mudar esse comportamento especificando o argumento <code>bins</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># reduzindo o numero de intervalos</span>
 df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">10</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># aumentando o número de intervalos</span>
 df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">40</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
 <p>Outra maneira de redefinir os intervalos de um histograma é mudando o argumento <code>binwidth</code>, que controla a largura dos intervalos. Não é possível definir os argumentos <code>bins</code> e <code>binwidth</code> de uma só vez; ou um ou o outro.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
 <p>No histograma acima, ao definir a largura dos intervalos como 5, o histograma criou intervalos usando como centros os números 45, 50, 55, etc. Portanto, os intervalos são [42,5 - 47,5), [47,5 - 52,5), etc.</p>
 <p>É possível també definir os limites dos intervalos. Por exemplo, caso você deseje que os intervalos comecem com números que terminem em 5, deve-se alterar o argumento <code>boundary</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>, <span class="dt">boundary =</span> <span class="dv">5</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
 <p>Assim, conseguimos criar uma visualização que mostra que a grande maioria dos países possui uma expectativa de vida maior que 60 anos, e que alguns poucos países possuem uma expectativa de vida menor que 50 anos e maior que 75.</p>
 <p>Como você já deve ter imaginado, é possível mudar aspectos visuais do histograma alterando suas <em>aesthetics</em>, como mudar a cor do histograma por valores atributos ou mapear alguma variável à cor do histograma. Veja que a cor de um histograma é definida pela propriedade <code>fill</code>, pois <code>color</code> altera apenas a cor das bordas das barras:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>, <span class="dt">boundary =</span> <span class="dv">5</span>,
                  <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;green&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-79-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>, <span class="dt">boundary =</span> <span class="dv">5</span>, <span class="kw">aes</span>(<span class="dt">fill =</span> continent))</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-80-1.png" width="672" /></p>
-<p>Histogramas agrupados, como o acima, não são muito bons para visualizar as diferenças entre os grupos. Fica um pouco melhor com facets:</p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<p>Histogramas agrupados, como o acima, não são muito bons para visualizar as diferenças entre os grupos. Ness caso, uma melhor alternativa é usar facets:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>, <span class="dt">boundary =</span> <span class="dv">5</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>continent, <span class="dt">ncol =</span> <span class="dv">1</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-122-1.png" width="672" /></p>
 <p>Contudo, existem maneiras melhores de visualizar a distribuição de uma variável continua segmentada por diferentes grupos, como o que tentamos fazer acima. Exemplos são os gráficos dos próximos tópicos.</p>
 <div class="alert alert-info" <strong="">
-<p>Referências:</strong> <a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></p>
+<p>Referências:</strong> <a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html"><code>geom_histogram()</code></a></p>
 </div>
 </div>
 <div id="grafico-de-densidade" class="section level3">
@@ -433,12 +433,12 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-123-1.png" width="672" /></p>
 <p>Semelhantemente a um histograma, as <em>aesthetics</em> <code>color</code> e <code>fill</code> podem ser definidas, sendo a primeira para a borda e a segunda para o corpo da curva de densidade:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;green&quot;</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-124-1.png" width="672" /></p>
 <p>O gráfico de densidade, por si só, não oferece muito mais em termos de interpretabilidade que um histograma. Seu grande triunfo está em observar como se comporta a distribuição da variável contínua definida na <em>aesthetic</em> x em diferentes grupos de uma variável categórica definida na <em>aesthetic</em> fill:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="co"># remover oceania porque so tem dois paises</span>
@@ -448,13 +448,13 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
                <span class="co"># adicionar transparencia</span>
                <span class="dt">alpha =</span> <span class="fl">0.5</span>
                )</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
 <p>A partir do gráfico de densidade acima, aprendemos algumas informações sobre nossos dados, como:<br />
 * Não só a média da expectativa de vida da África é bem menor que a dos demais continentes, mas poucos países apresentam níveis dessa variável semelhantes a Europa, Asia e Americas.<br />
 * Nenhuma das distribuições da variáveis nos quatro continentes aparenta ser normal: a da Europa, por exemplo, apresenta um formato bimodal. Essa pode ser uma informação importante para suas análises.</p>
 <div class="alert alert-info" <strong="">
 <p>Referências:</strong> <br> <a href="http://www.portalaction.com.br/probabilidades/62-distribuicao-normal">Distribuição normal</a><br />
-<a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density()</a></p>
+<a href="https://ggplot2.tidyverse.org/reference/geom_density.html"><code>geom_density()</code></a></p>
 </div>
 </div>
 <div id="boxplot" class="section level3">
@@ -465,7 +465,7 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(continent <span class="op">!=</span><span class="st"> &quot;Oceania&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
 <p>Um boxplot tenta resumir uma variável numérica usando 5 números: a mediana (linha central da caixa), o primeiro quartil ou 25% percentil (linha inferior), o terceiro quartil ou 75% percentil (linha superior) e uma margem definida pelos intervalos interquartis multiplicados por um fator, que por padrão é 1,58. Ou seja: <span class="math inline">\(1.58 \times IQR\)</span>. Pontos fora desses limites seriam considerados outliers ou anomalias para aquele grupo.</p>
 <p>Em determinadas situações, é desejável inverter os eixos, transformando o gráfico em horizontal. Isso é possível por meio da função <code>coord_flip()</code></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
@@ -473,24 +473,22 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">coord_flip</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-86-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-127-1.png" width="672" /></p>
 <p>Também é possível criar uma subdivisão com boxplots usando o argumento fill. Por exemplo:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># criar nova variavel que indica se um país possui um </span>
 <span class="co"># indice de felicidade maior que 6</span>
 
-<span class="kw">hist</span>(df_feliz<span class="op">$</span>life_ladder)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
+df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(continent <span class="op">!=</span><span class="st"> &quot;Oceania&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">indice_felicidade =</span> <span class="kw">if_else</span>(life_ladder <span class="op">&gt;</span><span class="st"> </span><span class="dv">6</span>,
                                      <span class="st">&quot;acima de 6&quot;</span>,
                                      <span class="st">&quot;abaixo&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> indice_felicidade))</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-87-2.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
 <p>Assim, com o gráfico acima descobrimos que países dentro de um mesmo continente que possuem índice de felicidade acima 6 possuem também maior expectativa de vida, o que era esperado. Nota-se que a caixa dos países da África com índice de felicidade acima de 6 ficou achatada porque só tem um país.</p>
 <div class="alert alert-info" <strong="">
-<p>Referências:</strong> <a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot()</a></p>
+<p>Referências:</strong> <a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html"><code>geom_boxplot()</code></a></p>
 </div>
 </div>
 <div id="jitter" class="section level3">
@@ -502,7 +500,7 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-129-1.png" width="672" /></p>
 <p>Uma curiosidade interessante do <code>ggplot2</code> é que as camadas são criadas na ordem que são definidas. Observe a diferença do gráfico acima para o criado abaixo, onde a ordem das camadas de boxplot e jitter foi invertida:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="co"># remover oceania porque so tem dois paises</span>
@@ -510,9 +508,9 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> healthy_life_expectancy_at_birth)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_boxplot</span>() </code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-130-1.png" width="672" /></p>
 <div class="alert alert-info" <strong="">
-<p>Referências:</strong> <a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter()</a></p>
+<p>Referências:</strong> <a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html"><code>geom_jitter()</code></a></p>
 </div>
 </div>
 </div>
@@ -556,14 +554,21 @@ df_st &lt;-<span class="st"> </span><span class="kw">left_join</span>(lista_data
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># grafico da taxa selic</span>
 <span class="kw">ggplot</span>(df_st, <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ipca)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-132-1.png" width="672" /></p>
+<p>Adicionar <code>geom_smooth(method = &quot;loess&quot;)</code> ajuda a distinguir movimentos de tendência na série temporal:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_st <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2008-01-01&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> selic)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
 <p>É possível incluir no gráfico mais de uma variável no eixo y. Uma das alternativas é simplesmente acrescentar mais uma camada <code>geom_line()</code> com a nova variável:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df_st, <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> ipca)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span>
 <span class="st">  </span><span class="co"># adicionar mais uma camada de geom_line</span>
 <span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">y =</span> selic), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</code></pre></div>
 <pre><code>## Warning: Removed 77 rows containing missing values (geom_path).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
 <p>No entanto, a melhor maneira de se fazer isso é converter os dados para o formato long (tidy):</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_st_tidy &lt;-<span class="st"> </span>df_st <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">gather</span>(indicador, valor, ipca<span class="op">:</span>selic) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -587,7 +592,7 @@ df_st &lt;-<span class="st"> </span><span class="kw">left_join</span>(lista_data
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> valor, <span class="dt">color =</span> indicador)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
 <pre><code>## Warning: Removed 77 rows containing missing values (geom_path).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
 <p>Notou como o período antes de 1995 representava uma realidade muito diferente da atual? Vamos então filtrar os dados a partir desse ano.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_st_pos_<span class="dv">1995</span> &lt;-<span class="st"> </span>df_st_tidy <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;1995-01-01&quot;</span>))
@@ -595,9 +600,9 @@ df_st &lt;-<span class="st"> </span><span class="kw">left_join</span>(lista_data
 df_st_pos_<span class="dv">1995</span> <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> valor, <span class="dt">color =</span> indicador)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-95-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-137-1.png" width="672" /></p>
 <div class="alert alert-info" <strong="">
-<p>Referências:</strong> <a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line()</a></p>
+<p>Referências:</strong> <a href="https://ggplot2.tidyverse.org/reference/geom_path.html"><code>geom_line()</code></a></p>
 </div>
 <div id="personalizando-a-escala-do-eixo-de-datas" class="section level3">
 <h3><span class="header-section-number">3.4.1</span> Personalizando a escala do eixo de datas</h3>
@@ -605,13 +610,13 @@ df_st_pos_<span class="dv">1995</span> <span class="op">%&gt;%</span><span class
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df_st_pos_<span class="dv">1995</span>, <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> valor, <span class="dt">color =</span> indicador)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">date_breaks =</span> <span class="st">&quot;2 year&quot;</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-138-1.png" width="672" /></p>
 <p>Ao mudar o argumento <code>date_breaks</code>, o gráfico perdeu a representação de datas anterior, que antes só mostrava o ano. Para voltar ao formato anterior, pode-se alterar o formato das datas usando o argumento <code>date_labels</code> da mesma função:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(df_st_pos_<span class="dv">1995</span>, <span class="kw">aes</span>(<span class="dt">x =</span> date, <span class="dt">y =</span> valor, <span class="dt">color =</span> indicador)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">date_breaks =</span> <span class="st">&quot;2 year&quot;</span>,
                <span class="dt">date_labels =</span> <span class="st">&quot;%Y&quot;</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-139-1.png" width="672" /></p>
 </div>
 </div>
 <div id="mapas-de-calor" class="section level2">
@@ -655,13 +660,13 @@ matriz_correl_tidy &lt;-<span class="st"> </span>matriz_correl <span class="op">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matriz_correl_tidy <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> var1, <span class="dt">y =</span> var2, <span class="dt">fill =</span> correlacao)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_tile</span>()</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-141-1.png" width="672" /></p>
 <p>Devido ao tamanho dos nomes das variáveis, o eixo x ficou difícil de ler. Uma solução é mudar o ângulo dos nomes, isto é, colocá-los na vertical. A função <code>theme()</code>, que ainda será mostrada em detalhes neste módulo, possui um argumento para fazer isso:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matriz_correl_tidy <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> var1, <span class="dt">y =</span> var2, <span class="dt">fill =</span> correlacao)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_tile</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-100-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-142-1.png" width="672" /></p>
 <p>Caso você não tenha gostado da escala de cores em azul definida por padrão pelo ggplot2, é possível mudar usando a função scale_fill_distiller:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matriz_correl_tidy <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> var1, <span class="dt">y =</span> var2, <span class="dt">fill =</span> correlacao)) <span class="op">+</span>
@@ -675,9 +680,9 @@ matriz_correl_tidy &lt;-<span class="st"> </span>matriz_correl <span class="op">
     <span class="dt">direction =</span> <span class="dv">1</span>
     ) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>))</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-143-1.png" width="672" /></p>
 <div class="alert alert-info" <strong="">
-<p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">Documentação da função geom_tile()</a><br />
+<p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/geom_tile.html"><code>geom_tile()</code></a><br />
 <a href="https://cdr.ibpad.com.br/ggplot2.html#escalas">Material sobre funções da família scale</a>, seção 9.3.</p>
 </div>
 </div>
@@ -704,14 +709,14 @@ df_feliz_agg</code></pre></div>
 <span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span>
 <span class="st">  </span><span class="co"># adicionar camada de texto</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> qtd_paises))</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
 <p>Observe a diferença de <code>geom_label()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz_agg <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> qtd_paises)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_col</span>() <span class="op">+</span>
 <span class="st">  </span><span class="co"># adicionar camada de texto</span>
 <span class="st">  </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">label =</span> qtd_paises))</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
 <p>É possível alterar a posição da camada de texto no gráfico alterando os argumentos <code>vjust</code> e <code>hjust</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz_agg <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> continent, <span class="dt">y =</span> qtd_paises)) <span class="op">+</span>
@@ -725,7 +730,7 @@ df_feliz_agg</code></pre></div>
             <span class="co"># porque nao, alterar tambem a cor</span>
             <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>
             )</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-105-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
 <p>Suponha que no primeiro gráfico de pontos mostrado no material, que mostra a relação entre PIB per capita e expectativa de vida, você deseja também acrescentar os nomes dos países:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
@@ -734,7 +739,7 @@ df_feliz_agg</code></pre></div>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> country))</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_text).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-106-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-148-1.png" width="672" /></p>
 <p>Como era de se esperar, o gráfico ficou muito poluído. Vamos então reduzir os pontos que queremos mostrar os nomes dos respectivos países apenas aos países dos continentes americanos. A estrategia, então, consiste em criar um novo dataframe com esses países e mudar o argumento <code>data</code> em geom_text:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">america &lt;-<span class="st"> </span>df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(continent <span class="op">==</span><span class="st"> &quot;Americas&quot;</span>)
@@ -745,7 +750,7 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data =</span> america, <span class="kw">aes</span>(<span class="dt">label =</span> country))</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-107-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
 <p>Melhorou, mas ainda assim ficou poluído. Uma boa solução para esse problema é o pacote <code>ggrepel</code>, que internamente calcula a melhor posição entre os pontos da camada de texto, seja <code>geom_text()</code> ou <code>geom_label()</code>, de forma que não haja conflito de posição entre pontos. A única alteração necessária é mudar <code>geom_text</code> para <code>geom_text_repel</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> log_gdp_per_capita,
@@ -753,7 +758,7 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text_repel</span>(<span class="dt">data =</span> america, <span class="kw">aes</span>(<span class="dt">label =</span> country))</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-108-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
 <p>Outro gráfico mostrado anteriormente neste material que pode ser melhorado é o mapa de calor, acrescentando uma camada de texto que mostre o valor numérico da correlação entre as variáveis:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">matriz_correl_tidy <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> var1, <span class="dt">y =</span> var2, <span class="dt">fill =</span> correlacao)) <span class="op">+</span>
@@ -769,7 +774,7 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>)) <span class="op">+</span>
 <span class="st">  </span><span class="co"># adicionar camada de texto. é recomendável arredondar os numeros</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> <span class="kw">round</span>(correlacao, <span class="dv">2</span>)))</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-109-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
 <p><code>geom_text()</code> e <code>geom_label()</code> também podem ser usadas de maneira mais individualizada, ou seja, para adicionar anotações textuais em partes específicas do gráfico definidas pelo usuário. Observe o gráfico abaixo:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span>df_st <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">filter</span>(date <span class="op">&gt;=</span><span class="st"> </span><span class="kw">as.Date</span>(<span class="st">&quot;2016-01-01&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -782,9 +787,9 @@ df_feliz <span class="op">%&gt;%</span><span class="st"> </span>
     <span class="dt">date_labels =</span> <span class="st">&quot;%m/%y&quot;</span>
   ) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme_minimal</span>()
-
+<span class="co"># grafico sem anotação:</span>
 p2</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-152-1.png" width="672" /></p>
 <p>A taxa Selic caiu bastante em 2017. Que tal acrescentar esse comentário na área do gráfico? Isso pode ser definindo definindo manualmente as <em>aesthetics</em> de <code>geom_text()</code> ou <code>geom_label()</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_label</span>(
@@ -793,9 +798,9 @@ p2</code></pre></div>
     <span class="co"># Usamos o caracter especial \n para adicionar uma quebra de linha</span>
     <span class="dt">label =</span> <span class="st">&quot;A taxa SELIC apresentou </span><span class="ch">\n</span><span class="st">tendência de queda em 2017&quot;</span>
   )</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-153-1.png" width="672" /></p>
 <div class="alert alert-info" <strong="">
-<p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/geom_text.html">geom_text()</a></p>
+<p>Referências:</strong> <br> <a href="https://ggplot2.tidyverse.org/reference/geom_text.html"><code>geom_text()</code> e <code>geom_label()</code></a></p>
 </div>
 </div>
 <div id="areas-ou-faixas-sombreadas" class="section level2">
@@ -813,7 +818,7 @@ p2</code></pre></div>
     <span class="co"># deixar o retangulo mais transparente</span>
     <span class="dt">alpha =</span> <span class="fl">0.01</span>
   )</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-112-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-154-1.png" width="672" /></p>
 <ul>
 <li>Destacar uma faixa numérica relativa ao eixo y de interesse:</li>
 </ul>
@@ -829,12 +834,12 @@ p2</code></pre></div>
     <span class="co"># deixar a area sombreada mais transparente</span>
     <span class="dt">alpha =</span> <span class="fl">0.01</span>
   )</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-113-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-155-1.png" width="672" /></p>
 <p>Outra maneira de criar faixas sombreadas, desta vez dependendo do valor de uma variável, é usando a função <code>geom_ribbon()</code>. No exemplo da série acima, suponha que queiramos destacar uma faixa em torno da taxa Selic:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> <span class="op">-</span><span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>selic, <span class="dt">ymax =</span> <span class="fl">0.1</span> <span class="op">+</span><span class="st"> </span>selic),
               <span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.4</span>)</code></pre></div>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-114-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-156-1.png" width="672" /></p>
 </div>
 <div id="alterando-aspectos-visuais-do-grafico-com-os-temas" class="section level2">
 <h2><span class="header-section-number">3.8</span> Alterando aspectos visuais do gráfico com os temas</h2>
@@ -849,23 +854,23 @@ p &lt;-<span class="st"> </span>df_feliz <span class="op">%&gt;%</span><span cla
 
 p</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-115-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-157-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># usar tema bw:</span>
 p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-158-1.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># usar tema minimal:</span>
 p <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-116-2.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-158-2.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tema classico</span>
 p <span class="op">+</span><span class="st"> </span><span class="kw">theme_classic</span>()</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-116-3.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-158-3.png" width="672" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># tema dark</span>
 p <span class="op">+</span><span class="st"> </span><span class="kw">theme_dark</span>()</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-116-4.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-158-4.png" width="672" /></p>
 <p>Contudo, caso você não deseje usar o tema padrão mas mesmo assim quer alterar algumas propriedades visuais do gráfico, deve-se usar a função <code>theme()</code>. Esta é alista de todas as possíveis propriedades que podem ser alteradas:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">args</span>(theme)</code></pre></div>
 <pre><code>## function (line, rect, text, title, aspect.ratio, axis.title, 
@@ -898,7 +903,7 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">theme_dark<
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-118-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-160-1.png" width="672" /></p>
 <ul>
 <li>Remover os minor grids de um eixo:</li>
 </ul>
@@ -906,17 +911,17 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">theme_dark<
 <span class="st">  </span><span class="co"># remover minor grids do eixo x</span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.grid.minor.y =</span> <span class="kw">element_blank</span>())</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-119-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-161-1.png" width="672" /></p>
 <ul>
 <li>Mudar cor de fundo:</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">theme</span>(<span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;azure&quot;</span>))</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-120-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-162-1.png" width="672" /></p>
 <div class="alert alert-info" <strong="">
 <p>Referências:</strong> <br> Confira todos os <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">temas pré-definidos</a> do ggplot2<br />
-<a href="https://ggplot2.tidyverse.org/reference/theme.html">theme()</a></p>
+<a href="https://ggplot2.tidyverse.org/reference/theme.html"><code>theme()</code></a></p>
 </div>
 <p>Uma das grandes vantagens do <code>ggplot2</code> é que basicamente tudo no gráfico é customizável. A função <code>theme</code> é usada para modificar componentes individuais de um tema</p>
 </div>
@@ -933,9 +938,9 @@ p <span class="op">+</span><span class="st"> </span><span class="kw">theme_dark<
        <span class="dt">color =</span> <span class="st">&quot;Continente</span><span class="ch">\n</span><span class="st"> do país&quot;</span>,
        <span class="dt">caption =</span> <span class="st">&quot;Autor: Eu&quot;</span>)</code></pre></div>
 <pre><code>## Warning: Removed 7 rows containing missing values (geom_point).</code></pre>
-<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-121-1.png" width="672" /></p>
+<p><img src="curso_visualizacao_files/figure-html/unnamed-chunk-163-1.png" width="672" /></p>
 <div class="alert alert-info" <strong="">
-<p>Referências:</strong> <a href="https://ggplot2.tidyverse.org/reference/labs.html">labs()</a></p>
+<p>Referências:</strong> <a href="https://ggplot2.tidyverse.org/reference/labs.html"><code>labs()</code></a></p>
 </div>
 </div>
 <div id="extensoes-do-ggplot2" class="section level2">
