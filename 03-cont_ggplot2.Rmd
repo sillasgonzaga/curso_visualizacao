@@ -403,7 +403,7 @@ Série temporal é definida como uma variável contínua mensurada em intervalos
 Como exemplo para gráficos de linha, vamos plotar a evolução de dois importantes indicadores econômicos brasileiros: a taxa SELIC e o índice IPCA, ambos mensalizados. Para obter esses indicadores, usamos o pacote `rbcb`:
 
 
-```{r}
+```{r, cache = TRUE}
 # Importar para o R dados das series.
 lista_datasets <- rbcb::get_series(code = c(ipca = 433, selic = 4390))
 # O objeto retornado é uma lista de dois dataframes:
@@ -490,25 +490,6 @@ df_st_pos_1995 %>%
 [`geom_line()`](https://ggplot2.tidyverse.org/reference/geom_path.html)
 </div>
 
-### Personalizando a escala do eixo de datas
-
-Observe o último gráfico. O `ggplot2`, internamente, "quebrou" o eixo x em intervalos de 5 anos. Esse aspecto do gráfico pode ser alterado usando a função `scale_x_date`, usando o argumento `date_breaks`:
-
-```{r}
-ggplot(df_st_pos_1995, aes(x = date, y = valor, color = indicador)) +
-  geom_line() + 
-  scale_x_date(date_breaks = "2 year")
-```
-
-Ao mudar o argumento `date_breaks`, o gráfico perdeu a representação de datas anterior, que antes só mostrava o ano. Para voltar ao formato anterior, pode-se alterar o formato das datas usando o argumento `date_labels` da mesma função:
-
-```{r}
-ggplot(df_st_pos_1995, aes(x = date, y = valor, color = indicador)) +
-  geom_line() + 
-  scale_x_date(date_breaks = "2 year",
-               date_labels = "%Y")
-```
-
 ## Mapas de calor
 
 Até agora, estudamos gráficos para representar as relações entre:  
@@ -580,14 +561,148 @@ matriz_correl_tidy %>%
   theme(axis.text.x = element_text(angle = 90))
 ```
 
-
 <div class="alert alert-info"
 <strong>Referências:</strong>
 <br>
 [`geom_tile()`](https://ggplot2.tidyverse.org/reference/geom_tile.html)  
-[Material sobre funções da família scale](https://cdr.ibpad.com.br/ggplot2.html#escalas), seção 9.3.
 </div>
 
+## Customizando escalas
+
+
+Nem sempre os gráficos produzidos pelo `ggplot2` possuem, com a configuração padrão, aspectos visuais agradáveis. Um deles são os eixos do gráfico, tanto o horizontal como o vertical. No exemplo abaixo, usamos o dataset `txhousing`, que traz dados de vendas de imóveis no estado de Texas, nos EUA, ao longo do tempo.
+
+Primeiramente, dado que existem colunas de ano e mês mas não de dia (visto que os dados estão agregados por mês), usamos a função `ISOdate()` para criar uma coluna de datas:
+
+```{r}
+# exemplo da função ISOdate:
+ISOdate(year = 2011, month = 11, day = 22)
+```
+
+Após a criação da coluna de data (`data_mes`), vamos plotar a distribuição do volume médio de vendas de imóveis por mês:
+
+```{r}
+# importar dataset
+# consulte a documentação do dataset: 
+# ?txhousing
+data("txhousing")
+  
+# valor medio por ano
+txhousing %>% 
+  mutate(data_mes = as.Date(ISOdate(year = year, month = month, day = 1))) %>% 
+  group_by(data_mes) %>% 
+  summarise(volume_medio = mean(volume, na.rm = TRUE)) %>% 
+  ggplot(aes(x = data_mes, y = volume_medio)) +
+  geom_line()
+```
+
+Existem dois problemas relacionados aos eixos no gráfico acima:  
+* Os intervalos do eixo horizontal (x) são de 5 anos (2000, 2005, 2010 e 2015), o que não facilita o percebimento dos componentes sazonais dentro de um ano.  
+* O eixo vertical (y) foi convertido para a notação científica devido ao tamanho dos números, o que é geralmente indesejável.
+
+Qualquer alteração relacionada aos eixos pode ser feita com as funções da família `scale_EIXO_CLASSE`, sendo algumas das principais:  
+
+- `scale_x_date()` e `scale_y_date()`
+
+```{r}
+scale_x_date(name = waiver(), breaks = waiver(),
+             date_breaks = waiver(), labels = waiver(),
+             date_labels = waiver(), minor_breaks = waiver(),
+             date_minor_breaks = waiver(), limits = NULL,
+             expand = waiver(), position = "bottom")
+
+```
+
+- `scale_x_continuous()` e `scale_y_continuous()`  
+
+```{r, eval = FALSE}
+scale_x_continuous(name = waiver(), breaks = waiver(),
+                   minor_breaks = waiver(), labels = waiver(),
+                   limits = NULL, expand = waiver(),
+                   oob = censor, na.value = NA_real_,
+                   trans = "identity", position = "bottom",
+                   sec.axis = waiver())
+
+```
+
+- `scale_x_discrete()` e `scale_x_discrete()`  
+
+```{r, eval = FALSE}
+scale_x_discrete(..., expand = waiver(), position = "bottom")
+```
+
+Para customizar a escala do eixo horizontal, por exemplo, podemos usar `scale_x_date()` e dois argumentos: `date_breaks()` para especificar que os eixos serão quebrados em intervalos de 1 ano e `date_labels()` para mostrar apenas o ano da data:  
+
+```{r, eval = FALSE}
+txhousing %>% 
+  mutate(data_mes = as.Date(ISOdate(year = year, month = month, day = 1))) %>% 
+  group_by(data_mes) %>% 
+  summarise(volume_medio = mean(volume, na.rm = TRUE)) %>% 
+  ggplot(aes(x = data_mes, y = volume_medio)) +
+  geom_line() +
+  scale_x_date(date_breaks = "1 year",
+               date_labels = "%Y") +
+  # remover os minor grids do eixo x.
+  # mais detalhes sobre a função theme() no módulo 3
+  theme(panel.grid.minor.x = element_blank())
+```
+
+Com essa alteração, ficou mais perceptível o componente sazonal nos dados: as vendas de imóveis tendem a ser maiores no meio do ano. 
+
+Para resolver o aspecto visual do eixo vertical, usamos a função `scale_y_continuous()`, visto que a variável mapeada ao eixo y é contínua, para definir o parâmetro `labels`: 
+
+```{r}
+txhousing %>% 
+  mutate(data_mes = as.Date(ISOdate(year = year, month = month, day = 1))) %>% 
+  group_by(data_mes) %>% 
+  summarise(volume_medio = mean(volume, na.rm = TRUE)) %>% 
+  ggplot(aes(x = data_mes, y = volume_medio)) +
+  geom_line() +
+  scale_x_date(date_breaks = "1 year",
+               date_labels = "%Y") +
+  # ajustar o eixo y
+  scale_y_continuous(labels = scales::number_format(big.mark = ".",
+                                                    decimal.mark = ",")) +
+  # remover os minor grids do eixo x.
+  # mais detalhes sobre a função theme() no módulo 3
+  theme(panel.grid.minor.x = element_blank())
+```
+
+Na verdade, seria mais simples ajustar a escala da própria variável, sem usar `scale_y_continuous()`, mas apenas a dividindo por 1 milhão e informando tal transformação no título do eixo:  
+
+```{r}
+txhousing %>% 
+  mutate(data_mes = as.Date(ISOdate(year = year, month = month, day = 1))) %>% 
+  group_by(data_mes) %>% 
+  summarise(volume_medio = mean(volume, na.rm = TRUE)) %>% 
+  # dividir volume_medio por 1 milhao
+  ggplot(aes(x = data_mes, y = volume_medio/1e6)) +
+  geom_line() +
+  scale_x_date(date_breaks = "1 year",
+               date_labels = "%Y") +
+  # remover os minor grids do eixo x.
+  # mais detalhes sobre a função theme() no módulo 3
+  theme(panel.grid.minor.x = element_blank()) +
+  # mudar titulo do eixo y
+  labs(y = "Volume médio (Milhões)")
+
+```
+
+Existe uma infinidade de customizações que podem ser feitas a partir das funções dessa família. Veja quantas existem no total:
+
+```{r}
+# conjunto de todas as funcoes do ggplot2
+funcoes_gg <- ls("package:ggplot2")
+#funcoes da famlia scale_:
+str_subset(funcoes_gg, "scale_")
+```
+
+
+<div class="alert alert-info"
+<strong>Referências:</strong>
+<br>
+[Material sobre funções da família scale](https://cdr.ibpad.com.br/ggplot2.html#escalas), seção 9.3.
+</div>
 
 ## Texto
 

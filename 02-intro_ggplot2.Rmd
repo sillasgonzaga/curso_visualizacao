@@ -434,7 +434,6 @@ O próprio `base R` (a instalação nativa do R, sem nenhum pacote adicional) po
 [Tutorial completo sobre gráficos com base R](https://rstudio-pubs-static.s3.amazonaws.com/7953_4e3efd5b9415444ca065b1167862c349.html)
 </div>
 
-
 ## Exercícios
 
 Vamos continuar usando o dataset de super-heróis!

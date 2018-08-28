@@ -1,9 +1,12 @@
 bookdown::gitbook:
+  css: style.css
   config:
     toc:
       collapse: subsection
       scroll_highlight: yes
-      before: null
+      before: |
+        <li> <img src="https://i.imgur.com/x4ZQ8E3.png" alt="" style="width:200px;height:100px;" class="center"> </li>
+        <li><strong><a href="./">Introdução ao R para Visualização de Dados</a></strong></li>
       after: null
     toolbar:
       position: fixed
